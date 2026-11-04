@@ -64,6 +64,8 @@ class UkConfig:
     brand_words: list[str] = field(default_factory=list)
     fund_map: dict[str, str] = field(default_factory=dict)
     note: str = ""
+    # Сайт не отвечает зарубежным адресам. На раннерах GitHub такая УК пропускается.
+    geo_blocked: bool = False
     options: dict[str, Any] = field(default_factory=dict)
 
 

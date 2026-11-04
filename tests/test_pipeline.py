@@ -16,7 +16,7 @@ from pif.adapters.base import Adapter, CollectContext, FundOutcome, Issue, UkCon
 from pif.adapters.generic import Link, is_kid_link, link_report_date
 from pif.adapters.wim import export_request
 from pif.analytics import build_analysis, classify_status, quality_report
-from pif.collect import CollectResult, _collect_uk, load_sources
+from pif.collect import CollectResult, _collect_uk, load_sources, merge_partial, without_geo_blocked
 from pif.config import Settings
 from pif.errors import SiteUnavailable
 from pif.models import DataStatus, Fund, FundType, ManagementCompany
@@ -300,6 +300,21 @@ def test_wim_export_request_comes_from_page_form():
     url, params = export_request(page, "https://www.wealthim.ru/x/", date(2025, 7, 1), date(2026, 11, 4))
     assert url == "https://www.wealthim.ru/local/download.php"
     assert params == {"FOND_ID": "30148", "from": "01.07.2025", "to": "04.11.2026"}
+
+
+def test_geo_blocked_companies_are_skipped_only_on_request():
+    configs = {"1": UkConfig(geo_blocked=True), "2": UkConfig()}
+    assert without_geo_blocked(["1", "2", "3"], configs) == {"2", "3"}
+
+
+def test_skipped_company_keeps_its_status_after_partial_run():
+    previous = CollectResult(
+        uk_failures={"1": (DataStatus.BLOCKED, "403"), "2": (DataStatus.BLOCKED, "403")},
+        issues=[Issue("warning", "fetch", "1", "u1", "старое"), Issue("warning", "fetch", "2", "u2", "старое")],
+    )
+    merged = merge_partial(previous, CollectResult(), {"2"})
+    assert set(merged.uk_failures) == {"1"}
+    assert [i.uk_inn for i in merged.issues] == ["1"]
 
 
 def test_sources_config_is_valid():

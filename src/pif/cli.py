@@ -13,7 +13,15 @@ from pathlib import Path
 import typer
 
 from pif.analytics import build_analysis, quality_report, write_corrections, write_flows, write_quality
-from pif.collect import CollectResult, collect_all, load_collect_state, merge_partial, save_collect_state
+from pif.collect import (
+    CollectResult,
+    collect_all,
+    load_collect_state,
+    load_sources,
+    merge_partial,
+    save_collect_state,
+    without_geo_blocked,
+)
 from pif.config import Settings, load_settings
 from pif.manual_check import write_manual_sample
 from pif.net.client import Fetcher
@@ -36,7 +44,7 @@ def _run_id() -> str:
 
 
 async def _collect(
-    settings: Settings, force: bool, only: set[str] | None, skip_collect: bool
+    settings: Settings, force: bool, only: set[str] | None, skip_collect: bool, skip_geo_blocked: bool = False
 ) -> tuple[Registry, SeriesStore, OfficialStore, fx_module.FxRates, CollectResult | None, Manifest, dict[str, object]]:
     raw = RawStore(settings.raw_dir)
     manifest = Manifest(settings.manifest_path)
@@ -53,6 +61,10 @@ async def _collect(
         else:
             registry = await build_registry(settings, fetcher)
             registry.save(registry_path)
+            if skip_geo_blocked:
+                configs = load_sources(settings.config_dir / "sources.yaml")
+                only = without_geo_blocked(only or registry.companies, configs)
+                log.info("geo_blocked_skipped", skipped=len(registry.companies) - len(only))
             collected = await collect_all(settings, registry, fetcher, series, official, only)
             if only:
                 collected = merge_partial(load_collect_state(state_path), collected, only)
@@ -84,7 +96,15 @@ async def _collect(
     return registry, series, official, rates, collected, manifest, fetch_stats
 
 
-def _pipeline(settings: Settings, *, force: bool, only: set[str] | None, skip_collect: bool, build: bool) -> int:
+def _pipeline(
+    settings: Settings,
+    *,
+    force: bool,
+    only: set[str] | None,
+    skip_collect: bool,
+    build: bool,
+    skip_geo_blocked: bool = False,
+) -> int:
     run_id = _run_id()
     log_path = configure_logging(run_id, settings.out_dir / "logs")
     provider = configure_tracing(run_id, settings.out_dir / "traces")
@@ -94,7 +114,7 @@ def _pipeline(settings: Settings, *, force: bool, only: set[str] | None, skip_co
         with tracer().start_as_current_span("pipeline") as span:
             span.set_attribute("pif.run_id", run_id)
             registry, series, official, rates, collected, manifest, fetch_stats = asyncio.run(
-                _collect(settings, force, only, skip_collect)
+                _collect(settings, force, only, skip_collect, skip_geo_blocked)
             )
             analysis = build_analysis(settings, registry, series, official, rates, collected)
             registry.save(settings.data_dir / "registry.json")
@@ -143,9 +163,17 @@ def run(
     force: bool = typer.Option(False, help="Запросить всё заново, не глядя на окно свежести"),
     only: list[str] = typer.Option(None, help="Собрать только эти УК (ИНН)"),
     no_gate: bool = typer.Option(False, help="Вернуть код 0, даже если отчёт качества запрещает публикацию"),
+    skip_geo_blocked: bool = typer.Option(False, help="Не обращаться к УК, закрытым для зарубежных адресов"),
 ) -> None:
     """Сбор, нормализация, притоки, отчёт качества и сборка сайта."""
-    code = _pipeline(load_settings(), force=force, only=set(only) if only else None, skip_collect=False, build=True)
+    code = _pipeline(
+        load_settings(),
+        force=force,
+        only=set(only) if only else None,
+        skip_collect=False,
+        build=True,
+        skip_geo_blocked=skip_geo_blocked,
+    )
     raise typer.Exit(0 if no_gate else code)
 
 

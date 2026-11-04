@@ -20,9 +20,7 @@ concurrency:
 
 jobs:
   update:
-    # Сайты ВИМ, ААА и АК БАРС отвечают адресам GitHub ошибкой 403, поэтому расписанию нужен раннер в России.
-    # Пока переменная UPDATE_RUNNER не задана, запуск по расписанию пропускается, вручную запустить можно.
-    if: github.event_name == 'workflow_dispatch' || vars.UPDATE_RUNNER != ''
+    # Переменная UPDATE_RUNNER задаёт раннер в России. Без неё работает раннер GitHub.
     runs-on: ${{ inputs.runner || vars.UPDATE_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
@@ -44,7 +42,8 @@ jobs:
           restore-keys: raw-
 
       - name: Сбор, расчёты и отчёт качества
-        run: python -m pif run --no-gate
+        # Часть сайтов закрыта для адресов GitHub. Такие УК (geo_blocked в sources.yaml) обновляются запуском из России.
+        run: python -m pif run --no-gate ${{ vars.UPDATE_RUNNER == '' && '--skip-geo-blocked' || '' }}
 
       # Публикуются только данные без ошибок разбора и без массового сбоя сбора.
       - name: Ворота публикации

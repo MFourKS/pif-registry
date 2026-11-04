@@ -5,6 +5,7 @@
 # skip: что не обходить
 # max_pages: предел страниц на один прогон
 # fund_map: фрагмент адреса -> номер правил, если название фонда на сайте нельзя сопоставить автоматически
+# geo_blocked: сайт не отвечает зарубежным адресам, на раннерах GitHub эта УК пропускается
 
 # Альфа-Капитал: собственный шлюз истории
 "7728142469":
@@ -26,6 +27,7 @@
 # ВИМ Инвестиции: выгрузка котировок и раздел раскрытия
 "7701140866":
   adapter: wim
+  geo_blocked: true
   seeds:
     - https://www.wealthim.ru/products/pif/opif/
     - https://www.wealthim.ru/products/bpif/
@@ -45,6 +47,7 @@
 
 # ААА Управление Капиталом: КИД в раскрытии, ряд пая на странице фонда
 "7722515837":
+  geo_blocked: true
   seeds:
     - https://aaacapital.ru/individual/pif/
     - https://aaacapital.ru/bpif/
@@ -113,6 +116,16 @@
   follow: '^/services/[a-z0-9-]+/?\?*$'
   max_pages: 30
   brand_words: [солид]
+
+# Отвечают 403 или не отвечают на адреса GitHub. Проверено запуском обновления 4 ноября 2026.
+"1435126890":
+  geo_blocked: true
+"7722270922":
+  geo_blocked: true
+"6659013965":
+  geo_blocked: true
+"7842172557":
+  geo_blocked: true
 
 # Астра Управление Активами: раскрытие в разделе compliance
 "7722691889":

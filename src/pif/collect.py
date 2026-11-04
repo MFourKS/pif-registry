@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass, field
 from datetime import date, timedelta
 from pathlib import Path
@@ -84,6 +85,11 @@ def load_sources(path: Path) -> dict[str, UkConfig]:
         return {}
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     return {str(inn): UkConfig(**(value or {})) for inn, value in raw.items()}
+
+
+def without_geo_blocked(inns: Iterable[str], configs: dict[str, UkConfig]) -> set[str]:
+    """Для запуска за границей: ряды и статусы пропущенных УК остаются прежними."""
+    return {inn for inn in inns if not configs.get(inn, UkConfig()).geo_blocked}
 
 
 def collection_cutoff(as_of: date, months: int) -> date:
