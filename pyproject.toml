@@ -1,0 +1,56 @@
+[project]
+name = "pif-registry"
+version = "0.1.0"
+description = "Реестр розничных ПИФов России: сбор из первичных источников, нормализация, притоки, самопроверка и статический сайт /pif/"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+  "httpx>=0.27,<1",
+  "openpyxl>=3.1,<4",
+  "xlrd>=2.0,<3",
+  "pdfplumber>=0.11,<1",
+  "python-docx>=1.1,<2",
+  "lxml>=5,<7",
+  "Jinja2>=3.1,<4",
+  "PyYAML>=6,<7",
+  "structlog>=24,<26",
+  "opentelemetry-sdk>=1.25,<2",
+  "typer>=0.12,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "pytest-asyncio>=0.23,<1", "ruff>=0.5", "mypy>=1.10", "types-PyYAML"]
+otlp = ["opentelemetry-exporter-otlp-proto-http>=1.25,<2"]
+
+[project.scripts]
+pif = "pif.cli:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pif = ["site/templates/**/*", "site/static/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "SIM", "RET", "PL"]
+ignore = ["PLR0913", "PLR2004", "PLR0912", "PLR0915", "RET504", "RET505", "E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+check_untyped_defs = true
+ignore_missing_imports = true

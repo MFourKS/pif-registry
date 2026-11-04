@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+# Сырые файлы и служебное состояние: в git не кладём, докачиваются командой `pif fetch-raw`
+raw/
+state/
+out/
+dist/
