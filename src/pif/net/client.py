@@ -201,7 +201,8 @@ class Fetcher:
         return self._client_noverify if host in self.stats.tls_unverified_hosts else self._client
 
     async def _wait_slot(self, host: str) -> None:
-        gate = self._gates.setdefault(host, _HostGate())
+        # www.site.ru и site.ru — один сайт, лимит у них общий.
+        gate = self._gates.setdefault(host.removeprefix("www."), _HostGate())
         async with gate.lock:
             now = time.monotonic()
             wait = gate.next_slot - now

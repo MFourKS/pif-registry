@@ -306,3 +306,18 @@ async def test_network_failure_on_robots_keeps_previous_rules(tmp_path):
     async with fetcher_for(tmp_path, broken) as fetcher:
         with pytest.raises(RobotsDisallowed):
             await fetcher.require_open_site("https://uk.example/")
+
+
+async def test_www_and_bare_domain_share_one_rate_limit(tmp_path):
+    def handler(request):
+        return httpx.Response(200, text="<html></html>", headers={"content-type": "text/html"})
+
+    settings = settings_for(tmp_path, min_host_interval_s=0.1)
+    async with fetcher_for(tmp_path, robots_or(handler), settings=settings) as fetcher:
+        started = time.monotonic()
+        await asyncio.gather(
+            fetcher.get("https://uk.example/a", documented_api=True),
+            fetcher.get("https://www.uk.example/b", documented_api=True),
+            fetcher.get("https://uk.example/c", documented_api=True),
+        )
+    assert time.monotonic() - started >= 0.1 * 2 * 0.9
