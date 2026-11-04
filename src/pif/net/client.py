@@ -389,7 +389,22 @@ class Fetcher:
             return
         self.manifest.add(replace(known, url=source.url, uk_inn=uk_inn or known.uk_inn, fund=fund))
 
+    def _remember_in_manifest(self, url: str, entry: dict[str, Any], body: bytes) -> None:
+        """Ответ из кэша тоже должен быть в манифесте: иначе у точки не будет адреса источника."""
+        source_id = source_id_of(entry["sha256"])
+        if self.manifest.get(source_id) is not None:
+            return
+        fetched = datetime.fromtimestamp(entry["checked_at"], UTC).isoformat(timespec="seconds")
+        self.manifest.add(
+            SourceRecord(
+                source_id, url, fetched, entry["fmt"], entry["sha256"], len(body),
+                entry.get("http_status", 200), "ok",
+            )
+        )  # fmt: skip
+
     def _result(self, url: str, entry: dict[str, Any], body: bytes, *, from_cache: bool) -> FetchResult:
+        if from_cache:
+            self._remember_in_manifest(url, entry, body)
         return FetchResult(
             url=url,
             final_url=entry.get("final_url", url),

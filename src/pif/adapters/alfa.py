@@ -6,7 +6,7 @@ import json
 from typing import Any
 
 from pif.adapters.base import CollectContext
-from pif.adapters.generic import GenericAdapter, Link
+from pif.adapters.generic import GenericAdapter, Link, link_report_date
 from pif.errors import UnknownFormatError
 from pif.models import Fund
 from pif.observability import get_logger, tracer
@@ -92,19 +92,6 @@ class AlfaAdapter(GenericAdapter):
             await self.collect_kid_for(ctx, fund, link)
 
     async def collect_kid_for(self, ctx: CollectContext, fund: Fund, link: Link) -> None:
-        from pif.adapters.generic import link_report_date
-        from pif.errors import ParseError
-        from pif.parsers.kid import parse_kid
-
         day = link_report_date(link.text, link.url)
-        if day is not None and day < ctx.cutoff:
-            return
-        result = await ctx.try_fetch(link.url, fund=fund, ttl=180 * 86400, public_document=True)
-        if result is None or result.fmt not in {"pdf", "docx"}:
-            return
-        try:
-            kid = parse_kid(result.content, result.fmt, link.url)
-        except ParseError as exc:
-            ctx.note_parse_error(link.url, exc, fund)
-            return
-        ctx.add_kid(fund, kid, result)
+        if day is None or day >= ctx.cutoff:
+            await self.collect_kid(ctx, link, fund=fund)

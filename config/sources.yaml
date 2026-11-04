@@ -1,5 +1,5 @@
 # Где искать данные каждой УК. Ключ — ИНН. Без записи работает универсальный обход сайта из реестра ЦБ.
-# adapter: generic | alfa | wim | tcapital
+# adapter: generic | alfa | wim | tcapital | geroi | ozon
 # seeds: стартовые адреса обхода
 # follow: регулярное выражение для ссылок, по которым идём
 # skip: что не обходить
@@ -75,6 +75,14 @@
 "7743304530":
   adapter: tcapital
   brand_words: [т, капитал]
+
+# Герои: каталог disclosure.json и ряды /funds?id=N
+"9725134382":
+  adapter: geroi
+
+# Озон Управление Активами: API сайта
+"9703217363":
+  adapter: ozon
 
 # Астра Управление Активами: раскрытие в разделе compliance
 "7722691889":

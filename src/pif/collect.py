@@ -23,6 +23,7 @@ from pif.errors import FetchError, ParseError
 from pif.models import DataStatus, ManagementCompany
 from pif.net.client import Fetcher
 from pif.observability import get_logger, tracer
+from pif.parsers.pool import DocumentParser
 from pif.registry.build import Registry
 from pif.storage.series_store import OfficialStore, SeriesStore
 
@@ -48,13 +49,14 @@ def collection_cutoff(as_of: date, months: int) -> date:
     return as_of - timedelta(days=months * 31)
 
 
-def _checkpoint(series: SeriesStore, official: OfficialStore, fetcher: Fetcher) -> None:
+def _checkpoint(series: SeriesStore, official: OfficialStore, fetcher: Fetcher, documents: DocumentParser) -> None:
     """Контрольная точка: прерванный прогон не теряет уже собранное. Её сбой прогон не останавливает."""
     try:
         series.save()
         official.save()
         fetcher.manifest.save()
         fetcher.cache.save()
+        documents.save()
     except OSError as exc:
         log.warning("checkpoint_failed", error=str(exc)[:200])
 
@@ -69,11 +71,12 @@ async def _collect_uk(
     official: OfficialStore,
     result: CollectResult,
     gate: asyncio.Semaphore,
+    documents: DocumentParser,
 ) -> None:
     funds = registry.funds_of(uk.inn)
     config = configs.get(uk.inn, UkConfig())
     ctx = CollectContext(
-        uk, funds, config, fetcher, series, official, collection_cutoff(registry.as_of, settings.history_months)
+        uk, funds, config, fetcher, series, official, collection_cutoff(registry.as_of, settings.history_months), documents
     )
     bound = structlog.contextvars.bound_contextvars(uk_inn=uk.inn, uk=uk.short_name)
     async with gate:
@@ -110,7 +113,7 @@ async def _collect_uk(
             result.counters[uk.inn] = dict(ctx.counters)
             if ctx.site_failure:
                 result.uk_failures[uk.inn] = ctx.site_failure
-            _checkpoint(series, official, fetcher)
+            _checkpoint(series, official, fetcher, documents)
             with_data = sum(1 for o in ctx.outcomes.values() if o.daily_points or o.doc_points)
             span.set_attribute("pif.funds_with_data", with_data)
             log.info("uk_collected", funds=len(funds), with_data=with_data, **dict(ctx.counters))
@@ -127,15 +130,19 @@ async def collect_all(
     configs = load_sources(settings.config_dir / "sources.yaml")
     result = CollectResult()
     gate = asyncio.Semaphore(settings.max_parallel_hosts)
+    documents = DocumentParser(settings.state_dir / "parsed_documents.json")
     companies = [c for c in registry.companies.values() if not only or c.inn in only]
     # Крупные УК стартуют первыми: так суммарное время прогона короче.
     companies.sort(key=lambda c: -len(registry.funds_of(c.inn)))
     with tracer().start_as_current_span("collect") as span:
         span.set_attribute("pif.companies", len(companies))
-        await asyncio.gather(
-            *(
-                _collect_uk(c, settings, registry, configs, fetcher, series, official, result, gate)
-                for c in companies
+        try:
+            await asyncio.gather(
+                *(
+                    _collect_uk(c, settings, registry, configs, fetcher, series, official, result, gate, documents)
+                    for c in companies
+                )
             )
-        )
+        finally:
+            documents.close()
     return result

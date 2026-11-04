@@ -22,6 +22,7 @@ from pif.models import DataStatus, Fund, ManagementCompany, Observation, Officia
 from pif.net.client import Fetcher, FetchResult
 from pif.observability import get_logger
 from pif.parsers.kid import KidData
+from pif.parsers.pool import DocumentParser
 from pif.parsers.series import SeriesRow
 from pif.storage.series_store import DocPoint, OfficialStore, SeriesStore
 
@@ -76,6 +77,7 @@ class CollectContext:
         series: SeriesStore,
         official: OfficialStore,
         cutoff: date,
+        documents: DocumentParser,
     ) -> None:
         self.uk = uk
         self.funds = funds
@@ -84,6 +86,7 @@ class CollectContext:
         self.series = series
         self.official = official
         self.cutoff = cutoff
+        self.documents = documents
         self.matcher = FundMatcher(funds, config.brand_words)
         self.outcomes: dict[str, FundOutcome] = {f.rule_number: FundOutcome() for f in funds}
         self.issues: list[Issue] = []

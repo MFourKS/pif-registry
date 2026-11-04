@@ -23,6 +23,7 @@ from pif.models import DataStatus, Fund, FundType, ManagementCompany
 from pif.net.client import Fetcher
 from pif.normalize.fx import FxRates
 from pif.normalize.series import normalize
+from pif.parsers.pool import DocumentParser
 from pif.registry.build import Registry
 from pif.site.build import build_site
 from pif.storage.manifest import Manifest
@@ -87,6 +88,7 @@ async def test_broken_site_does_not_stop_collection(tmp_path, monkeypatch, adapt
             OfficialStore(settings.official_dir / "r.csv"),
             result,
             asyncio.Semaphore(1),
+            DocumentParser(settings.state_dir / "parsed.json", workers=1),
         )
     assert result.issues[0].severity == severity
     assert fund.uk_inn in result.uk_failures

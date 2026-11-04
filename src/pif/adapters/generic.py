@@ -22,8 +22,6 @@ from pif.net.client import FetchResult
 from pif.observability import get_logger, tracer
 from pif.parsers import series as series_parsers
 from pif.parsers.embedded import MIN_POINTS, extract_series
-from pif.parsers.kid import parse_kid
-from pif.parsers.nav_statement import parse_nav_statement
 from pif.parsers.numbers import parse_date
 from pif.parsers.series import SeriesRow
 
@@ -263,7 +261,7 @@ class GenericAdapter(Adapter):
         if result is None or result.fmt not in {"pdf", "docx", "xlsx"}:
             return
         try:
-            statement = parse_nav_statement(result.content, result.fmt, link.url)
+            statement = await ctx.documents.statement(result.content, result.fmt, link.url)
         except ParseError as exc:
             ctx.issues.append(_warn(ctx, link.url, f"Справка о СЧА не разобрана: {exc}"))
             ctx.counters["statement_unreadable"] += 1
@@ -278,7 +276,7 @@ class GenericAdapter(Adapter):
         ctx.add_series(fund, [row], result, kind="monthly_doc")
         ctx.counters["statements_parsed"] += 1
 
-    async def collect_kid(self, ctx: CollectContext, link: Link) -> None:
+    async def collect_kid(self, ctx: CollectContext, link: Link, fund: Fund | None = None) -> None:
         # КИД не меняется после публикации, поэтому проверять его заново незачем.
         result = await ctx.try_fetch(link.url, ttl=180 * 86400, public_document=True)
         if result is None:
@@ -287,13 +285,12 @@ class GenericAdapter(Adapter):
             ctx.counters["kid_not_a_document"] += 1
             return
         try:
-            kid = parse_kid(result.content, result.fmt, link.url)
+            kid = await ctx.documents.kid(result.sha256, result.content, result.fmt, link.url)
         except ParseError as exc:
             ctx.note_parse_error(link.url, exc)
             return
-        fund = None
         if kid.fund_name:
-            fund = ctx.matcher.match(kid.fund_name)
+            fund = ctx.matcher.match(kid.fund_name) or fund
         fund = fund or ctx.matcher.match(link.text)
         if fund is None:
             ctx.note_unmatched(link.url, f"КИД: {kid.fund_name or link.text}")

@@ -43,3 +43,7 @@ class UnknownFormatError(ParseError):
         super().__init__(f"Незнакомый формат источника {source}: {reason}")
         self.source = source
         self.reason = reason
+
+    def __reduce__(self) -> tuple[type, tuple[str, str]]:
+        # Ошибка возвращается из пула процессов, поэтому должна переживать pickle.
+        return (self.__class__, (self.source, self.reason))
