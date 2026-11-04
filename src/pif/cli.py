@@ -100,7 +100,7 @@ def _pipeline(settings: Settings, *, force: bool, only: set[str] | None, skip_co
             registry.save(settings.data_dir / "registry.json")
 
             issues = collected.issues if collected else []
-            report = quality_report(analysis, issues, settings, manifest)
+            report = quality_report(analysis, issues, settings, manifest, collected.uk_failures if collected else None)
             write_quality(settings.data_dir / "quality_report.json", report)
             write_corrections(settings.data_dir / "corrections.csv", analysis.corrections, series.revisions)
             write_flows(settings.data_dir / "flows.csv", analysis)
@@ -190,7 +190,12 @@ def gate(report: Path = typer.Option(Path("data/quality_report.json"))) -> None:
     if data["publish_allowed"]:
         typer.echo(f"Публикация разрешена. Расхождений с официальной доходностью: {len(data['yield_check']['mismatches'])}")
         raise typer.Exit(0)
-    typer.echo(f"Публикация запрещена: ошибок {len(data['errors'])}, разрывов сверки {len(data['tie_out_breaks'])}", err=True)
+    gap = data["collection_gap"]
+    typer.echo(
+        f"Публикация запрещена: ошибок {len(data['errors'])}, разрывов сверки {len(data['tie_out_breaks'])}, "
+        f"не обновилось рядов {gap['funds_with_series']} ({gap['share']:.0%}): {', '.join(gap['companies'])}",
+        err=True,
+    )
     for error in data["errors"][:20]:
         typer.echo(f"  [{error['stage']}] {error['url']}: {error['message']}", err=True)
     raise typer.Exit(EXIT_QUALITY_GATE)

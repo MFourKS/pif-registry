@@ -132,6 +132,23 @@ def test_quality_gate_blocks_on_collection_errors_only(tmp_path):
     assert report["errors"][0]["message"] == "новый формат"
 
 
+def test_mass_collection_failure_blocks_publication_but_one_site_does_not(tmp_path):
+    funds = [make_fund(str(i), uk_inn=f"77000000{i:02d}") for i in range(20)]
+    rows = [(d, "1000", "100") for d in month_ends()]
+    settings, analysis = analysis_for(tmp_path, funds, {f.rule_number: rows for f in funds})
+    manifest = Manifest(settings.manifest_path)
+    failure = (DataStatus.BLOCKED, "HTTP 403")
+
+    one_site = quality_report(analysis, [], settings, manifest, {funds[0].uk_inn: failure})
+    assert one_site["publish_allowed"] is True
+    assert one_site["collection_gap"]["funds_with_series"] == 1
+
+    three_sites = {f.uk_inn: failure for f in funds[:3]}
+    report = quality_report(analysis, [], settings, manifest, three_sites)
+    assert report["publish_allowed"] is False
+    assert report["collection_gap"]["share"] == 0.15
+
+
 def test_known_issue_stays_in_report_but_does_not_block(tmp_path):
     fund = make_fund()
     settings, analysis = analysis_for(tmp_path, [fund], {fund.rule_number: [(d, "1000", "100") for d in month_ends()]})

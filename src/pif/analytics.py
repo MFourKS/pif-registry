@@ -50,6 +50,9 @@ from pif.verify.yields import PERIODS, YieldCheck, check_fund, computed_return
 log = get_logger("analytics")
 
 WINDOW_MONTHS = 12
+# Один упавший сайт публикацию не останавливает. Если не обновилась заметная доля рядов, это уже
+# массовый сбой сбора, например запуск с адреса, который сайты УК блокируют.
+MAX_STALE_SHARE = 0.10
 
 
 @dataclass(slots=True)
@@ -299,6 +302,7 @@ def quality_report(
     issues: list[Issue],
     settings: Settings,
     manifest: Manifest,
+    uk_failures: dict[str, tuple[DataStatus, str]] | None = None,
 ) -> dict[str, Any]:
     views = analysis.views.values()
     statuses = Counter(v.status.value for v in views)
@@ -324,6 +328,10 @@ def quality_report(
         for v in views
         for c in v.mismatches
     ]
+    failed_now = set(uk_failures or {})
+    with_series = [v for v in views if v.series.points]
+    stale = [v for v in with_series if v.fund.uk_inn in failed_now]
+    stale_share = len(stale) / len(with_series) if with_series else 0.0
     all_checks = [c for v in views for c in v.checks]
     compared = [c for c in all_checks if c.computed_pct is not None]
     return {
@@ -363,7 +371,13 @@ def quality_report(
         "tie_out_breaks": [
             {"level": t.level, "month": t.month, "difference": str(t.difference)} for t in analysis.tie_out
         ],
-        "publish_allowed": not errors and not analysis.tie_out,
+        "collection_gap": {
+            "companies": sorted({v.fund.uk_name for v in stale}),
+            "funds_with_series": len(stale),
+            "share": round(stale_share, 4),
+            "limit": MAX_STALE_SHARE,
+        },
+        "publish_allowed": not errors and not analysis.tie_out and stale_share <= MAX_STALE_SHARE,
     }
 
 
