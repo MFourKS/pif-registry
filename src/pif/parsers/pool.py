@@ -23,7 +23,7 @@ from pif.parsers.kid import KidData, parse_kid
 from pif.parsers.nav_statement import NavStatement, parse_nav_statement
 from pif.storage.atomic import replace_file
 
-PARSER_VERSION = 6
+PARSER_VERSION = 8
 
 
 def _kid_to_json(kid: KidData) -> dict[str, Any]:
@@ -43,6 +43,7 @@ def _kid_from_json(data: dict[str, Any]) -> KidData:
         nav=Decimal(data["nav"]) if data["nav"] else None,
         currency=data["currency"],
         returns={int(k): Decimal(v) for k, v in data["returns"].items()},
+        pays_income=data.get("pays_income"),
     )
 
 

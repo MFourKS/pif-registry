@@ -37,6 +37,7 @@ from pif.normalize.series import (
     month_key,
     normalize,
     reconcile_with_documents,
+    repeated_documents,
 )
 from pif.observability import get_logger, tracer
 from pif.registry.build import Registry
@@ -67,6 +68,7 @@ class FundView:
     flow_12m: Decimal | None = None
     checks: list[YieldCheck] = field(default_factory=list)
     mismatches: list[YieldCheck] = field(default_factory=list)
+    pays_income: bool | None = None
 
 
 @dataclass(slots=True)
@@ -157,8 +159,14 @@ def build_analysis(
         conflicts: list[tuple[str, Reconciliation]] = []
         all_flows: list[MonthlyFlow] = []
         for fund in registry.funds:
-            observed = series_store.load(fund.rule_number)
             documents = official.points_of(fund.rule_number)
+            repeated = repeated_documents(documents)
+            documents = [d for d in documents if d.day not in repeated]
+            observed = {
+                day: point
+                for day, point in series_store.load(fund.rule_number).items()
+                if not (day in repeated and point.kind != "daily")
+            }
             verdict = reconcile_with_documents(observed, documents)
             if verdict.rejected:
                 # Ряд чужого фонда: на сайте остаются только значения из КИД этого фонда.
@@ -178,6 +186,18 @@ def build_analysis(
                 )
             elif verdict.mismatched:
                 conflicts.append((fund.rule_number, verdict))
+            series.corrections.extend(
+                Correction(
+                    fund.rule_number,
+                    day,
+                    "series",
+                    day.isoformat(),
+                    real.isoformat(),
+                    f"КИД повторяет значения на {real:%d.%m.%Y}: это переиздание или ошибка в дате, точка убрана",
+                    "",
+                )
+                for day, real in sorted(repeated.items())
+            )
             fund.currency = series.currency
             outcome = collected.outcomes.get(fund.rule_number) if collected else None
             uk_failure = collected.uk_failures.get(fund.uk_inn) if collected else None
@@ -194,7 +214,10 @@ def build_analysis(
             for period in PERIODS:
                 value = computed_return(series.points, basis.day, period)[0] if basis else None
                 view.returns[period] = value
-            view.checks = check_fund(series, by_rule_official.get(fund.rule_number, []))
+            view.pays_income = next((d.pays_income for d in reversed(documents) if d.pays_income is not None), None)
+            view.checks = check_fund(
+                series, [r for r in by_rule_official.get(fund.rule_number, []) if r.report_date not in repeated]
+            )
             tolerance = Decimal(str(settings.yield_tolerance_pp))
             view.mismatches = [
                 c for c in view.checks if c.difference_pp is not None and abs(c.difference_pp) > tolerance
@@ -251,10 +274,11 @@ def write_flows(path: Path, analysis: Analysis) -> None:
 _PAYOUT_NAME = re.compile(r"(?i)выплат|рантье|купонн|дивиденд|поток|ежемесячн\w* доход|денежный доход")
 
 
-def mismatch_reason(fund: Fund, check: YieldCheck) -> str:
+def mismatch_reason(view: FundView, check: YieldCheck) -> str:
     """Объяснение расхождения. Там, где причины не знаем, так и пишем."""
     difference = check.difference_pp or Decimal(0)
-    if _PAYOUT_NAME.search(fund.name) and difference < 0:
+    pays = view.pays_income if view.pays_income is not None else bool(_PAYOUT_NAME.search(view.fund.name))
+    if pays and difference < 0:
         return "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
     return "Причина не установлена."
 
@@ -279,7 +303,7 @@ def quality_report(
             "difference_pp": f"{c.difference_pp:.2f}",
             "source_id": c.source_id,
             "source_url": record.url if (record := manifest.get(c.source_id)) else "",
-            "reason": mismatch_reason(analysis.views[c.rule_number].fund, c),
+            "reason": mismatch_reason(analysis.views[c.rule_number], c),
         }
         for v in views
         for c in v.mismatches

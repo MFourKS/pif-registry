@@ -33,7 +33,8 @@ from pif.storage.rawstore import RawStore, sha256_of, source_id_of
 
 log = get_logger("net")
 
-BOT_TOKEN = "PifRegistryBot"
+BOT_TOKEN = "pif-registry"
+CACHE_SAVE_EVERY = 200
 
 _CAPTCHA_MARKERS = re.compile(
     rb"(?i)(g-recaptcha|smartcaptcha|hcaptcha|cf-chl-|ddos-guard|checking your browser|"
@@ -370,6 +371,9 @@ class Fetcher:
             "checked_at": time.time(),
         }
         self.cache.entries[key] = new_entry
+        if self.stats.network % CACHE_SAVE_EVERY == 0:
+            # Длинный обход одной УК не должен терять скачанное при обрыве.
+            self.cache.save()
         host = urlsplit(full_url).netloc
         self.manifest.add(
             SourceRecord(

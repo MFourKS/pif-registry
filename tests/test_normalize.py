@@ -5,7 +5,13 @@ from decimal import Decimal as D
 
 from conftest import observation
 from pif.normalize.fx import FxRates
-from pif.normalize.series import documents_only, month_end_points, normalize, reconcile_with_documents
+from pif.normalize.series import (
+    documents_only,
+    month_end_points,
+    normalize,
+    reconcile_with_documents,
+    repeated_documents,
+)
 from pif.storage.series_store import DocPoint
 
 FX = FxRates()
@@ -148,3 +154,22 @@ def test_documents_replace_rejected_series():
     points = documents_only([doc(day, "4965.94", "659866237.72")])
     assert points[day].unit_price == D("4965.94")
     assert points[day].kind == "monthly_doc"
+
+
+def test_foreign_file_with_other_nav_is_a_spike_too():
+    # В файл за февраль попали значения другого фонда: и пай, и СЧА ушли и вернулись.
+    data = series_of([("1000000", "2080"), ("1950000", "1381"), ("1000000", "2161"), ("1000000", "2200")])
+    result = normalize("r", data, FX)
+    assert result.points[1].flag == "spike"
+    assert result.points[1].adj_price is None
+    assert result.points[1].nav is None
+
+
+def test_reissued_document_keeps_report_date_nearest_to_month_end():
+    documents = [doc(date(2025, 10, 31), "98.5"), doc(date(2025, 11, 15), "98.5"), doc(date(2025, 11, 28), "103.8")]
+    assert repeated_documents(documents) == {date(2025, 11, 15): date(2025, 10, 31)}
+
+
+def test_wrong_date_in_document_is_resolved_by_correct_copy():
+    documents = [doc(date(2025, 8, 30), "1199.95"), doc(date(2025, 9, 30), "1199.95")]
+    assert repeated_documents(documents) == {date(2025, 8, 30): date(2025, 9, 30)}

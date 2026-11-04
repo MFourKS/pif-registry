@@ -140,21 +140,22 @@ def _flag_spikes(rule: str, points: list[Point], corrections: list[Correction]) 
         jump = _ratio_log(current.unit_price, before.unit_price)
         back = _ratio_log(after.unit_price, before.unit_price)
         if abs(jump) > SPIKE_LOG and abs(back) < SPIKE_RETURN_LOG:
-            nav_ok = current.nav is None or before.nav is None or abs(_ratio_log(current.nav, before.nav)) < SPIKE_LOG
-            if nav_ok:
-                current.flag = "spike"
-                current.adj_price = None
-                corrections.append(
-                    Correction(
-                        rule,
-                        current.day,
-                        "unit_price",
-                        str(current.unit_price),
-                        "",
-                        "Одиночный выброс пая при стабильных соседних точках: исключён из расчётов",
-                        current.source_id,
-                    )
+            # Пай ушёл и сразу вернулся. Даже если СЧА тоже прыгнула, настоящим движением это быть не может:
+            # такое бывает, когда в файл одного фонда попали значения другого.
+            current.flag = "spike"
+            current.adj_price = None
+            current.nav = None
+            corrections.append(
+                Correction(
+                    rule,
+                    current.day,
+                    "unit_price",
+                    str(current.unit_price),
+                    "",
+                    "Одиночный выброс пая при стабильных соседних точках: исключён из расчётов",
+                    current.source_id,
                 )
+            )
 
 
 def _adjust_splits(rule: str, points: list[Point], corrections: list[Correction]) -> None:
@@ -253,6 +254,29 @@ def reconcile_with_documents(
             if ratio > worst:
                 worst, worst_day = ratio, document.day
     return Reconciliation(compared, mismatched, worst_day, worst)
+
+
+def _days_to_month_end(day: date) -> int:
+    first_next = date(day.year + (day.month == 12), day.month % 12 + 1, 1)
+    return (first_next - day).days - 1
+
+
+def repeated_documents(documents: Iterable[DocPoint]) -> dict[date, date]:
+    """Находит переиздания: те же значения под другой датой. Возвращает {лишняя дата: настоящая}.
+
+    УК переиздают КИД с датой публикации, а иногда ошибаются в дате. Настоящей считается дата,
+    ближайшая к концу месяца: документ составляется на отчётную дату.
+    """
+    groups: dict[tuple[Decimal, Decimal], list[date]] = {}
+    for document in documents:
+        if document.nav is not None and document.unit_price is not None:
+            groups.setdefault((document.nav, document.unit_price), []).append(document.day)
+    repeated: dict[date, date] = {}
+    for days in groups.values():
+        if len(days) > 1:
+            kept = min(days, key=lambda d: (_days_to_month_end(d), d))
+            repeated.update({d: kept for d in days if d != kept})
+    return repeated
 
 
 def documents_only(documents: Iterable[DocPoint]) -> dict[date, Observation]:

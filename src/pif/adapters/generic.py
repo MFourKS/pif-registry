@@ -286,7 +286,7 @@ class GenericAdapter(Adapter):
             ctx.counters["statement_unmatched"] += 1
             return
         row = SeriesRow(statement.report_date, statement.unit_price, statement.nav)
-        ctx.add_series(fund, [row], result, kind="monthly_doc")
+        ctx.add_series(fund, [row], result, kind="statement")
         ctx.counters["statements_parsed"] += 1
 
     async def collect_kid(self, ctx: CollectContext, link: Link, fund: Fund | None = None) -> None:

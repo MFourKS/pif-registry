@@ -17,7 +17,7 @@ from pif.storage.atomic import replace_file
 
 _COLUMNS = ["date", "nav", "unit_price", "currency", "kind", "source_id"]
 # Дневной ряд точнее месячного документа: в КИД значения бывают округлены до млн.
-_KIND_PRIORITY = {"daily": 2, "monthly_doc": 1}
+_KIND_PRIORITY = {"daily": 3, "monthly_doc": 2, "statement": 1}
 
 
 def safe_name(rule_number: str) -> str:
@@ -155,13 +155,14 @@ class DocPoint:
     unit_price: Decimal | None
     currency: str
     source_id: str
+    pays_income: bool | None = None
 
 
 class OfficialStore:
     """Официальные значения из КИД: доходность и точки на конец месяца, по файлу на все фонды."""
 
     COLUMNS = ("rule_number", "report_date", "months", "value_pct", "source_id")
-    POINT_COLUMNS = ("rule_number", "date", "nav", "unit_price", "currency", "source_id")
+    POINT_COLUMNS = ("rule_number", "date", "nav", "unit_price", "currency", "source_id", "pays_income")
 
     def __init__(self, path: Path) -> None:
         self.path = path
@@ -178,6 +179,7 @@ class OfficialStore:
                         Decimal(row["unit_price"]) if row["unit_price"] else None,
                         row["currency"],
                         row["source_id"],
+                        {"1": True, "0": False}.get(row.get("pays_income") or ""),
                     )
                     self.points[(point.rule_number, point.day)] = point
         if path.exists():
@@ -219,5 +221,6 @@ class OfficialStore:
                 p = self.points[point_key]
                 writer.writerow(
                     [p.rule_number, p.day.isoformat(), p.nav if p.nav is not None else "",
-                     p.unit_price if p.unit_price is not None else "", p.currency, p.source_id]
+                     p.unit_price if p.unit_price is not None else "", p.currency, p.source_id,
+                     {True: "1", False: "0", None: ""}[p.pays_income]]
                 )  # fmt: skip

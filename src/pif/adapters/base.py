@@ -179,7 +179,7 @@ class CollectContext:
             self.official.add_point(
                 DocPoint(
                     fund.rule_number, kid.report_date, kid.nav, kid.unit_price,
-                    kid.currency or fund.currency, source.source_id,
+                    kid.currency or fund.currency, source.source_id, kid.pays_income,
                 )
             )  # fmt: skip
         for months, value in kid.returns.items():

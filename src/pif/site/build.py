@@ -181,7 +181,7 @@ def _fund_payload(view: FundView, manifest: Manifest) -> tuple[dict[str, Any], l
                 None if point.unit_price is None else float(point.unit_price),
                 None if point.adj_price is None else round(float(point.adj_price), 6),
                 index,
-                point.kind == "monthly_doc",
+                point.kind != "daily",
             ]
         )
         writer.writerow(

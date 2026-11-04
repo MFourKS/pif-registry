@@ -29,7 +29,7 @@ _LIST_MARKER = re.compile(r"(?m)(^|\s)\d\.\s")
 # Сумма в КИД: либо с дробной частью, либо с явной единицей. Иначе это номер сноски или пункта.
 _MONEY = re.compile(
     r"(?<![\d.,])(\d{1,3}(?:[ \u00a0]\d{3})+(?:[.,]\d+)?|\d+[.,]\d+|\d+(?=\s*(?:млрд|млн|тыс|руб|₽)))"
-    r"\s*(млрд|млн|тыс)?\.?\s*(руб|₽|rub|доллар|долл|usd|\$|евро|eur|€|юан|cny)?",
+    r"(?!\s*%)(?![\d.,])\s*(млрд|млн|тыс)?\.?\s*(руб|₽|rub|доллар|долл|usd|\$|евро|eur|€|юан|cny)?",
     re.I,
 )
 _RETURN_VALUE = r"[ \t]+([-−–]?[ \t]?\d+(?:[.,]\d+)?)[ \t]*%?"
@@ -50,6 +50,7 @@ _FUND_NAME_PLAIN = re.compile(r"(?is)((?:открыт\w+|интервальн\w+
 _HEADING_NAME = re.compile(
     r"(?is)ключев\w+\s+информационн\w+\s+документ\s+((?:опиф|ипиф|бпиф|зпиф)[^«\"“„]{0,90}[«\"“„].{2,140}?[»\"”“])\s*(?:опубликовано|раздел|\n)"
 )
+_SHORT_NAME = re.compile(r"(?is)\b((?:опиф|ипиф|бпиф|зпиф)\s[^«\"“„]{0,90}[«\"“„][^»\"”“]{2,120}[»\"”“])")
 _SECTION_ONE = re.compile(r"(?is)раздел\s*1\b.*?(?=раздел\s*2\b|внимание)")
 MIN_TEXT_CHARS = 200
 _MULTIPLIERS = {"тыс": Decimal(1000), "млн": Decimal(10**6), "млрд": Decimal(10**9)}
@@ -69,6 +70,7 @@ class KidData:
     nav: Decimal | None
     currency: str | None
     returns: dict[int, Decimal] = field(default_factory=dict)
+    pays_income: bool | None = None
 
 
 def _docx_text(content: bytes) -> str:
@@ -153,6 +155,17 @@ def _returns(text: str) -> dict[int, Decimal]:
     return result
 
 
+def _pays_income(text: str) -> bool | None:
+    """КИД прямо говорит, выплачивает ли фонд доход. От этого зависит сравнение доходности."""
+    if re.search(r"(?is)доход\w*\s+от\s+управления[^.]{0,120}?не\s+выплачива", text):
+        return False
+    if re.search(r"(?is)не\s+предусмотрен\w*\s+выплат\w*\s+дохода", text):
+        return False
+    if re.search(r"(?is)доход\w*\s+от\s+управления[^.]{0,120}?выплачива|предусмотрен\w*\s+выплат\w*\s+дохода", text):
+        return True
+    return None
+
+
 def _horizontal_returns(body: str) -> dict[int, Decimal]:
     """Таблица повёрнута: периоды идут в шапке, значения одной строкой «Доходность инвестиций»."""
     row = _HORIZONTAL_VALUES.search(body)
@@ -185,11 +198,9 @@ def parse_kid_text(text: str, source: str = "КИД") -> KidData:
     # В шапке некоторых КИД перечислены все фонды УК. Имя своего фонда стоит в разделе 1.
     section = _SECTION_ONE.search(flat)
     scope = section[0] if section else flat
-    name_match = (
-        _HEADING_NAME.search(flat)
-        or _FUND_NAME_PLAIN.search(scope)
-        or _FUND_NAME.search(scope)
-        or _FUND_NAME.search(flat)
+    candidates = [m for p in (_FUND_NAME_PLAIN, _FUND_NAME, _SHORT_NAME) if (m := p.search(scope))]
+    name_match = _HEADING_NAME.search(flat) or (
+        min(candidates, key=lambda m: m.start()) if candidates else _FUND_NAME.search(flat)
     )
     return KidData(
         report_date=report_date,
@@ -198,6 +209,7 @@ def parse_kid_text(text: str, source: str = "КИД") -> KidData:
         nav=nav,
         currency=currency,
         returns=_returns(flat),
+        pays_income=_pays_income(flat),
     )
 
 

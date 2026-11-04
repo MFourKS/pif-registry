@@ -123,3 +123,36 @@ def test_kid_is_not_taken_for_nav_statement(fixture_bytes):
 def test_date_with_quoted_day():
     text = "Ключевой информационный документ о паевом инвестиционном фонде по состоянию на «31» июля 2025г." + FILLER
     assert parse_kid_text(text).report_date == date(2025, 7, 31)
+
+
+def test_short_fund_name_in_section_one_wins_over_list_at_the_end():
+    text = FILLER + """Ключевой информационный документ о паевом инвестиционном фонде
+    Раздел 1. Общие сведения
+    Ключевой информационный документ по состоянию на 30.09.2026 г.
+    ОПИФ рыночных финансовых инструментов «РСХБ – Фонд Акций» (далее – Фонд).
+    Раздел 2. Внимание
+    Открытого паевого инвестиционного фонда рыночных финансовых инструментов «РСХБ –Фонд Сбалансированный»"""
+    assert "Фонд Акций" in parse_kid_text(text).fund_name
+
+
+def test_percent_near_label_is_not_an_amount():
+    text = FILLER + """Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.09.2025
+    Основные результаты инвестирования
+    Отклонение от расчетной стоимости 2,38% и стоимости чистых активов 2,29%
+    1. Расчетная стоимость инвестиционного пая: 2 999,9 руб.
+    3. Стоимость чистых активов Фонда: 14 108 837 840,8 руб.
+    Раздел 6. Комиссии"""
+    kid = parse_kid_text(text)
+    assert kid.unit_price == D("2999.9")
+    assert kid.nav == D("14108837840.8")
+
+
+def test_kid_says_whether_fund_pays_income(fixture_bytes):
+    assert parse_kid(fixture_bytes("kid_alfa.docx"), "docx").pays_income is False
+
+
+def test_payout_sentence():
+    head = FILLER + "Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.09.2026. "
+    assert parse_kid_text(head + "Доход от управления фондом выплачивается ежеквартально.").pays_income is True
+    assert parse_kid_text(head + "Доход от управления фондом не выплачивается, но капитализируется.").pays_income is False
+    assert parse_kid_text(head).pays_income is None

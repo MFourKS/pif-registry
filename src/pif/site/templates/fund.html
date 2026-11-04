@@ -69,7 +69,7 @@
     {% endfor %}
     </tbody>
   </table>
-  {% if view.mismatches %}<p class="warn-text">Значения выделенных строк расходятся больше чем на 0,5 п. п. Причины разобраны в <a href="{{ root }}quality/">отчёте качества</a>.</p>{% endif %}
+  {% if view.mismatches %}<p class="warn-text">Значения выделенных строк расходятся больше чем на 0,5 п. п.{% if view.pays_income %} Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит.{% endif %} Подробности в <a href="{{ root }}quality/">отчёте качества</a>.</p>{% endif %}
   {% else %}
   <p class="muted">КИД фонда не найден, сверить доходность не с чем.</p>
   <table class="plain"><tbody>
@@ -103,7 +103,7 @@
     <tbody>
     {% for p in recent %}
       <tr><td>{{ p.day | ddate }}</td><td class="num">{{ p.nav | number }}</td><td class="num">{{ p.unit_price | number(4) }}</td>
-      <td>{{ 'КИД, месяц' if p.kind == 'monthly_doc' else 'ежедневно' }}</td>
+      <td>{{ {'monthly_doc': 'КИД', 'statement': 'справка о СЧА'}.get(p.kind, 'дневная') }}</td>
       <td>{% if source_by_id.get(p.source_id) and source_by_id[p.source_id].url %}<a href="{{ source_by_id[p.source_id].url }}" rel="nofollow noopener">{{ source_by_id[p.source_id].fmt }} ↗</a>{% else %}—{% endif %}</td></tr>
     {% endfor %}
     </tbody>
