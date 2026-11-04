@@ -42,7 +42,7 @@
  "funds_with_series": 334,
  "retail_funds": 396,
  "retail_funds_with_series": 313,
- "points_total": 45726,
+ "points_total": 46330,
  "errors": [],
  "known_issues": [
   {
@@ -118,11 +118,11 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 4181,
+ "warnings_total": 3055,
  "warnings_by_stage": {
-  "parse": 1514,
-  "fetch": 2061,
-  "match": 606
+  "fetch": 911,
+  "match": 630,
+  "parse": 1514
  },
  "yield_check": {
   "tolerance_pp": 0.5,
@@ -1285,7 +1285,7 @@
    }
   ]
  },
- "corrections_total": 291,
+ "corrections_total": 289,
  "kid_conflicts": [
   {
    "fund": "6589",
