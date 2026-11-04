@@ -26,6 +26,7 @@ _AMOUNT = r"(\d[\d  ]*[.,]\d+)"
 _NAV_ROW = re.compile(rf"(?i)стоимост\w*\s+чистых\s+активов[ \t]+14[ \t]+{_AMOUNT}")
 _NAV_ROW_LOOSE = re.compile(rf"(?m)^\s*(?:\S+\s+){{0,12}}?14[ \t]+{_AMOUNT}")
 _PRICE_ROW = re.compile(rf"(?m)(?:^|[ \t])16[ \t]+{_AMOUNT}")
+_REPORT_DATE = re.compile(r"(?is)отч[её]тная\s+дата.{0,160}?(\d{2}\.\d{2}\.20\d{2}|20\d{2}[.-]\d{2}[.-]\d{2})")
 _ISIN = re.compile(r"\bRU[0-9A-Z]{10}\b")
 _FOUR_DIGIT_RULE = re.compile(r"(?i)(?:№|номер\w*)[^\n]{0,60}?\b(\d{4})\b")
 
@@ -62,7 +63,7 @@ def parse_nav_statement(content: bytes, fmt: str, source: str = "справка 
     text = _xlsx_text(content) if fmt == "xlsx" else extract_text(content, fmt)
     if not _FORM_MARK.search(text):
         raise UnknownFormatError(source, "документ не похож на справку о СЧА")
-    date_match = _AS_OF.search(text)
+    date_match = _AS_OF.search(text) or _REPORT_DATE.search(text)
     day = parse_date(date_match[1]) if date_match else None
     if day is None:
         raise UnknownFormatError(source, "в справке нет даты «по состоянию на»")

@@ -28,3 +28,4 @@
 | robots_arsagera.txt | https://arsagera.ru/robots.txt |
 | nav_statement_tcapital.pdf | https://cdn.t-capital-funds.ru/static/documents/otchet-scha-trur-30-09-2026.PDF |
 | first_returns.html | https://www.first-am.ru/disclosure/fund (блок #pif-table) |
+| solid_nuxt.html | https://solid-mn.ru/services/solid-invest/ (30 настоящих записей из __NUXT_DATA__) |

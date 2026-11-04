@@ -156,3 +156,19 @@ def test_payout_sentence():
     assert parse_kid_text(head + "Доход от управления фондом выплачивается ежеквартально.").pays_income is True
     assert parse_kid_text(head + "Доход от управления фондом не выплачивается, но капитализируется.").pays_income is False
     assert parse_kid_text(head).pays_income is None
+
+
+def test_nav_statement_with_report_date_in_section_two(monkeypatch):
+    text = """Справка о стоимости чистых активов
+    Раздел II. Параметры справки о стоимости чистых активов
+    Код валюты, в которой определена
+    Отчетная дата
+    стоимость чистых активов
+    1 2
+    2026.09.30 643-RUB
+    Стоимость чистых активов 14 1 046 750 102,81
+    16 9,8259"""
+    monkeypatch.setattr("pif.parsers.nav_statement.extract_text", lambda content, fmt: text)
+    statement = parse_nav_statement(b"", "pdf")
+    assert statement.report_date == date(2026, 9, 30)
+    assert statement.nav == D("1046750102.81")

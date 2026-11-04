@@ -120,6 +120,22 @@ def labelled_arrays(page: str, source: str) -> list[SeriesRow]:
     return rows
 
 
+def nuxt_payload(page: str, source: str) -> list[SeriesRow]:
+    """Состояние Nuxt: плоский массив, где поля записи хранят индексы значений (Солид Менеджмент)."""
+    found = re.search(r'id="__NUXT_DATA__"[^>]*>(\[.*?\])</script>', page, re.S)
+    if not found:
+        return []
+    payload = json.loads(found[1])
+    rows: list[SeriesRow] = []
+    for item in payload:
+        if isinstance(item, dict) and {"OperDate", "Price", "Value"} <= item.keys():
+            day = parse_date(payload[item["OperDate"]])
+            price, nav = parse_decimal(payload[item["Price"]]), parse_decimal(payload[item["Value"]])
+            if day and price:
+                rows.append(SeriesRow(day, price, nav if nav else None))
+    return rows
+
+
 def plain_table(page: str, source: str) -> list[SeriesRow]:
     if "<table" not in page:
         return []
@@ -135,6 +151,7 @@ RECOGNIZERS: tuple[tuple[str, Callable[[str, str], list[SeriesRow]]], ...] = (
     ("record_arrays", record_arrays),
     ("nested_date_map", nested_date_map),
     ("labelled_arrays", labelled_arrays),
+    ("nuxt_payload", nuxt_payload),
     ("html_table", plain_table),
 )
 

@@ -161,3 +161,9 @@ def test_first_official_returns_table(fixture_text):
 def test_page_without_returns_table_is_an_error():
     with pytest.raises(UnknownFormatError):
         parse_returns_table("<html><body><p>нет</p></body></html>", "first")
+
+
+def test_solid_nuxt_payload(fixture_text):
+    rows = embedded.nuxt_payload(fixture_text("solid_nuxt.html"), "solid")
+    assert len(rows) == 30
+    assert all(r.unit_price and r.day for r in rows)

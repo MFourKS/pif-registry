@@ -92,6 +92,14 @@
   follow: '^/information/pifs/'
   max_pages: 80
 
+# Солид Менеджмент: ряды в состоянии Nuxt на страницах услуг
+"7706150949":
+  seeds:
+    - https://solid-mn.ru/services/
+  follow: '^/services/[a-z0-9-]+/?\?*$'
+  max_pages: 30
+  brand_words: [солид]
+
 # Астра Управление Активами: раскрытие в разделе compliance
 "7722691889":
   seeds:
