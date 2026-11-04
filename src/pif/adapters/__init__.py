@@ -1,0 +1,12 @@
+"""Реестр адаптеров. Имя из config/sources.yaml соответствует классу здесь."""
+
+from __future__ import annotations
+
+from pif.adapters.alfa import AlfaAdapter
+from pif.adapters.base import Adapter
+from pif.adapters.generic import GenericAdapter
+
+ADAPTERS: dict[str, type[Adapter]] = {
+    "generic": GenericAdapter,
+    "alfa": AlfaAdapter,
+}

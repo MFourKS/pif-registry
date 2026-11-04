@@ -13,7 +13,7 @@ import asyncio
 import json
 import re
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -131,6 +131,7 @@ class FetchStats:
     fresh_cache: int = 0
     errors: int = 0
     robots_denied: int = 0
+    robots_public_documents: int = 0
     bytes_downloaded: int = 0
     tls_unverified_hosts: set[str] = field(default_factory=set)
 
@@ -240,11 +241,16 @@ class Fetcher:
         ttl: int | None = None,
         retries: int | None = None,
         documented_api: bool = False,
+        public_document: bool = False,
     ) -> FetchResult:
-        """Скачивает ресурс. documented_api=True только для публичных API с документацией.
+        """Скачивает ресурс с соблюдением robots.txt. Исключений два, оба лимит запросов сохраняют.
 
-        Для них robots.txt не проверяется: на iss.moex.com он закрывает всё от поисковиков,
-        хотя сам ISS создан для программного доступа. Лимит 1 запрос в секунду остаётся.
+        documented_api: публичный API с документацией. На iss.moex.com robots закрывает всё от
+        поисковиков, хотя сам ISS создан для программного доступа.
+        public_document: файл раскрытия по прямой ссылке с открытой страницы. Шаблонный
+        `Disallow: /upload/` из Битрикса защищает выдачу поисковиков, а обязательные к публикации
+        документы лежат именно там. Такой запрос помечается в манифесте. PIF_STRICT_ROBOTS=1
+        отключает это исключение.
         """
         request = httpx.Request(method, url, params=params)
         full_url = str(request.url)
@@ -262,10 +268,15 @@ class Fetcher:
         with tracer().start_as_current_span("http.fetch") as span:
             span.set_attribute("url.full", full_url)
             span.set_attribute("server.address", host)
-            if not documented_api and not await self._allowed(full_url):
+            allowed = documented_api or await self._allowed(full_url)
+            robots_note = ""
+            if not allowed and public_document and not self.settings.strict_robots:
+                allowed, robots_note = True, "robots_disallowed_public_document"
+                self.stats.robots_public_documents += 1
+            if not allowed:
                 self.stats.robots_denied += 1
                 span.set_attribute("pif.robots_denied", True)
-                raise RobotsDisallowed(full_url, "закрыт в robots.txt")
+                raise RobotsDisallowed(full_url, "адрес закрыт в robots.txt")
 
             conditional: dict[str, str] = dict(headers or {})
             cached_body = self.raw.get(entry["sha256"], entry["ext"]) if entry else None
@@ -285,7 +296,7 @@ class Fetcher:
                 else:
                     if response.status_code < 500 and response.status_code != 429:
                         span.set_attribute("http.response.status_code", response.status_code)
-                        return self._accept(key, full_url, response, entry, cached_body, uk_inn, fund)
+                        return self._accept(key, full_url, response, entry, cached_body, uk_inn, fund, robots_note)
                     last_error = (
                         AccessBlocked(full_url, "HTTP 429")
                         if response.status_code == 429
@@ -307,6 +318,7 @@ class Fetcher:
         cached_body: bytes | None,
         uk_inn: str,
         fund: str,
+        note: str = "",
     ) -> FetchResult:
         if response.status_code == 304 and entry and cached_body is not None:
             self.stats.not_modified += 1
@@ -355,10 +367,17 @@ class Fetcher:
                 status="ok",
                 uk_inn=uk_inn,
                 fund=fund,
-                note="tls_unverified" if host in self.stats.tls_unverified_hosts else "",
+                note=" ".join(filter(None, [note, "tls_unverified" if host in self.stats.tls_unverified_hosts else ""])),
             )
         )
         return self._result(full_url, new_entry, content, from_cache=False)
+
+    def manifest_link(self, source: FetchResult, uk_inn: str, fund: str) -> None:
+        """Привязывает уже скачанный ресурс к фонду: страница одна, фондов на ней может быть много."""
+        known = self.manifest.get(source.source_id)
+        if known is None:
+            return
+        self.manifest.add(replace(known, url=source.url, uk_inn=uk_inn or known.uk_inn, fund=fund))
 
     def _result(self, url: str, entry: dict[str, Any], body: bytes, *, from_cache: bool) -> FetchResult:
         return FetchResult(
