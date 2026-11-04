@@ -172,3 +172,21 @@ def test_nav_statement_with_report_date_in_section_two(monkeypatch):
     statement = parse_nav_statement(b"", "pdf")
     assert statement.report_date == date(2026, 9, 30)
     assert statement.nav == D("1046750102.81")
+
+
+def test_swapped_amounts_are_restored():
+    text = FILLER + """Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31.03.2026
+    Основные результаты инвестирования
+    Расчетная стоимость инвестиционного пая 10 950 000,00 руб.
+    Стоимость чистых активов паевого инвестиционного фонда 4 824,87 руб.
+    Раздел 6. Комиссии"""
+    kid = parse_kid_text(text)
+    assert kid.unit_price == D("4824.87")
+    assert kid.nav == D("10950000.00")
+
+
+def test_payout_phrase_variants():
+    head = FILLER + "Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.09.2026. "
+    assert parse_kid_text(head + "Выплата дохода осуществляется в рублях.").pays_income is True
+    assert parse_kid_text(head + "Доход от управления выплачивается владельцам паев ежеквартально.").pays_income is True
+    assert parse_kid_text(head + "Правилами не предусмотрена выплата дохода.").pays_income is False

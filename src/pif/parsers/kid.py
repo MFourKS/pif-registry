@@ -137,6 +137,9 @@ def _result_amounts(text: str) -> tuple[Decimal | None, Decimal | None, str | No
         return None, None, amounts[0][1] if amounts else None
     first, second = amounts
     price, nav = (first, second) if price_label.start() <= nav_label.start() else (second, first)
+    # СЧА всегда больше стоимости одного пая. Если нет, вёрстка переставила суммы местами.
+    if price[0] > nav[0]:
+        price, nav = nav, price
     return price[0], nav[0], price[1] or nav[1]
 
 
@@ -157,11 +160,9 @@ def _returns(text: str) -> dict[int, Decimal]:
 
 def _pays_income(text: str) -> bool | None:
     """КИД прямо говорит, выплачивает ли фонд доход. От этого зависит сравнение доходности."""
-    if re.search(r"(?is)доход\w*\s+от\s+управления[^.]{0,120}?не\s+выплачива", text):
+    if re.search(r"(?is)доход\w*\s+от\s+управления[^.]{0,120}?не\s+выплачива|не\s+предусмотрен\w*\s+выплат\w*\s+дохода", text):
         return False
-    if re.search(r"(?is)не\s+предусмотрен\w*\s+выплат\w*\s+дохода", text):
-        return False
-    if re.search(r"(?is)доход\w*\s+от\s+управления[^.]{0,120}?выплачива|предусмотрен\w*\s+выплат\w*\s+дохода", text):
+    if re.search(r"(?is)выплат\w*\s+дохода|доход\w*\s+от\s+управления[^.]{0,120}?выплачива", text):
         return True
     return None
 

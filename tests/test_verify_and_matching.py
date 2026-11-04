@@ -25,6 +25,7 @@ def series_with(points):
         (date(2026, 3, 31), 1, date(2026, 2, 28)),
         (date(2026, 1, 15), 3, date(2025, 10, 15)),
         (date(2026, 3, 30), 1, date(2026, 2, 28)),
+        (date(2026, 10, 30), 3, date(2026, 7, 31)),
     ],
 )
 def test_shift_months(day, months, expected):

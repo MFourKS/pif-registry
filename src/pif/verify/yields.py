@@ -12,6 +12,7 @@ from pif.normalize.series import NormalizedSeries, Point
 PERIODS = (1, 3, 6, 12)
 # Точка считается «на дату», если она не старше недели: праздники бывают длинными.
 MAX_STALENESS_DAYS = 7
+MONTH_END_WINDOW_DAYS = 4
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,7 +35,8 @@ class YieldCheck:
 
 def shift_months(day: date, months: int) -> date:
     """Та же позиция в месяце N месяцев назад. Конец месяца остаётся концом месяца."""
-    is_month_end = (day + timedelta(days=1)).month != day.month
+    # Отчётная дата 30 октября при субботе 31-го: это тоже конец месяца, только последний рабочий день.
+    is_month_end = (day + timedelta(days=MONTH_END_WINDOW_DAYS)).month != day.month
     index = day.year * 12 + day.month - 1 - months
     year, month = divmod(index, 12)
     month += 1

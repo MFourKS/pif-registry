@@ -12,6 +12,8 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from pif.adapters.base import FundOutcome, Issue
 from pif.collect import CollectResult
 from pif.config import Settings
@@ -291,7 +293,12 @@ def quality_report(
 ) -> dict[str, Any]:
     views = analysis.views.values()
     statuses = Counter(v.status.value for v in views)
-    errors = [i for i in issues if i.severity == "error"]
+    known = load_known_issues(settings.config_dir / "known_issues.yaml")
+    all_errors = [i for i in issues if i.severity == "error"]
+    errors = [i for i in all_errors if _known_reason(i, known) is None]
+    acknowledged = [
+        {**_issue(i), "reason": _known_reason(i, known)} for i in all_errors if _known_reason(i, known) is not None
+    ]
     mismatches = [
         {
             "fund": c.rule_number,
@@ -322,6 +329,7 @@ def quality_report(
         "retail_funds_with_series": sum(1 for v in views if v.series.points and not v.fund.for_qualified),
         "points_total": sum(len(v.series.points) for v in views),
         "errors": [_issue(i) for i in errors],
+        "known_issues": acknowledged,
         "warnings_total": sum(1 for i in issues if i.severity == "warning"),
         "warnings_by_stage": dict(Counter(i.stage for i in issues if i.severity == "warning")),
         "yield_check": {
@@ -348,6 +356,18 @@ def quality_report(
         ],
         "publish_allowed": not errors and not analysis.tie_out,
     }
+
+
+def load_known_issues(path: Path) -> list[tuple[re.Pattern[str], str]]:
+    """Разобранные вручную ошибки. Новая ошибка публикацию запретит, известная останется в отчёте."""
+    if not path.exists():
+        return []
+    items = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+    return [(re.compile(item["url"]), item["reason"]) for item in items]
+
+
+def _known_reason(issue: Issue, known: list[tuple[re.Pattern[str], str]]) -> str | None:
+    return next((reason for pattern, reason in known if pattern.search(issue.url)), None)
 
 
 def _issue(issue: Issue) -> dict[str, str]:

@@ -86,7 +86,12 @@ class AlfaAdapter(GenericAdapter):
         result = await ctx.try_fetch(url, fund=fund)
         if result is None:
             return
-        documents = server_state(result.text, url)["disclosure"]["fund"]["documents"]["documents"]
+        try:
+            documents = server_state(result.text, url)["disclosure"]["fund"]["documents"]["documents"]
+        except UnknownFormatError:
+            # У новых фондов вкладки документов ещё нет: сайт отдаёт обычную страницу без состояния.
+            ctx.counters["no_documents_page"] += 1
+            return
         for document in documents:
             link = Link(f"{SITE}{document['path']}", document["name"], url)
             await self.collect_kid_for(ctx, fund, link)

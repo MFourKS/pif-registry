@@ -280,7 +280,9 @@ class GenericAdapter(Adapter):
             ctx.counters["statement_unreadable"] += 1
             return
         fund = ctx.matcher.by_isin.get(statement.isin or "")
-        fund = fund or next((ctx.matcher.by_rule[r] for r in statement.rule_numbers if r in ctx.matcher.by_rule), None)
+        # В шапке справки бывает список всех фондов УК, поэтому номер правил годится, только если он один.
+        known_rules = [r for r in statement.rule_numbers if r in ctx.matcher.by_rule]
+        fund = fund or (ctx.matcher.by_rule[known_rules[0]] if len(known_rules) == 1 else None)
         fund = fund or ctx.matcher.match(link.text)
         if fund is None:
             ctx.counters["statement_unmatched"] += 1

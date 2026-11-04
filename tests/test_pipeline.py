@@ -132,6 +132,21 @@ def test_quality_gate_blocks_on_collection_errors_only(tmp_path):
     assert report["errors"][0]["message"] == "новый формат"
 
 
+def test_known_issue_stays_in_report_but_does_not_block(tmp_path):
+    fund = make_fund()
+    settings, analysis = analysis_for(tmp_path, [fund], {fund.rule_number: [(d, "1000", "100") for d in month_ends()]})
+    settings.config_dir.mkdir(parents=True)
+    (settings.config_dir / "known_issues.yaml").write_text("- url: 'old-format'\n  reason: разобрано вручную\n", encoding="utf-8")
+    known = Issue("error", "parse", fund.uk_inn, "https://uk/old-format.pdf", "незнакомый формат")
+    fresh = Issue("error", "parse", fund.uk_inn, "https://uk/new.pdf", "незнакомый формат")
+    manifest = Manifest(settings.manifest_path)
+
+    report = quality_report(analysis, [known], settings, manifest)
+    assert report["publish_allowed"] is True
+    assert report["known_issues"][0]["reason"] == "разобрано вручную"
+    assert quality_report(analysis, [known, fresh], settings, manifest)["publish_allowed"] is False
+
+
 def test_yield_mismatch_does_not_block_publication(tmp_path):
     from pif.models import OfficialReturn
 
