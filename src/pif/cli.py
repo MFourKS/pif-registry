@@ -91,7 +91,9 @@ async def _collect(
             rates.save(settings.data_dir / "fx")
         stats = fetcher.stats
         fetch_stats: dict[str, object] = {
-            "network_requests": stats.network,
+            "network_requests": stats.sent,
+            "downloaded": stats.network,
+            "failures_from_cache": stats.failures_from_cache,
             "not_modified": stats.not_modified,
             "served_from_fresh_cache": stats.fresh_cache,
             "errors": stats.errors,

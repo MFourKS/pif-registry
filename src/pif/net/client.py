@@ -126,11 +126,18 @@ class _HostGate:
     next_slot: float = 0.0
 
 
+_FAILURE_KINDS: dict[str, type[FetchError]] = {
+    kind.__name__: kind for kind in (FetchError, SiteUnavailable, AccessBlocked, ResourceNotFound)
+}
+
+
 @dataclass(slots=True)
 class FetchStats:
+    sent: int = 0
     network: int = 0
     not_modified: int = 0
     fresh_cache: int = 0
+    failures_from_cache: int = 0
     errors: int = 0
     robots_denied: int = 0
     robots_public_documents: int = 0
@@ -139,19 +146,28 @@ class FetchStats:
 
 
 class HttpCache:
-    """Служебное состояние: когда и с каким ETag запрашивали адрес. В манифест не попадает."""
+    """Служебное состояние: когда и с каким ETag запрашивали адрес и какие адреса не ответили.
+
+    В манифест не попадает. Ошибки хранятся отдельно: повторный запуск должен получить тот же отказ,
+    а не спрашивать сайт снова и получать другой текст ошибки.
+    """
 
     def __init__(self, path: Path) -> None:
         self.path = path
-        self.entries: dict[str, dict[str, Any]] = {}
-        if path.exists():
-            self.entries = json.loads(path.read_text(encoding="utf-8"))
+        self.failures_path = path.with_name("http_failures.json")
+        self.entries: dict[str, dict[str, Any]] = self._load(path)
+        self.failures: dict[str, dict[str, Any]] = self._load(self.failures_path)
+
+    @staticmethod
+    def _load(path: Path) -> dict[str, dict[str, Any]]:
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
     def save(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(self.entries, ensure_ascii=False), encoding="utf-8")
-        replace_file(tmp, self.path)
+        for path, payload in ((self.path, self.entries), (self.failures_path, self.failures)):
+            tmp = path.with_suffix(".tmp")
+            tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            replace_file(tmp, path)
 
 
 class Fetcher:
@@ -212,6 +228,7 @@ class Fetcher:
 
     async def _send(self, method: str, url: str, host: str, **kwargs: Any) -> httpx.Response:
         await self._wait_slot(host)
+        self.stats.sent += 1
         try:
             return await self._client_for(host).request(method, url, **kwargs)
         except httpx.ConnectError as exc:
@@ -288,6 +305,39 @@ class Fetcher:
                 self.stats.fresh_cache += 1
                 return self._result(full_url, entry, body, from_cache=True)
 
+        # Долгий срок КИД относится к файлу, а отказ сайта помним только на обычное окно свежести.
+        failure = self.cache.failures.get(key)
+        if failure and not self.force and time.time() - failure["checked_at"] < min(ttl, self.settings.freshness_ttl_s):
+            self.stats.failures_from_cache += 1
+            raise _FAILURE_KINDS[failure["kind"]](full_url, failure["detail"])
+
+        try:
+            result = await self._request(
+                method, full_url, key, host, entry, headers, data, uk_inn, fund, retries, documented_api, public_document
+            )
+        except RobotsDisallowed:
+            raise
+        except FetchError as exc:
+            self.cache.failures[key] = {"kind": type(exc).__name__, "detail": exc.detail, "checked_at": time.time()}
+            raise
+        self.cache.failures.pop(key, None)
+        return result
+
+    async def _request(
+        self,
+        method: str,
+        full_url: str,
+        key: str,
+        host: str,
+        entry: dict[str, Any] | None,
+        headers: dict[str, str] | None,
+        data: dict[str, Any] | None,
+        uk_inn: str,
+        fund: str,
+        retries: int | None,
+        documented_api: bool,
+        public_document: bool,
+    ) -> FetchResult:
         with tracer().start_as_current_span("http.fetch") as span:
             span.set_attribute("url.full", full_url)
             span.set_attribute("server.address", host)

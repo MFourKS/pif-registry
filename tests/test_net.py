@@ -189,6 +189,56 @@ async def test_network_failure_is_retried_then_reported(tmp_path, monkeypatch):
     assert len(calls) == 2
 
 
+async def test_failed_address_is_not_asked_again_inside_freshness_window(tmp_path, monkeypatch):
+    monkeypatch.setattr("pif.net.client.asyncio.sleep", _no_sleep)
+    answers = iter([403, 404])
+    calls = []
+
+    def handler(request):
+        calls.append(request.url.path)
+        return httpx.Response(next(answers), text="нет")
+
+    async with fetcher_for(tmp_path, robots_or(handler)) as fetcher:
+        with pytest.raises(AccessBlocked) as first:
+            await fetcher.get("https://uk.example/page")
+    async with fetcher_for(tmp_path, robots_or(handler)) as fetcher:
+        with pytest.raises(AccessBlocked) as second:
+            await fetcher.get("https://uk.example/page")
+        assert fetcher.stats.sent == 0
+    assert str(second.value) == str(first.value), "повторный запуск обязан дать тот же отказ"
+    assert calls == ["/page"]
+
+
+async def test_force_asks_failed_address_again_and_success_clears_failure(tmp_path):
+    answers = iter([404, 200])
+
+    def handler(request):
+        return httpx.Response(next(answers), text="<html>данные</html>", headers={"content-type": "text/html"})
+
+    async with fetcher_for(tmp_path, robots_or(handler)) as fetcher:
+        with pytest.raises(ResourceNotFound):
+            await fetcher.get("https://uk.example/page")
+    async with fetcher_for(tmp_path, robots_or(handler), force=True) as fetcher:
+        await fetcher.get("https://uk.example/page")
+        assert fetcher.cache.failures == {}
+
+
+async def test_long_document_ttl_does_not_extend_memory_of_failure(tmp_path):
+    answers = iter([404, 200])
+
+    def handler(request):
+        return httpx.Response(next(answers), text="<html>данные</html>", headers={"content-type": "text/html"})
+
+    async with fetcher_for(tmp_path, robots_or(handler)) as fetcher:
+        with pytest.raises(ResourceNotFound):
+            await fetcher.get("https://uk.example/kid.pdf", ttl=180 * 86400)
+        failure = fetcher.cache.failures["https://uk.example/kid.pdf"]
+        failure["checked_at"] -= fetcher.settings.freshness_ttl_s + 1
+    async with fetcher_for(tmp_path, robots_or(handler)) as fetcher:
+        result = await fetcher.get("https://uk.example/kid.pdf", ttl=180 * 86400)
+        assert not result.from_cache
+
+
 def robots_handler(text):
     def handler(request):
         if request.url.path == "/robots.txt":

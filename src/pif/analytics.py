@@ -351,7 +351,7 @@ def quality_report(
         "errors": [_issue(i) for i in errors],
         "known_issues": acknowledged,
         "warnings_total": sum(1 for i in issues if i.severity == "warning"),
-        "warnings_by_stage": dict(Counter(i.stage for i in issues if i.severity == "warning")),
+        "warnings_by_stage": dict(sorted(Counter(i.stage for i in issues if i.severity == "warning").items())),
         "yield_check": {
             "tolerance_pp": settings.yield_tolerance_pp,
             "official_values": len(all_checks),
