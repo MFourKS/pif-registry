@@ -120,8 +120,8 @@
  ],
  "warnings_total": 4181,
  "warnings_by_stage": {
-  "parse": 1510,
-  "fetch": 2065,
+  "parse": 1514,
+  "fetch": 2061,
   "match": 606
  },
  "yield_check": {

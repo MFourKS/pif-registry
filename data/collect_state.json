@@ -42,10 +42,6 @@
 ]
 },
 "fund_failures": {
-"2204-94177868": [
-"site_unavailable",
-"https://entrustment.ru/upload/iblock/293/Otchet-o-priroste_30.07.2022_31.08.2022_Valyutnye-nakopleniya.xls: ConnectTimeout: "
-],
 "7940-СД": [
 "not_found",
 "https://www.alfacapital.ru/gate/v1/fundDisclosureRegData/v1?slug=opifa-akliq-plus&page=0: HTTP 404"
@@ -29534,38 +29530,6 @@
 },
 {
 "severity": "warning",
-"stage": "fetch",
-"uk_inn": "9725182361",
-"url": "https://entrustment.ru/upload/iblock/11e/VN-Otchet-o-priroste-311022.xls",
-"message": "https://entrustment.ru/upload/iblock/11e/VN-Otchet-o-priroste-311022.xls: ConnectTimeout: ",
-"fund": "2204-94177868"
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "9725182361",
-"url": "https://entrustment.ru/upload/iblock/293/Otchet-o-priroste_30.07.2022_31.08.2022_Valyutnye-nakopleniya.xls",
-"message": "https://entrustment.ru/upload/iblock/293/Otchet-o-priroste_30.07.2022_31.08.2022_Valyutnye-nakopleniya.xls: ConnectTimeout: ",
-"fund": "2204-94177868"
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "9725182361",
-"url": "https://entrustment.ru/upload/iblock/44d/VN-Otchet-o-priroste-30-09-22.xls",
-"message": "https://entrustment.ru/upload/iblock/44d/VN-Otchet-o-priroste-30-09-22.xls: ConnectTimeout: ",
-"fund": "2204-94177868"
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "9725182361",
-"url": "https://entrustment.ru/upload/iblock/ef1/VN-Otchet-o-priroste-301122.xls",
-"message": "https://entrustment.ru/upload/iblock/ef1/VN-Otchet-o-priroste-301122.xls: ConnectTimeout: ",
-"fund": "2204-94177868"
-},
-{
-"severity": "warning",
 "stage": "parse",
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/004/Otchet-o-priroste_01.07.2022_29.07.2022_Globalnye-dokhodnye-obligatsii.xls",
@@ -29778,6 +29742,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/118/Otchet-o-priroste_01.03.2022_31.03.2022_Rossiyskie-aktsii.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/118/Otchet-o-priroste_01.03.2022_31.03.2022_Rossiyskie-aktsii.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости иму",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/11e/VN-Otchet-o-priroste-311022.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/11e/VN-Otchet-o-priroste-311022.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости имущества,\\nпринадлежащего акцион",
 "fund": ""
 },
 {
@@ -30186,6 +30158,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/285/Otchet-o-priroste_30.05.2020_30.06.2020_Valyutnye-nakopleniya.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/285/Otchet-o-priroste_30.05.2020_30.06.2020_Valyutnye-nakopleniya.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/293/Otchet-o-priroste_30.07.2022_31.08.2022_Valyutnye-nakopleniya.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/293/Otchet-o-priroste_30.07.2022_31.08.2022_Valyutnye-nakopleniya.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости",
 "fund": ""
 },
 {
@@ -30698,6 +30678,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/44c/SBER-Otchet-o-priroste-31.07.24.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/44c/SBER-Otchet-o-priroste-31.07.24.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может увеличиваться и уменьшаться. Результ",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/44d/VN-Otchet-o-priroste-30-09-22.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/44d/VN-Otchet-o-priroste-30-09-22.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости имущества,\\nпринадлежащего акци",
 "fund": ""
 },
 {
@@ -33250,6 +33238,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/ee4/xmd2qaaw0fw3stmhr4fir9tfm7zozarf/02_VN-Otchet-o-priroste-27.02.2026.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/ee4/xmd2qaaw0fw3stmhr4fir9tfm7zozarf/02_VN-Otchet-o-priroste-27.02.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может ",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/ef1/VN-Otchet-o-priroste-301122.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/ef1/VN-Otchet-o-priroste-301122.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости имущества,\\nпринадлежащего акцион",
 "fund": ""
 },
 {
