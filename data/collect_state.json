@@ -6,7 +6,7 @@
 ],
 "5407191291": [
 "blocked",
-"https://bcs.ru/am: HTTP 200, доступ закрыт или капча"
+"https://bcs.ru/am: HTTP 403, доступ закрыт или капча"
 ],
 "7702358512": [
 "blocked",
@@ -3149,7 +3149,7 @@
 "stage": "fetch",
 "uk_inn": "5407191291",
 "url": "https://bcs.ru/am",
-"message": "https://bcs.ru/am: HTTP 200, доступ закрыт или капча",
+"message": "https://bcs.ru/am: HTTP 403, доступ закрыт или капча",
 "fund": ""
 },
 {
