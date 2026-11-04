@@ -23,7 +23,9 @@ from pif.observability import get_logger, tracer
 from pif.parsers import series as series_parsers
 from pif.parsers.embedded import MIN_POINTS, extract_series
 from pif.parsers.kid import parse_kid
+from pif.parsers.nav_statement import parse_nav_statement
 from pif.parsers.numbers import parse_date
+from pif.parsers.series import SeriesRow
 
 log = get_logger("adapter.generic")
 
@@ -39,6 +41,7 @@ _SKIP = re.compile(
 _KID_TEXT = re.compile(r"(?i)ключев\w*\s+информ\w*\s+документ|(?<![а-яё])кид(?![а-яё])")
 _KID_HREF = re.compile(r"(?i)(^|[/_\-.])(kid|klyuchevoy|kluchevoy|klyuchevoi|key[_-]?info)")
 _NOT_KID = re.compile(r"(?i)договор|сообщени|корректиров|неточн|исправлен\w+ сведен|прекращ|изменени[йя] в|архив")
+_STATEMENT_TEXT = re.compile(r"(?i)справк\w*\s+о\s+стоимости\s+(чистых\s+)?активов|справк\w*\s+сча|0420502")
 _DOC_SUFFIX = re.compile(r"(?i)\.(pdf|docx?)(\?|$)")
 _DATA_FILE = re.compile(r"(?i)\.(csv|xlsx?)(\?|$)")
 _DATA_FILE_HINT = re.compile(r"(?i)(cost|price|nav|scha|стоимост|сча|динамик|истори|пай|пая)")
@@ -103,6 +106,12 @@ def is_kid_link(link: Link) -> bool:
     )
 
 
+def is_statement_link(link: Link) -> bool:
+    return bool(_STATEMENT_TEXT.search(link.text)) and bool(
+        _DOC_SUFFIX.search(link.url) or re.search(r"(?i)\.xlsx(\?|$)|upload|download|/file|/doc|attachments", link.url)
+    )
+
+
 def page_identity(ctx: CollectContext, page: str, url: str) -> Fund | None:
     """Определяет фонд страницы: явная привязка в настройках, затем заголовки, затем номер правил."""
     path = urlsplit(url).path
@@ -129,6 +138,7 @@ class GenericAdapter(Adapter):
             return
         kid_links = await self.crawl(ctx, seeds)
         await self.collect_kids(ctx, kid_links)
+        await self.collect_statements(ctx)
 
     async def crawl(self, ctx: CollectContext, seeds: list[str]) -> dict[str, Link]:
         follow = re.compile(ctx.config.follow) if ctx.config.follow else _DEFAULT_FOLLOW
@@ -152,6 +162,9 @@ class GenericAdapter(Adapter):
                 for link in _links(text, result.final_url):
                     if is_kid_link(link):
                         kid_links.setdefault(link.url, link)
+                        continue
+                    if is_statement_link(link):
+                        ctx.statement_links.setdefault(link.url, link)
                         continue
                     if _DATA_FILE.search(link.url) and _DATA_FILE_HINT.search(f"{link.text} {link.url}"):
                         data_files.setdefault(link.url, link)
@@ -232,6 +245,38 @@ class GenericAdapter(Adapter):
             span.set_attribute("pif.kid_wanted", len(wanted))
             for link in sorted(wanted, key=lambda item: item.url):
                 await self.collect_kid(ctx, link)
+
+    async def collect_statements(self, ctx: CollectContext) -> None:
+        """Справки о СЧА нужны, только если у части фондов не нашлось КИД."""
+        missing = [f for f in ctx.funds if not ctx.outcomes[f.rule_number].doc_points]
+        if not missing or not ctx.statement_links:
+            return
+        with tracer().start_as_current_span("adapter.statements") as span:
+            span.set_attribute("pif.statement_links", len(ctx.statement_links))
+            for link in ctx.statement_links.values():
+                day = link_report_date(link.text, link.url)
+                if day is None or day >= ctx.cutoff:
+                    await self.collect_statement(ctx, link)
+
+    async def collect_statement(self, ctx: CollectContext, link: Link) -> None:
+        result = await ctx.try_fetch(link.url, ttl=180 * 86400, public_document=True)
+        if result is None or result.fmt not in {"pdf", "docx", "xlsx"}:
+            return
+        try:
+            statement = parse_nav_statement(result.content, result.fmt, link.url)
+        except ParseError as exc:
+            ctx.issues.append(_warn(ctx, link.url, f"Справка о СЧА не разобрана: {exc}"))
+            ctx.counters["statement_unreadable"] += 1
+            return
+        fund = ctx.matcher.by_isin.get(statement.isin or "")
+        fund = fund or next((ctx.matcher.by_rule[r] for r in statement.rule_numbers if r in ctx.matcher.by_rule), None)
+        fund = fund or ctx.matcher.match(link.text)
+        if fund is None:
+            ctx.counters["statement_unmatched"] += 1
+            return
+        row = SeriesRow(statement.report_date, statement.unit_price, statement.nav)
+        ctx.add_series(fund, [row], result, kind="monthly_doc")
+        ctx.counters["statements_parsed"] += 1
 
     async def collect_kid(self, ctx: CollectContext, link: Link) -> None:
         # КИД не меняется после публикации, поэтому проверять его заново незачем.

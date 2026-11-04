@@ -1,5 +1,5 @@
 # Где искать данные каждой УК. Ключ — ИНН. Без записи работает универсальный обход сайта из реестра ЦБ.
-# adapter: generic | alfa | wim
+# adapter: generic | alfa | wim | tcapital
 # seeds: стартовые адреса обхода
 # follow: регулярное выражение для ссылок, по которым идём
 # skip: что не обходить
@@ -71,12 +71,18 @@
   max_pages: 80
   brand_words: [доходъ]
 
-# Т-Капитал
+# Т-Капитал: список документов внутри страницы, КИД нет, поэтому справки о СЧА
 "7743304530":
-  seeds:
-    - https://t-capital-funds.ru/documents/mutual_funds/
-  max_pages: 80
+  adapter: tcapital
   brand_words: [т, капитал]
+
+# Астра Управление Активами: раскрытие в разделе compliance
+"7722691889":
+  seeds:
+    - https://www.astra-am.ru/compliance/pif/
+  follow: '^/compliance/pif/'
+  max_pages: 60
+  brand_words: [астра]
 
 # РСХБ Управление Активами
 "7704814182":

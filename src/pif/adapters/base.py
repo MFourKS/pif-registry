@@ -91,6 +91,7 @@ class CollectContext:
         self.site_failure: tuple[DataStatus, str] | None = None
         # Сбой одной ссылки не значит, что сайт недоступен: это решается по итогам всего обхода.
         self.first_failure: tuple[DataStatus, str] | None = None
+        self.statement_links: dict[str, Any] = {}
 
     async def fetch(self, url: str, *, fund: Fund | None = None, **kwargs: Any) -> FetchResult:
         return await self.fetcher.get(

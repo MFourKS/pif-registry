@@ -26,3 +26,4 @@
 | promsvyaz_costs.csv | https://www.upravlyaem.ru/upload/costs/costs_411_full.csv |
 | robots_bitrix.txt | https://www.am-aton.ru/robots.txt |
 | robots_arsagera.txt | https://arsagera.ru/robots.txt |
+| nav_statement_tcapital.pdf | https://cdn.t-capital-funds.ru/static/documents/otchet-scha-trur-30-09-2026.PDF |

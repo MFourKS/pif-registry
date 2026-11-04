@@ -86,6 +86,7 @@ class FundMatcher:
     def __init__(self, funds: Iterable[Fund], brand_words: Iterable[str] = ()) -> None:
         self.funds = list(funds)
         self.by_rule = {f.rule_number: f for f in self.funds}
+        self.by_isin = {f.isin: f for f in self.funds if f.isin}
         self._brand = frozenset(w.lower() for w in brand_words)
         self._candidates: list[_Candidate] = []
         for fund in self.funds:

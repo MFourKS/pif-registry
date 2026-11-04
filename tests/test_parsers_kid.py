@@ -9,6 +9,7 @@ import pytest
 
 from pif.errors import UnknownFormatError
 from pif.parsers.kid import parse_kid, parse_kid_text
+from pif.parsers.nav_statement import parse_nav_statement
 
 CASES = [
     # файл, дата, пай, СЧА, доходность
@@ -91,3 +92,16 @@ def test_heading_name_wins_over_list_of_funds():
     Раздел 1. Общие сведения
     Ключевой информационный документ по состоянию на 31.07.2025"""
     assert "Глобальные инвестиции" in parse_kid_text(text).fund_name
+
+
+def test_nav_statement_form_0420502(fixture_bytes):
+    statement = parse_nav_statement(fixture_bytes("nav_statement_tcapital.pdf"), "pdf")
+    assert statement.report_date == date(2026, 9, 30)
+    assert statement.nav == D("17767367596.16")
+    assert statement.unit_price == D("9.8259")
+    assert statement.isin == "RU000A1011U5"
+
+
+def test_kid_is_not_taken_for_nav_statement(fixture_bytes):
+    with pytest.raises(UnknownFormatError):
+        parse_nav_statement(fixture_bytes("kid_tkb.pdf"), "pdf")
