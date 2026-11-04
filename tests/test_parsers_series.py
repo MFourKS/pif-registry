@@ -8,7 +8,9 @@ from decimal import Decimal as D
 
 import pytest
 
+from pif.adapters.first import parse_returns_table
 from pif.errors import UnknownFormatError
+from pif.models import FundType
 from pif.parsers import embedded, series
 from pif.parsers.numbers import parse_date, parse_decimal
 
@@ -21,6 +23,7 @@ from pif.parsers.numbers import parse_date, parse_decimal
         ("1,234,567.89", "1234567.89"),
         ("1.234.567,89", "1234567.89"),
         ("−12,5%", "-12.5"),
+        ("+1,12%", "1.12"),
         (1234.5, "1234.5"),
         (10, "10"),
     ],
@@ -141,3 +144,20 @@ def test_merge_rows_joins_price_and_nav_from_different_blocks():
     day = date(2026, 1, 31)
     rows = series.merge_rows([series.SeriesRow(day, D(10), None)], [series.SeriesRow(day, None, D(1000))])
     assert rows == [series.SeriesRow(day, D(10), D(1000))]
+
+
+def test_first_official_returns_table(fixture_text):
+    rows = parse_returns_table(fixture_text("first_returns.html"), "first")
+    first = rows[0]
+    assert first.fund_type == FundType.OPEN
+    assert first.name == "Фонд Накопительный"
+    assert first.report_date == date(2026, 10, 30)
+    assert first.returns == {1: D("1.12"), 3: D("3.53"), 6: D("6.86"), 12: D("15.98")}
+    etf = next(r for r in rows if r.ticker == "SAFE")
+    assert etf.fund_type == FundType.EXCHANGE
+    assert all("ЗПИФ" not in r.name for r in rows), "закрытые фонды не попадают в сверку"
+
+
+def test_page_without_returns_table_is_an_error():
+    with pytest.raises(UnknownFormatError):
+        parse_returns_table("<html><body><p>нет</p></body></html>", "first")

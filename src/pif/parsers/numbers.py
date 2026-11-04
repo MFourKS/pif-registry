@@ -30,7 +30,7 @@ def parse_decimal(raw: object) -> Decimal | None:
     if isinstance(raw, float):
         return Decimal(repr(raw))
     text = _CURRENCY_MARKS.sub("", _SPACES.sub("", str(raw))).strip()
-    text = text.replace("−", "-").replace("–", "-")
+    text = text.replace("−", "-").replace("–", "-").removeprefix("+")
     if not text or text in {"-", "—", "н/д", "нд", "n/a"}:
         return None
     if "," in text and "." in text:

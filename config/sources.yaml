@@ -1,5 +1,5 @@
 # Где искать данные каждой УК. Ключ — ИНН. Без записи работает универсальный обход сайта из реестра ЦБ.
-# adapter: generic | alfa | wim | tcapital | geroi | ozon
+# adapter: generic | alfa | first | wim | tcapital | geroi | ozon
 # seeds: стартовые адреса обхода
 # follow: регулярное выражение для ссылок, по которым идём
 # skip: что не обходить
@@ -13,6 +13,7 @@
 
 # Первая: страницы фондов с рядами, КИД на /documents
 "7710183778":
+  adapter: first
   seeds:
     - https://www.first-am.ru/fund
     - https://www.first-am.ru/etf
@@ -83,6 +84,13 @@
 # Озон Управление Активами: API сайта
 "9703217363":
   adapter: ozon
+
+# ТЕТИС Кэпитал
+"7709853192":
+  seeds:
+    - https://www.tetis-capital.ru/information/pifs/
+  follow: '^/information/pifs/'
+  max_pages: 80
 
 # Астра Управление Активами: раскрытие в разделе compliance
 "7722691889":
