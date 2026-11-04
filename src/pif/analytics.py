@@ -102,6 +102,11 @@ def classify_status(
             return outcome.failure, outcome.failure_reason
         if uk_failure:
             return uk_failure
+        if fund.for_qualified:
+            return DataStatus.NOT_FOUND, (
+                "Фонд для квалифицированных инвесторов: на открытых страницах сайта УК ни таблицы СЧА, ни КИД нет. "
+                "Закрытые разделы не обходим."
+            )
         return DataStatus.NOT_FOUND, "На сайте УК не найдено ни таблицы СЧА, ни КИД этого фонда."
 
     first = points[0].day
@@ -289,6 +294,8 @@ def quality_report(
             for status in DataStatus
         },
         "funds_with_series": sum(1 for v in views if v.series.points),
+        "retail_funds": sum(1 for v in views if not v.fund.for_qualified),
+        "retail_funds_with_series": sum(1 for v in views if v.series.points and not v.fund.for_qualified),
         "points_total": sum(len(v.series.points) for v in views),
         "errors": [_issue(i) for i in errors],
         "warnings_total": sum(1 for i in issues if i.severity == "warning"),

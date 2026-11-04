@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import asdict
@@ -45,6 +46,11 @@ def _kid_from_json(data: dict[str, Any]) -> KidData:
     )
 
 
+def _quiet_worker() -> None:
+    """Предупреждения pdfminer о шрифтах бесполезны и засоряют вывод прогона."""
+    logging.disable(logging.WARNING)
+
+
 def _safe_parse_kid(content: bytes, fmt: str, source: str) -> tuple[str, Any]:
     try:
         return "ok", _kid_to_json(parse_kid(content, fmt, source))
@@ -68,7 +74,9 @@ def _safe_parse_statement(content: bytes, fmt: str, source: str) -> tuple[str, A
 class DocumentParser:
     def __init__(self, cache_path: Path, workers: int | None = None) -> None:
         self.cache_path = cache_path
-        self._pool = ProcessPoolExecutor(max_workers=workers or max(2, (os.cpu_count() or 4) - 2))
+        self._pool = ProcessPoolExecutor(
+            max_workers=workers or max(2, (os.cpu_count() or 4) - 2), initializer=_quiet_worker
+        )
         self._cache: dict[str, Any] = {}
         if cache_path.exists():
             stored = json.loads(cache_path.read_text(encoding="utf-8"))

@@ -238,6 +238,12 @@ class Fetcher:
         rules = self._robots[host]
         return rules is None or rules.allowed(url)
 
+    async def require_open_site(self, url: str) -> None:
+        """Сайт с `Disallow: /` для всех закрыт целиком, в том числе для ответов из кэша."""
+        parts = urlsplit(url)
+        if not await self._allowed(f"{parts.scheme}://{parts.netloc}/"):
+            raise RobotsDisallowed(url, "сайт целиком закрыт для роботов в robots.txt")
+
     async def get(
         self,
         url: str,

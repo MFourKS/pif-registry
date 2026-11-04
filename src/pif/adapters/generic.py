@@ -11,7 +11,7 @@ import re
 from collections import deque
 from dataclasses import dataclass
 from datetime import date
-from urllib.parse import urldefrag, urljoin, urlsplit
+from urllib.parse import unquote, urldefrag, urljoin, urlsplit
 
 import lxml.html
 
@@ -27,6 +27,8 @@ from pif.parsers.series import SeriesRow
 
 log = get_logger("adapter.generic")
 
+# Справки без даты в подписи приходится открывать, поэтому их число ограничено.
+MAX_UNDATED_STATEMENTS = 60
 _DEFAULT_FOLLOW = re.compile(
     r"(?i)(pif|fund|fond|opif|ipif|bpif|etf|product|disclos|raskr|information|info|kid|invest|paev|compliance|"
     r"фонд|пиф|раскрыт)"
@@ -40,6 +42,7 @@ _KID_TEXT = re.compile(r"(?i)ключев\w*\s+информ\w*\s+докумен�
 _KID_HREF = re.compile(r"(?i)(^|[/_\-.])(kid|klyuchevoy|kluchevoy|klyuchevoi|key[_-]?info)")
 _NOT_KID = re.compile(r"(?i)договор|сообщени|корректиров|неточн|исправлен\w+ сведен|прекращ|изменени[йя] в|архив")
 _STATEMENT_TEXT = re.compile(r"(?i)справк\w*\s+о\s+стоимости\s+(чистых\s+)?активов|справк\w*\s+сча|0420502")
+_CLOSED_FUND = re.compile(r"(?i)зпиф|закрыт\w+\s+паев|zpif")
 _DOC_SUFFIX = re.compile(r"(?i)\.(pdf|docx?)(\?|$)")
 _DATA_FILE = re.compile(r"(?i)\.(csv|xlsx?)(\?|$)")
 _DATA_FILE_HINT = re.compile(r"(?i)(cost|price|nav|scha|стоимост|сча|динамик|истори|пай|пая)")
@@ -81,7 +84,7 @@ def _links(page: str, base: str) -> list[Link]:
 
 def link_report_date(text: str, url: str) -> date | None:
     """Дата документа по подписи: «на 30.09.2026», «за сентябрь 2026», kid_3146_2026-9.pdf."""
-    day = parse_date(text)
+    day = parse_date(text) or parse_date(unquote(urlsplit(url).path))
     if day:
         return day
     month = _MONTH_YEAR.search(text)
@@ -96,8 +99,8 @@ def link_report_date(text: str, url: str) -> date | None:
 
 
 def is_kid_link(link: Link) -> bool:
-    label = f"{link.text} {link.url}"
-    if _NOT_KID.search(link.text):
+    label = f"{link.text} {unquote(link.url)}"
+    if _NOT_KID.search(link.text) or _CLOSED_FUND.search(label):
         return False
     return bool(_KID_TEXT.search(link.text) or _KID_HREF.search(urlsplit(link.url).path)) and bool(
         _DOC_SUFFIX.search(link.url) or re.search(r"(?i)upload|download|/file|/doc|attachments|cdn|storage", label)
@@ -134,6 +137,7 @@ class GenericAdapter(Adapter):
         seeds = ctx.config.seeds or ([_absolute(ctx.uk.site)] if ctx.uk.site else [])
         if not seeds:
             return
+        await ctx.fetcher.require_open_site(seeds[0])
         kid_links = await self.crawl(ctx, seeds)
         await self.collect_kids(ctx, kid_links)
         await self.collect_statements(ctx)
@@ -246,15 +250,24 @@ class GenericAdapter(Adapter):
 
     async def collect_statements(self, ctx: CollectContext) -> None:
         """Справки о СЧА нужны, только если у части фондов не нашлось КИД."""
-        missing = [f for f in ctx.funds if not ctx.outcomes[f.rule_number].doc_points]
+        missing = [
+            f for f in ctx.funds
+            if not ctx.outcomes[f.rule_number].doc_points and not ctx.outcomes[f.rule_number].daily_points
+        ]  # fmt: skip
         if not missing or not ctx.statement_links:
             return
         with tracer().start_as_current_span("adapter.statements") as span:
             span.set_attribute("pif.statement_links", len(ctx.statement_links))
+            undated = 0
             for link in ctx.statement_links.values():
                 day = link_report_date(link.text, link.url)
-                if day is None or day >= ctx.cutoff:
-                    await self.collect_statement(ctx, link)
+                if day is None:
+                    undated += 1
+                    if undated > MAX_UNDATED_STATEMENTS:
+                        continue
+                elif day < ctx.cutoff:
+                    continue
+                await self.collect_statement(ctx, link)
 
     async def collect_statement(self, ctx: CollectContext, link: Link) -> None:
         result = await ctx.try_fetch(link.url, ttl=180 * 86400, public_document=True)
