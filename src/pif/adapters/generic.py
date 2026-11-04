@@ -164,6 +164,8 @@ class GenericAdapter(Adapter):
                 for link in _links(text, result.final_url):
                     if is_kid_link(link):
                         kid_links.setdefault(link.url, link)
+                        if link.page not in ctx.page_fund:
+                            ctx.page_fund[link.page] = page_identity(ctx, text, result.final_url)
                         continue
                     if is_statement_link(link):
                         ctx.statement_links.setdefault(link.url, link)
@@ -325,6 +327,8 @@ class GenericAdapter(Adapter):
         if kid.fund_name:
             fund = ctx.matcher.match(kid.fund_name) or fund
         fund = fund or ctx.matcher.match(link.text)
+        # В PDF с двумя колонками название бывает разорвано. Тогда фонд определяет страница, где лежит файл.
+        fund = fund or ctx.page_fund.get(link.page)
         if fund is None:
             ctx.note_unmatched(link.url, f"КИД: {kid.fund_name or link.text}")
             return

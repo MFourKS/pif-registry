@@ -138,7 +138,7 @@ def _result_amounts(text: str) -> tuple[Decimal | None, Decimal | None, str | No
     first, second = amounts
     price, nav = (first, second) if price_label.start() <= nav_label.start() else (second, first)
     # СЧА всегда больше стоимости одного пая. Если нет, вёрстка переставила суммы местами.
-    if price[0] > nav[0]:
+    if (price[0] or 0) > (nav[0] or 0):
         price, nav = nav, price
     return price[0], nav[0], price[1] or nav[1]
 
