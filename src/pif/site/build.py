@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import io
 import json
 import shutil
@@ -280,6 +281,9 @@ def build_site(settings: Settings, analysis: Analysis, manifest: Manifest, quali
             "funds_with_data": sum(1 for v in analysis.views.values() if v.series.points),
             "last_month": analysis.last_month,
             "sravnenie": SRAVNENIE,
+            # Версия от содержимого: браузер обновит стили сразу после выкладки.
+            "css_v": hashlib.sha256((STATIC / "app.css").read_bytes()).hexdigest()[:8],
+            "js_v": hashlib.sha256((STATIC / "app.js").read_bytes()).hexdigest()[:8],
         }
 
         def render(template: str, target: Path, depth: int, **context: Any) -> None:

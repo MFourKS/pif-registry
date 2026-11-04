@@ -48,6 +48,17 @@ def collection_cutoff(as_of: date, months: int) -> date:
     return as_of - timedelta(days=months * 31)
 
 
+def _checkpoint(series: SeriesStore, official: OfficialStore, fetcher: Fetcher) -> None:
+    """Контрольная точка: прерванный прогон не теряет уже собранное. Её сбой прогон не останавливает."""
+    try:
+        series.save()
+        official.save()
+        fetcher.manifest.save()
+        fetcher.cache.save()
+    except OSError as exc:
+        log.warning("checkpoint_failed", error=str(exc)[:200])
+
+
 async def _collect_uk(
     uk: ManagementCompany,
     settings: Settings,
@@ -99,11 +110,7 @@ async def _collect_uk(
             result.counters[uk.inn] = dict(ctx.counters)
             if ctx.site_failure:
                 result.uk_failures[uk.inn] = ctx.site_failure
-            # Контрольная точка: прерванный прогон не теряет уже собранное.
-            series.save()
-            official.save()
-            fetcher.manifest.save()
-            fetcher.cache.save()
+            _checkpoint(series, official, fetcher)
             with_data = sum(1 for o in ctx.outcomes.values() if o.daily_points or o.doc_points)
             span.set_attribute("pif.funds_with_data", with_data)
             log.info("uk_collected", funds=len(funds), with_data=with_data, **dict(ctx.counters))

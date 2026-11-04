@@ -56,6 +56,7 @@ def configure_logging(run_id: str, log_dir: Path, level: str = "INFO") -> Path:
         structlog.stdlib.ProcessorFormatter(
             processors=[
                 structlog.stdlib.ProcessorFormatter.remove_processors_meta,
+                structlog.processors.format_exc_info,
                 structlog.processors.JSONRenderer(ensure_ascii=False),
             ],
             foreign_pre_chain=shared,

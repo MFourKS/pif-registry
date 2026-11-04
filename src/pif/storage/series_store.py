@@ -13,6 +13,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from pif.models import Observation, OfficialReturn
+from pif.storage.atomic import replace_file
 
 _COLUMNS = ["date", "nav", "unit_price", "currency", "kind", "source_id"]
 # Дневной ряд точнее месячного документа: в КИД значения бывают округлены до млн.
@@ -140,7 +141,7 @@ class SeriesStore:
                             p.source_id,
                         ]
                     )
-            tmp.replace(path)
+            replace_file(tmp, path)
         self.dirty.clear()
 
 

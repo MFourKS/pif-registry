@@ -35,7 +35,8 @@ _ROUND_SPLITS = tuple(
 _SPLIT_SNAP_LOG = 0.08
 _SCALE_TOLERANCE = 0.2
 DOC_TOLERANCE = 0.005
-DAILY_GAP_DAYS = 10
+# Новогодние выходные дают паузу в публикации до двух недель, это не пропуск.
+DAILY_GAP_DAYS = 16
 MONTHLY_GAP_DAYS = 45
 
 

@@ -12,6 +12,7 @@ from dataclasses import asdict, fields
 from pathlib import Path
 
 from pif.models import SourceRecord
+from pif.storage.atomic import replace_file
 
 COLUMNS = [f.name for f in fields(SourceRecord)]
 
@@ -52,4 +53,4 @@ class Manifest:
             writer = csv.DictWriter(handle, fieldnames=COLUMNS, lineterminator="\n")
             writer.writeheader()
             writer.writerows(asdict(r) for r in self.records())
-        tmp.replace(self.path)
+        replace_file(tmp, self.path)

@@ -27,6 +27,7 @@ from pif.errors import AccessBlocked, FetchError, ResourceNotFound, RobotsDisall
 from pif.models import SourceRecord
 from pif.net.robots import RobotsRules
 from pif.observability import get_logger, tracer
+from pif.storage.atomic import replace_file
 from pif.storage.manifest import Manifest
 from pif.storage.rawstore import RawStore, sha256_of, source_id_of
 
@@ -149,7 +150,7 @@ class HttpCache:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.path.with_suffix(".tmp")
         tmp.write_text(json.dumps(self.entries, ensure_ascii=False), encoding="utf-8")
-        tmp.replace(self.path)
+        replace_file(tmp, self.path)
 
 
 class Fetcher:

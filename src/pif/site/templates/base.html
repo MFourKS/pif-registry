@@ -7,7 +7,7 @@
 <title>{% block title %}Реестр ПИФов{% endblock %} · Алгосфера</title>
 <meta name="description" content="{% block description %}Реестр розничных ПИФов России: СЧА, стоимость пая и притоки по данным управляющих компаний.{% endblock %}">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%238b5cf6'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="{{ root }}assets/app.css">
+<link rel="stylesheet" href="{{ root }}assets/app.css?v={{ css_v }}">
 </head>
 <body>
 <header class="top">
@@ -30,6 +30,6 @@
     <p class="muted">Сведения не являются инвестиционной рекомендацией. Результаты инвестирования в прошлом не определяют доходность в будущем. Тестовое задание для Алгосферы, неофициальная публикация.</p>
   </div>
 </footer>
-<script src="{{ root }}assets/app.js" defer></script>
+<script src="{{ root }}assets/app.js?v={{ js_v }}" defer></script>
 </body>
 </html>
