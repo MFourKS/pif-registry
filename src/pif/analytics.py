@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import date
@@ -29,13 +30,17 @@ from pif.normalize.fx import FxRates
 from pif.normalize.series import (
     Correction,
     NormalizedSeries,
+    Reconciliation,
+    documents_only,
     last_month_end,
     month_end_points,
     month_key,
     normalize,
+    reconcile_with_documents,
 )
 from pif.observability import get_logger, tracer
 from pif.registry.build import Registry
+from pif.storage.manifest import Manifest
 from pif.storage.series_store import OfficialStore, Revision, SeriesStore
 from pif.verify.yields import PERIODS, YieldCheck, check_fund, computed_return
 
@@ -73,6 +78,7 @@ class Analysis:
     corrections: list[Correction]
     last_month: str
     months: list[str]
+    conflicts: list[tuple[str, Reconciliation]] = field(default_factory=list)
 
 
 def _window_start(as_of: date) -> date:
@@ -143,9 +149,30 @@ def build_analysis(
 
         views: dict[str, FundView] = {}
         corrections: list[Correction] = []
+        conflicts: list[tuple[str, Reconciliation]] = []
         all_flows: list[MonthlyFlow] = []
         for fund in registry.funds:
-            series = normalize(fund.rule_number, series_store.load(fund.rule_number), fx, not_before)
+            observed = series_store.load(fund.rule_number)
+            documents = official.points_of(fund.rule_number)
+            verdict = reconcile_with_documents(observed, documents)
+            if verdict.rejected:
+                # Ряд чужого фонда: на сайте остаются только значения из КИД этого фонда.
+                observed = documents_only(documents)
+            series = normalize(fund.rule_number, observed, fx, not_before)
+            if verdict.rejected:
+                series.corrections.append(
+                    Correction(
+                        fund.rule_number,
+                        verdict.worst_day or as_of,
+                        "series",
+                        f"дневной ряд, расхождений с КИД: {verdict.mismatched} из {verdict.compared}",
+                        "значения из КИД",
+                        "Дневной ряд не совпал с КИД фонда: страница сопоставлена неверно, ряд отброшен",
+                        "",
+                    )
+                )
+            elif verdict.mismatched:
+                conflicts.append((fund.rule_number, verdict))
             fund.currency = series.currency
             outcome = collected.outcomes.get(fund.rule_number) if collected else None
             uk_failure = collected.uk_failures.get(fund.uk_inn) if collected else None
@@ -183,7 +210,7 @@ def build_analysis(
             tie_out_breaks=len(tie_out),
             **status_counts,
         )
-        return Analysis(registry, views, totals, tie_out, corrections, last_month, months)
+        return Analysis(registry, views, totals, tie_out, corrections, last_month, months, conflicts)
 
 
 def write_corrections(path: Path, corrections: list[Correction], revisions: list[Revision]) -> None:
@@ -216,14 +243,22 @@ def write_flows(path: Path, analysis: Analysis) -> None:
                 )  # fmt: skip
 
 
-def _money(value: Decimal | None) -> str | None:
-    return None if value is None else str(value)
+_PAYOUT_NAME = re.compile(r"(?i)выплат|рантье|купонн|дивиденд|поток|ежемесячн\w* доход|денежный доход")
+
+
+def mismatch_reason(fund: Fund, check: YieldCheck) -> str:
+    """Объяснение расхождения. Там, где причины не знаем, так и пишем."""
+    difference = check.difference_pp or Decimal(0)
+    if _PAYOUT_NAME.search(fund.name) and difference < 0:
+        return "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+    return "Причина не установлена."
 
 
 def quality_report(
     analysis: Analysis,
     issues: list[Issue],
     settings: Settings,
+    manifest: Manifest,
     fetch_stats: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     views = analysis.views.values()
@@ -239,6 +274,8 @@ def quality_report(
             "computed_pct": f"{c.computed_pct:.2f}",
             "difference_pp": f"{c.difference_pp:.2f}",
             "source_id": c.source_id,
+            "source_url": record.url if (record := manifest.get(c.source_id)) else "",
+            "reason": mismatch_reason(analysis.views[c.rule_number].fund, c),
         }
         for v in views
         for c in v.mismatches
@@ -266,6 +303,16 @@ def quality_report(
             "mismatches": sorted(mismatches, key=lambda m: -abs(float(m["difference_pp"]))),
         },
         "corrections_total": len(analysis.corrections),
+        "kid_conflicts": [
+            {
+                "fund": rule,
+                "compared": verdict.compared,
+                "mismatched": verdict.mismatched,
+                "worst_day": verdict.worst_day.isoformat() if verdict.worst_day else None,
+                "worst_pct": round(verdict.worst_ratio * 100, 3),
+            }
+            for rule, verdict in analysis.conflicts
+        ],
         "tie_out_breaks": [
             {"level": t.level, "month": t.month, "difference": str(t.difference)} for t in analysis.tie_out
         ],

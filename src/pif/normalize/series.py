@@ -18,6 +18,7 @@ from decimal import Decimal
 
 from pif.models import Observation
 from pif.normalize.fx import FxRates
+from pif.storage.series_store import DocPoint
 
 # Пай изменился больше чем в 1,5 раза за шаг, а СЧА почти нет: это дробление или консолидация паёв.
 SPLIT_PRICE_LOG = math.log(1.5)
@@ -26,7 +27,14 @@ SPLIT_NAV_LOG = math.log(1.25)
 SPIKE_LOG = math.log(1.25)
 SPIKE_RETURN_LOG = math.log(1.08)
 _SCALES = (Decimal(1000), Decimal(10**6))
+_ROUND_SPLITS = tuple(
+    value
+    for base in (2, 3, 4, 5, 10, 20, 25, 50, 100, 200, 500, 1000, 10000)
+    for value in (Decimal(base), Decimal(1) / Decimal(base))
+)
+_SPLIT_SNAP_LOG = 0.08
 _SCALE_TOLERANCE = 0.2
+DOC_TOLERANCE = 0.005
 DAILY_GAP_DAYS = 10
 MONTHLY_GAP_DAYS = 45
 
@@ -162,7 +170,7 @@ def _adjust_splits(rule: str, points: list[Point], corrections: list[Correction]
         if abs(nav_log) > SPLIT_NAV_LOG:
             continue
         # Доходность шага считаем равной изменению СЧА: притоки за один шаг несравнимо меньше дробления.
-        factor = current.adj_price / previous.adj_price / (current.nav / previous.nav)
+        factor = _nearest_split(current.adj_price / previous.adj_price / (current.nav / previous.nav))
         for point in priced[:index]:
             point.adj_price = point.adj_price * factor
         corrections.append(
@@ -176,6 +184,14 @@ def _adjust_splits(rule: str, points: list[Point], corrections: list[Correction]
                 current.source_id,
             )
         )
+
+
+def _nearest_split(factor: Decimal) -> Decimal:
+    """Паи дробят в круглых пропорциях. Близкий круглый множитель точнее оценки по СЧА."""
+    for candidate in _ROUND_SPLITS:
+        if abs(math.log(float(factor) / float(candidate))) < _SPLIT_SNAP_LOG:
+            return candidate
+    return factor
 
 
 def _frequency(points: list[Point]) -> str:
@@ -198,6 +214,50 @@ def _find_gaps(points: list[Point], frequency: str) -> list[Gap]:
         if days > limit:
             gaps.append(Gap(left.day, right.day, days))
     return gaps
+
+
+@dataclass(frozen=True, slots=True)
+class Reconciliation:
+    """Итог сверки дневного ряда с КИД на совпадающих датах."""
+
+    compared: int
+    mismatched: int
+    worst_day: date | None
+    worst_ratio: float
+
+    @property
+    def rejected(self) -> bool:
+        return self.compared > 0 and self.mismatched * 2 > self.compared
+
+
+def reconcile_with_documents(
+    observations: dict[date, Observation], documents: Iterable[DocPoint]
+) -> Reconciliation:
+    """Сравнивает пай дневного ряда с паем из КИД.
+
+    Страница фонда могла быть сопоставлена с реестром неверно, а КИД называет фонд сам.
+    Поэтому при расхождении прав КИД.
+    """
+    compared = mismatched = 0
+    worst_day: date | None = None
+    worst = 0.0
+    for document in documents:
+        point = observations.get(document.day)
+        if point is None or point.kind != "daily" or not point.unit_price or not document.unit_price:
+            continue
+        compared += 1
+        ratio = abs(float(point.unit_price / document.unit_price) - 1)
+        if ratio > DOC_TOLERANCE:
+            mismatched += 1
+            if ratio > worst:
+                worst, worst_day = ratio, document.day
+    return Reconciliation(compared, mismatched, worst_day, worst)
+
+
+def documents_only(documents: Iterable[DocPoint]) -> dict[date, Observation]:
+    return {
+        d.day: Observation(d.day, d.nav, d.unit_price, d.currency, "monthly_doc", d.source_id) for d in documents
+    }
 
 
 def normalize(

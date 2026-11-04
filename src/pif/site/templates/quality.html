@@ -24,10 +24,10 @@
   <h2>Расхождения с официальной доходностью</h2>
   <p class="note">Источник официальных значений — ключевой информационный документ фонда. В таблице разница больше {{ q.yield_check.tolerance_pp }} п. п. Всего {{ q.yield_check.mismatches | length }}.</p>
   <div class="scroll"><table class="plain">
-    <thead><tr><th>Фонд</th><th class="num">Период</th><th>Дата КИД</th><th class="num">Наш расчёт</th><th class="num">Официальная</th><th class="num">Разница, п. п.</th></tr></thead>
+    <thead><tr><th>Фонд</th><th class="num">Период</th><th>Дата КИД</th><th class="num">Наш расчёт</th><th class="num">Официальная</th><th class="num">Разница, п. п.</th><th>Причина</th></tr></thead>
     <tbody>
-    {% for m in q.yield_check.mismatches[:200] %}
-      <tr><td><a href="{{ root }}{{ fund_url(m.fund) }}">{{ m.name }}</a></td><td class="num">{{ m.period_months }} мес.</td><td>{{ m.report_date | ddate }}</td><td class="num">{{ m.computed_pct }}</td><td class="num">{{ m.official_pct }}</td><td class="num">{{ m.difference_pp }}</td></tr>
+    {% for m in q.yield_check.mismatches[:300] %}
+      <tr><td><a href="{{ root }}{{ fund_url(m.fund) }}">{{ m.name }}</a></td><td class="num">{{ m.period_months }} мес.</td><td>{{ m.report_date | ddate }}</td><td class="num">{{ m.computed_pct }}</td><td class="num">{{ m.official_pct }}</td><td class="num">{{ m.difference_pp }}</td><td>{{ m.reason }}{% if m.source_url %} <a href="{{ m.source_url }}" rel="nofollow noopener">КИД ↗</a>{% endif %}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>

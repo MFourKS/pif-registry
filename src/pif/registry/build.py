@@ -48,8 +48,8 @@ class Registry:
     def load(cls, path: Path) -> Registry:
         raw = json.loads(path.read_text(encoding="utf-8"))
         funds = []
-        for item in raw["funds"]:
-            item = dict(item)
+        for stored in raw["funds"]:
+            item = dict(stored)
             item["fund_type"] = FundType(item["fund_type"])
             for key in ("registered_on", "formed_on"):
                 item[key] = date.fromisoformat(item[key]) if item[key] else None

@@ -75,7 +75,7 @@ def detect_format(content: bytes, content_type: str, url: str) -> str:
         return "doc" if url.lower().split("?")[0].endswith((".doc", ".rtf")) else "xls"
     if content[:5] == b"{\\rtf":
         return "rtf"
-    mime = content_type.split(";")[0].strip().lower()
+    mime = content_type.split(";", maxsplit=1)[0].strip().lower()
     if mime in _FORMATS:
         return _FORMATS[mime]
     stripped = content[:200].lstrip().lower()
@@ -340,7 +340,7 @@ class Fetcher:
         ):
             self.stats.errors += 1
             raise AccessBlocked(full_url, f"HTTP {response.status_code}, доступ закрыт или капча")
-        if response.status_code == 404 or response.status_code == 410:
+        if response.status_code in {404, 410}:
             raise ResourceNotFound(full_url, f"HTTP {response.status_code}")
         if response.status_code >= 400:
             self.stats.errors += 1

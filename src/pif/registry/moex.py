@@ -79,4 +79,4 @@ def index_by_rule(securities: list[MoexSecurity]) -> dict[str, MoexSecurity]:
 
 
 def lookup(index: dict[str, MoexSecurity], rule_number: str) -> MoexSecurity | None:
-    return index.get(rule_number) or index.get(rule_number.split("-")[0])
+    return index.get(rule_number) or index.get(rule_number.split("-", maxsplit=1)[0])

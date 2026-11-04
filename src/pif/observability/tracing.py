@@ -27,6 +27,8 @@ class JsonlSpanExporter(SpanExporter):
     def export(self, spans: Sequence[ReadableSpan]) -> SpanExportResult:
         for span in spans:
             ctx = span.get_span_context()
+            if ctx is None:
+                continue
             start, end = span.start_time or 0, span.end_time or 0
             record = {
                 "trace_id": f"{ctx.trace_id:032x}",

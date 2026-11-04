@@ -4,9 +4,9 @@ from datetime import date, timedelta
 from decimal import Decimal as D
 
 from conftest import observation
-
 from pif.normalize.fx import FxRates
-from pif.normalize.series import month_end_points, normalize
+from pif.normalize.series import documents_only, month_end_points, normalize, reconcile_with_documents
+from pif.storage.series_store import DocPoint
 
 FX = FxRates()
 
@@ -116,3 +116,35 @@ def test_month_end_takes_last_published_point_with_both_values():
     }
     result = normalize("r", days, FX)
     assert month_end_points(result.points)["2026-01"].day == date(2026, 1, 30)
+
+
+def test_split_factor_snaps_to_round_ratio():
+    # СЧА за шаг выросла на 2 %, но дробление 1 к 100 должно остаться ровным.
+    data = series_of([("1000000", "3415.92"), ("1000000", "3415.92"), ("1020000", "34.84"), ("1020000", "34.84")])
+    result = normalize("r", data, FX)
+    assert result.points[0].adj_price == D("34.1592")
+
+
+def doc(day, price, nav="1000"):
+    return DocPoint("r", day, D(nav), D(price), "RUB", "kid")
+
+
+def test_foreign_series_is_rejected_by_documents():
+    days = [date(2026, 7, 31), date(2026, 8, 31), date(2026, 9, 30)]
+    observed = {d: observation(d, "7800000", "58.82") for d in days}
+    verdict = reconcile_with_documents(observed, [doc(d, "4965.94") for d in days])
+    assert verdict.rejected
+    assert verdict.mismatched == 3
+
+
+def test_matching_series_passes_reconciliation():
+    day = date(2026, 9, 30)
+    verdict = reconcile_with_documents({day: observation(day, "1000", "100.00")}, [doc(day, "100.00")])
+    assert verdict.compared == 1 and not verdict.rejected
+
+
+def test_documents_replace_rejected_series():
+    day = date(2026, 9, 30)
+    points = documents_only([doc(day, "4965.94", "659866237.72")])
+    assert points[day].unit_price == D("4965.94")
+    assert points[day].kind == "monthly_doc"

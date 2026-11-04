@@ -94,7 +94,7 @@ def _pipeline(settings: Settings, *, force: bool, only: set[str] | None, skip_co
             registry.save(settings.data_dir / "registry.json")
 
             issues = collected.issues if collected else []
-            report = quality_report(analysis, issues, settings)
+            report = quality_report(analysis, issues, settings, manifest, fetch_stats)
             write_quality(settings.data_dir / "quality_report.json", report)
             write_corrections(settings.data_dir / "corrections.csv", analysis.corrections, series.revisions)
             write_flows(settings.data_dir / "flows.csv", analysis)
@@ -163,8 +163,7 @@ async def _restore_raw(settings: Settings, limit: int) -> int:
     raw = RawStore(settings.raw_dir)
     manifest = Manifest(settings.manifest_path)
     missing = [r for r in manifest.records() if raw.get(r.sha256, r.fmt) is None]
-    seen: set[str] = set()
-    unique = [r for r in missing if not (r.sha256 in seen or seen.add(r.sha256))]
+    unique = list({r.sha256: r for r in missing}.values())
     if limit:
         unique = unique[:limit]
     changed = 0

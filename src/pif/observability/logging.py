@@ -45,7 +45,7 @@ def configure_logging(run_id: str, log_dir: Path, level: str = "INFO") -> Path:
         structlog.stdlib.ProcessorFormatter(
             processors=[
                 structlog.stdlib.ProcessorFormatter.remove_processors_meta,
-                _drop_ids,
+                _drop_ids,  # type: ignore[list-item]
                 structlog.dev.ConsoleRenderer(colors=sys.stderr.isatty()),
             ],
             foreign_pre_chain=shared,

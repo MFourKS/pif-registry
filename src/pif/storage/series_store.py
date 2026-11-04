@@ -144,14 +144,41 @@ class SeriesStore:
         self.dirty.clear()
 
 
+@dataclass(frozen=True, slots=True)
+class DocPoint:
+    """Значения из КИД хранятся отдельно от ряда: по ним проверяется дневной ряд."""
+
+    rule_number: str
+    day: date
+    nav: Decimal | None
+    unit_price: Decimal | None
+    currency: str
+    source_id: str
+
+
 class OfficialStore:
-    """Официальная доходность из КИД: один файл на все фонды."""
+    """Официальные значения из КИД: доходность и точки на конец месяца, по файлу на все фонды."""
 
     COLUMNS = ("rule_number", "report_date", "months", "value_pct", "source_id")
+    POINT_COLUMNS = ("rule_number", "date", "nav", "unit_price", "currency", "source_id")
 
     def __init__(self, path: Path) -> None:
         self.path = path
+        self.points_path = path.with_name("kid_points.csv")
         self.rows: dict[tuple[str, date, int], OfficialReturn] = {}
+        self.points: dict[tuple[str, date], DocPoint] = {}
+        if self.points_path.exists():
+            with self.points_path.open(encoding="utf-8", newline="") as handle:
+                for row in csv.DictReader(handle):
+                    point = DocPoint(
+                        row["rule_number"],
+                        date.fromisoformat(row["date"]),
+                        Decimal(row["nav"]) if row["nav"] else None,
+                        Decimal(row["unit_price"]) if row["unit_price"] else None,
+                        row["currency"],
+                        row["source_id"],
+                    )
+                    self.points[(point.rule_number, point.day)] = point
         if path.exists():
             with path.open(encoding="utf-8", newline="") as handle:
                 for row in csv.DictReader(handle):
@@ -167,8 +194,14 @@ class OfficialStore:
     def add(self, record: OfficialReturn) -> None:
         self.rows[(record.rule_number, record.report_date, record.months)] = record
 
+    def add_point(self, point: DocPoint) -> None:
+        self.points[(point.rule_number, point.day)] = point
+
     def of_fund(self, rule_number: str) -> list[OfficialReturn]:
         return [r for r in self.rows.values() if r.rule_number == rule_number]
+
+    def points_of(self, rule_number: str) -> list[DocPoint]:
+        return sorted((p for p in self.points.values() if p.rule_number == rule_number), key=lambda p: p.day)
 
     def save(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -178,3 +211,12 @@ class OfficialStore:
             for key in sorted(self.rows):
                 r = self.rows[key]
                 writer.writerow([r.rule_number, r.report_date.isoformat(), r.months, str(r.value_pct), r.source_id])
+        with self.points_path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.writer(handle, lineterminator="\n")
+            writer.writerow(self.POINT_COLUMNS)
+            for point_key in sorted(self.points):
+                p = self.points[point_key]
+                writer.writerow(
+                    [p.rule_number, p.day.isoformat(), p.nav if p.nav is not None else "",
+                     p.unit_price if p.unit_price is not None else "", p.currency, p.source_id]
+                )  # fmt: skip

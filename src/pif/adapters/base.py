@@ -9,14 +9,21 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Any
 
-from pif.errors import AccessBlocked, FetchError, ParseError, ResourceNotFound, RobotsDisallowed, SiteUnavailable
+from pif.errors import (
+    AccessBlocked,
+    FetchError,
+    ParseError,
+    ResourceNotFound,
+    RobotsDisallowed,
+    SiteUnavailable,
+)
 from pif.matching import FundMatcher
 from pif.models import DataStatus, Fund, ManagementCompany, Observation, OfficialReturn
 from pif.net.client import Fetcher, FetchResult
 from pif.observability import get_logger
 from pif.parsers.kid import KidData
 from pif.parsers.series import SeriesRow
-from pif.storage.series_store import OfficialStore, SeriesStore
+from pif.storage.series_store import DocPoint, OfficialStore, SeriesStore
 
 log = get_logger("collect")
 
@@ -150,6 +157,12 @@ class CollectContext:
         if kid.unit_price is not None or kid.nav is not None:
             row = SeriesRow(kid.report_date, kid.unit_price, kid.nav, kid.currency)
             self.add_series(fund, [row], source, kind="monthly_doc")
+            self.official.add_point(
+                DocPoint(
+                    fund.rule_number, kid.report_date, kid.nav, kid.unit_price,
+                    kid.currency or fund.currency, source.source_id,
+                )
+            )  # fmt: skip
         for months, value in kid.returns.items():
             self.official.add(OfficialReturn(fund.rule_number, kid.report_date, months, value, source.source_id))
         self.counters["kid_parsed"] += 1

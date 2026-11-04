@@ -6,7 +6,6 @@ from datetime import date
 from decimal import Decimal as D
 
 from conftest import make_fund, observation
-
 from pif.flows.compute import aggregate, check_tie_out, fund_flows, last_months, net_flow, rolling_sum
 from pif.models import FundType
 from pif.normalize.fx import FxRates

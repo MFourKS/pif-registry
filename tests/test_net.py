@@ -10,8 +10,8 @@ from decimal import Decimal as D
 
 import httpx
 import pytest
-from conftest import observation
 
+from conftest import observation
 from pif.config import Settings
 from pif.errors import AccessBlocked, ResourceNotFound, RobotsDisallowed, SiteUnavailable
 from pif.models import SourceRecord

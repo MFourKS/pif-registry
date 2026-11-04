@@ -10,8 +10,8 @@ from pathlib import Path
 
 import httpx
 import pytest
-from conftest import FIXTURES, make_fund, observation
 
+from conftest import FIXTURES, make_fund, observation
 from pif.adapters.base import Adapter, CollectContext, FundOutcome, Issue, UkConfig
 from pif.adapters.generic import Link, is_kid_link, link_report_date
 from pif.adapters.wim import export_request
@@ -119,13 +119,13 @@ def test_quality_gate_blocks_on_collection_errors_only(tmp_path):
     fund = make_fund()
     rows = [(d, "1000", "100") for d in month_ends()]
     settings, analysis = analysis_for(tmp_path, [fund], {fund.rule_number: rows})
-    assert quality_report(analysis, [], settings)["publish_allowed"] is True
+    assert quality_report(analysis, [], settings, Manifest(settings.manifest_path))["publish_allowed"] is True
 
     warning = Issue("warning", "fetch", fund.uk_inn, "https://x", "сайт недоступен")
-    assert quality_report(analysis, [warning], settings)["publish_allowed"] is True
+    assert quality_report(analysis, [warning], settings, Manifest(settings.manifest_path))["publish_allowed"] is True
 
     error = Issue("error", "parse", fund.uk_inn, "https://x", "новый формат")
-    report = quality_report(analysis, [error], settings)
+    report = quality_report(analysis, [error], settings, Manifest(settings.manifest_path))
     assert report["publish_allowed"] is False
     assert report["errors"][0]["message"] == "новый формат"
 
@@ -141,7 +141,7 @@ def test_yield_mismatch_does_not_block_publication(tmp_path):
     official = OfficialStore(settings.official_dir / "r.csv")
     official.add(OfficialReturn(fund.rule_number, date(2026, 10, 31), 1, D("5"), "src"))
     analysis = build_analysis(settings, registry_of(fund), store, official, FxRates(), None)
-    report = quality_report(analysis, [], settings)
+    report = quality_report(analysis, [], settings, Manifest(settings.manifest_path))
     assert len(report["yield_check"]["mismatches"]) == 1
     assert report["publish_allowed"] is True
     assert analysis.views[fund.rule_number].mismatches
@@ -180,7 +180,7 @@ def built_site(tmp_path: Path) -> Path:
     settings.data_dir.mkdir(parents=True, exist_ok=True)
     manifest = Manifest(settings.manifest_path)
     manifest.save()
-    report = quality_report(analysis, [], settings)
+    report = quality_report(analysis, [], settings, Manifest(settings.manifest_path))
     return build_site(settings, analysis, manifest, report)
 
 

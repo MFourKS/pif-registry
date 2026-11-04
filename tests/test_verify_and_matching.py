@@ -4,8 +4,8 @@ from datetime import date
 from decimal import Decimal as D
 
 import pytest
-from conftest import make_fund, observation
 
+from conftest import make_fund, observation
 from pif.matching import FundMatcher, name_tokens, rule_numbers_in
 from pif.models import FundType, OfficialReturn
 from pif.normalize.fx import FxRates
