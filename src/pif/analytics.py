@@ -179,7 +179,7 @@ def build_analysis(
             }
             verdict = reconcile_with_documents(observed, documents)
             if verdict.rejected:
-                # Ряд чужого фонда: на сайте остаются только значения из КИД этого фонда.
+                # Причин бывает несколько: чужой фонд, другая валюта, другой масштаб. Верим КИД.
                 observed = documents_only(documents)
             series = normalize(fund.rule_number, observed, fx, not_before)
             if verdict.rejected:
@@ -190,7 +190,7 @@ def build_analysis(
                         "series",
                         f"дневной ряд, расхождений с КИД: {verdict.mismatched} из {verdict.compared}",
                         "значения из КИД",
-                        "Дневной ряд не совпал с КИД фонда: страница сопоставлена неверно, ряд отброшен",
+                        "Дневной ряд не совпал с КИД фонда: ряд отброшен, оставлены значения из КИД",
                         "",
                     )
                 )

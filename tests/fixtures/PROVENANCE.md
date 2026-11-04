@@ -34,3 +34,4 @@
 | tcapital_documents.html | https://t-capital-funds.ru/documents/mutual_funds/ (6 настоящих записей списка документов) |
 | nav_statement_sgb.xlsx | https://uksgb.ru/wp-content/uploads/2026/06/scha_7857_2026_07_16_1_ok.xlsx |
 | report_without_series.xls | https://p-fondy.ru/upload/iblock/6d0/otchet-o-priroste-_umenshenii_-sibirskiy-31.03.2015.xls |
+| tkb_usd_rub.html | https://www.tkbip.ru/funds/tkb-bnp-pariba-zoloto/results/ (последние 30 точек рублёвого и долларового рядов) |

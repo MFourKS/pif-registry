@@ -214,3 +214,17 @@ def test_real_spreadsheet_without_series_gives_clear_error(fixture_bytes):
 def test_unsupported_spreadsheet_format():
     with pytest.raises(UnknownFormatError, match="не поддержана"):
         series.spreadsheet(b"", "ods", "x")
+
+
+def test_tkb_takes_ruble_series_not_dollar_one(fixture_text):
+    page = fixture_text("tkb_usd_rub.html")
+    rows = embedded.tkb_chart_data(page, "tkb")
+    assert len(rows) == 30
+    assert rows[-1].unit_price > 1000, "паи фонда считаются в рублях, долларовый ряд около 60"
+    found = embedded.extract_series(page, "tkb")
+    assert found is not None
+    assert found[1][-1].unit_price == rows[-1].unit_price
+
+
+def test_page_without_tkb_chart_gives_nothing():
+    assert embedded.tkb_chart_data("<html></html>", "x") == []

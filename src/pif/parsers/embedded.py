@@ -59,6 +59,15 @@ def js_graph_variable(page: str, source: str) -> list[SeriesRow]:
     return json_date_map(data, source) if isinstance(data, Mapping) else []
 
 
+def tkb_chart_data(page: str, source: str) -> list[SeriesRow]:
+    """ТКБ: `chartData = {usd: "[...]", rub: "[...]"}`. Ряды одного фонда в двух валютах, паи считаются в рублях."""
+    text = html_lib.unescape(page)
+    found = re.search(r'chartData\s*=\s*\{.*?\brub:\s*"(?=\[)', text, re.S)
+    if not found:
+        return []
+    return json_records(balanced_json(text, found.end()), source)
+
+
 def record_arrays(page: str, source: str) -> list[SeriesRow]:
     """Массивы вида [{"date": ..., "share": ..., "scha": ...}] в любом месте разметки."""
     text = html_lib.unescape(page)
@@ -127,6 +136,7 @@ def plain_table(page: str, source: str) -> list[SeriesRow]:
 RECOGNIZERS: tuple[tuple[str, Callable[[str, str], list[SeriesRow]]], ...] = (
     ("first_am_chart", first_am_chart),
     ("js_graph_variable", js_graph_variable),
+    ("tkb_chart_data", tkb_chart_data),
     ("record_arrays", record_arrays),
     ("nested_date_map", nested_date_map),
     ("nuxt_payload", nuxt_payload),
