@@ -153,7 +153,15 @@ class HttpCache:
 
 
 class Fetcher:
-    def __init__(self, settings: Settings, raw: RawStore, manifest: Manifest, *, force: bool = False) -> None:
+    def __init__(
+        self,
+        settings: Settings,
+        raw: RawStore,
+        manifest: Manifest,
+        *,
+        force: bool = False,
+        transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         self.settings = settings
         self.raw = raw
         self.manifest = manifest
@@ -169,6 +177,7 @@ class Fetcher:
             "headers": {"User-Agent": settings.user_agent, "Accept-Language": "ru"},
             "trust_env": False,
             "limits": httpx.Limits(max_connections=64, max_keepalive_connections=16),
+            "transport": transport,
         }
         self._client = httpx.AsyncClient(**common)
         # Часть сайтов УК работает на сертификатах НУЦ Минцифры, которых нет в certifi.

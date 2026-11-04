@@ -185,7 +185,23 @@ def delimited_text(text: str, source: str) -> list[SeriesRow]:
     delimiter = max(";,\t|", key=sample.count)
     if sample.count(delimiter) == 0:
         raise UnknownFormatError(source, "в тексте нет разделителей колонок")
-    return _rows_from_grid(csv.reader(io.StringIO(text), delimiter=delimiter), source)
+    lines = list(csv.reader(io.StringIO(text), delimiter=delimiter))
+    return _headerless(lines) or _rows_from_grid(lines, source)
+
+
+def _headerless(lines: list[list[str]]) -> list[SeriesRow]:
+    """CSV без шапки вида дата,пай,СЧА (УК Промсвязь). Порядок подтверждается: пай меньше СЧА."""
+    rows: list[SeriesRow] = []
+    for line in lines:
+        if not line:
+            continue
+        if len(line) != 3:
+            return []
+        day, price, nav = parse_date(line[0]), parse_decimal(line[1]), parse_decimal(line[2])
+        if day is None or price is None or nav is None or price >= nav:
+            return []
+        rows.append(SeriesRow(day, price, nav))
+    return rows
 
 
 def spreadsheet(content: bytes, fmt: str, source: str) -> list[SeriesRow]:

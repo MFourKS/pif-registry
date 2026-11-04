@@ -40,7 +40,7 @@ def shift_months(day: date, months: int) -> date:
     month += 1
     first_next = date(year + (month == 12), month % 12 + 1, 1)
     last = first_next - timedelta(days=1)
-    return last if is_month_end else min(date(year, month, day.day), last)
+    return last if is_month_end else date(year, month, min(day.day, last.day))
 
 
 def point_on(points: list[Point], day: date) -> Point | None:

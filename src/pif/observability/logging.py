@@ -65,8 +65,10 @@ def configure_logging(run_id: str, log_dir: Path, level: str = "INFO") -> Path:
     root = logging.getLogger()
     root.handlers[:] = [console, to_file]
     root.setLevel(level)
-    for noisy in ("httpx", "httpcore", "pdfminer", "pdfplumber"):
+    for noisy in ("httpx", "httpcore"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
+    for noisy in ("pdfminer", "pdfplumber"):
+        logging.getLogger(noisy).setLevel(logging.ERROR)
 
     structlog.contextvars.clear_contextvars()
     structlog.contextvars.bind_contextvars(run_id=run_id)
