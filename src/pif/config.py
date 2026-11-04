@@ -9,10 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
-USER_AGENT = (
-    "PifRegistryBot/0.1 (+https://github.com/MFourKS/pif-registry; "
-    "test assignment for algosphere.tech; collects public fund disclosures, 1 req/s per host)"
-)
+# Честная подпись: кто мы и зачем. Слово bot и адрес в подписи режутся WAF части сайтов УК,
+# поэтому формулировка простая, но имя инструмента и цель остаются открытыми.
+USER_AGENT = "pif-registry/0.1 (Algosphere test assignment; public fund disclosures; 1 req/s per host)"
 
 
 @dataclass(frozen=True, slots=True)
@@ -33,6 +32,8 @@ class Settings:
     max_parallel_hosts: int = 16
     request_timeout_s: float = 45.0
     retries: int = 2
+    # Строгий режим: robots.txt действует и на прямые ссылки на файлы раскрытия. См. docs/QUESTIONS.md.
+    strict_robots: bool = field(default_factory=lambda: os.environ.get("PIF_STRICT_ROBOTS") == "1")
     # Окно свежести ответа: внутри него повторный запуск не ходит в сеть вовсе.
     freshness_ttl_s: int = 20 * 3600
     # Обход одной УК ограничен, чтобы зависший сайт не держал весь прогон.
