@@ -221,6 +221,23 @@ async def test_address_closed_by_robots_needs_no_robots_request_on_repeat_run(tm
         assert fetcher.stats.sent == 0
 
 
+@pytest.mark.parametrize("status", [200, 404])
+async def test_robots_is_not_asked_again_inside_freshness_window(tmp_path, status):
+    calls = []
+
+    def handler(request):
+        calls.append(request.url.path)
+        return httpx.Response(status, text="User-agent: *\nDisallow: /closed/", headers={"content-type": "text/plain"})
+
+    async with fetcher_for(tmp_path, handler) as fetcher:
+        await fetcher._allowed("https://uk.example/page")
+    async with fetcher_for(tmp_path, handler) as fetcher:
+        allowed = await fetcher._allowed("https://uk.example/closed/page")
+        assert fetcher.stats.sent == 0
+    assert allowed is (status == 404)
+    assert calls == ["/robots.txt"]
+
+
 async def test_force_asks_failed_address_again_and_success_clears_failure(tmp_path):
     answers = iter([404, 200])
 

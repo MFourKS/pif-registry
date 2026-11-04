@@ -239,26 +239,32 @@ class Fetcher:
             await self._wait_slot(host)
             return await self._client_noverify.request(method, url, **kwargs)
 
+    async def _load_robots(self, scheme: str, host: str) -> RobotsRules | None:
+        key = f"robots:{host}"
+        known = self.cache.entries.get(key, {})
+        remembered = known.get("text")
+        if not self.force and time.time() - known.get("checked_at", 0) < self.settings.freshness_ttl_s:
+            return RobotsRules.parse(remembered, BOT_TOKEN) if remembered and not known.get("absent") else None
+        try:
+            resp = await self._send("GET", f"{scheme}://{host}/robots.txt", host)
+        except httpx.HTTPError as exc:
+            # Сбой сети не отменяет запрет: берём правила, которые видели в прошлый раз.
+            log.info("robots_unavailable", host=host, error=type(exc).__name__)
+            self.cache.entries[key] = {**known, "checked_at": time.time()}
+            return RobotsRules.parse(remembered, BOT_TOKEN) if remembered and not known.get("absent") else None
+        if resp.status_code == 200 and "html" not in resp.headers.get("content-type", ""):
+            self.cache.entries[key] = {"text": resp.text, "checked_at": time.time()}
+            return RobotsRules.parse(resp.text, BOT_TOKEN)
+        self.cache.entries[key] = {"text": remembered, "absent": True, "checked_at": time.time()}
+        return None
+
     async def _allowed(self, url: str) -> bool:
         parts = urlsplit(url)
         host = parts.netloc
         lock = self._robots_locks.setdefault(host, asyncio.Lock())
         async with lock:
             if host not in self._robots:
-                rules: RobotsRules | None = None
-                robots_url = f"{parts.scheme}://{host}/robots.txt"
-                remembered = self.cache.entries.get(f"robots:{host}", {}).get("text")
-                try:
-                    resp = await self._send("GET", robots_url, host)
-                    if resp.status_code == 200 and "html" not in resp.headers.get("content-type", ""):
-                        rules = RobotsRules.parse(resp.text, BOT_TOKEN)
-                        self.cache.entries[f"robots:{host}"] = {"text": resp.text}
-                except httpx.HTTPError as exc:
-                    # Сбой сети не отменяет запрет: берём правила, которые видели в прошлый раз.
-                    log.info("robots_unavailable", host=host, error=type(exc).__name__)
-                    if remembered:
-                        rules = RobotsRules.parse(remembered, BOT_TOKEN)
-                self._robots[host] = rules
+                self._robots[host] = await self._load_robots(parts.scheme, host)
         rules = self._robots[host]
         return rules is None or rules.allowed(url)
 
