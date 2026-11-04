@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import ipaddress
 import re
 from collections import deque
 from dataclasses import dataclass
@@ -57,6 +58,9 @@ def _links(page: str, base: str) -> list[Link]:
         document = lxml.html.fromstring(page)
     except (lxml.etree.ParserError, ValueError):
         return []
+    # <base href> меняет разрешение относительных ссылок, так свёрстан, например, сайт УК ДОХОДЪ.
+    base_tag = document.find(".//base")
+    resolve_from = urljoin(base, base_tag.get("href") or "") if base_tag is not None else base
     links: list[Link] = []
     for anchor in document.iter("a"):
         href = (anchor.get("href") or "").strip()
@@ -70,7 +74,7 @@ def _links(page: str, base: str) -> list[Link]:
                 row = parent.getparent() if parent.tag == "td" else parent
                 if row is not None:
                     text = " ".join(row.text_content().split())[:240]
-        links.append(Link(urldefrag(urljoin(base, href))[0], text, base))
+        links.append(Link(urldefrag(urljoin(resolve_from, href))[0], text, base))
     return links
 
 
@@ -155,6 +159,7 @@ class GenericAdapter(Adapter):
                     parts = urlsplit(link.url)
                     if (
                         link.url in seen
+                        or _is_private_host(parts.hostname)
                         or parts.netloc.removeprefix("www.") not in hosts
                         or _SKIP.search(link.url)
                         or _DOC_SUFFIX.search(link.url)
@@ -249,6 +254,14 @@ class GenericAdapter(Adapter):
             ctx.note_unmatched(link.url, f"КИД: {kid.fund_name or link.text}")
             return
         ctx.add_kid(fund, kid, result)
+
+
+def _is_private_host(host: str | None) -> bool:
+    """На одном из сайтов нашлись ссылки на внутренний адрес 192.168.x.x: туда ходить незачем."""
+    try:
+        return host is not None and ipaddress.ip_address(host).is_private
+    except ValueError:
+        return False
 
 
 def _warn(ctx: CollectContext, url: str, message: str):

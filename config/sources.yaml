@@ -1,9 +1,95 @@
 # Где искать данные каждой УК. Ключ — ИНН. Без записи работает универсальный обход сайта из реестра ЦБ.
-# adapter: generic | alfa ...
+# adapter: generic | alfa | wim
 # seeds: стартовые адреса обхода
 # follow: регулярное выражение для ссылок, по которым идём
+# skip: что не обходить
+# max_pages: предел страниц на один прогон
 # fund_map: фрагмент адреса -> номер правил, если название фонда на сайте нельзя сопоставить автоматически
 
+# Альфа-Капитал: собственный шлюз истории
 "7728142469":
   adapter: alfa
   brand_words: [альфа, капитал]
+
+# Первая: страницы фондов с рядами, КИД на /documents
+"7710183778":
+  seeds:
+    - https://www.first-am.ru/fund
+    - https://www.first-am.ru/etf
+    - https://www.first-am.ru/disclosure/fund
+  follow: '^/individuals/(fund|etf)/[^/?]+(/documents)?/?\?*$'
+  skip: 'zpif|arkhivnye'
+  max_pages: 160
+  brand_words: [первая, фонд]
+
+# ВИМ Инвестиции: выгрузка котировок и раздел раскрытия
+"7701140866":
+  adapter: wim
+  seeds:
+    - https://www.wealthim.ru/products/pif/opif/
+    - https://www.wealthim.ru/products/bpif/
+    - https://www.wealthim.ru/about/disclosure/pif/opif/
+    - https://www.wealthim.ru/about/disclosure/pif/bpif/
+  follow: '^/(products/(pif/opif|bpif)/[^/]+/|about/disclosure/pif/(opif|bpif)/[^/]+/)\?*$'
+  max_pages: 180
+  brand_words: [вим]
+
+# Атон-менеджмент: документы фондов собраны в разделе legaldocs
+"7701253764":
+  seeds:
+    - https://www.am-aton.ru/legaldocs/docpif
+  follow: '^/legaldocs/docpif/[a-z0-9_-]+\?*$'
+  max_pages: 60
+  brand_words: [атон]
+
+# ААА Управление Капиталом: КИД в раскрытии, ряд пая на странице фонда
+"7722515837":
+  seeds:
+    - https://aaacapital.ru/individual/pif/
+    - https://aaacapital.ru/bpif/
+    - https://aaacapital.ru/wealthy-clients/interval/
+    - https://aaacapital.ru/about/open-info/pifs/
+  follow: '^/(individual/pif/[^/]+/|bpif/[^/]+/|wealthy-clients/interval/[^/]+/|about/open-info/pifs/[^/]+/)\?*$'
+  skip: 'product\.page_url'
+  max_pages: 130
+  brand_words: [ааа]
+
+# Финам Менеджмент: раскрытие по каждому фонду
+"7744002606":
+  seeds:
+    - https://www.fdu.ru/documents/disclosure/
+  follow: '^/documents/disclosure/[a-z_-]+(/[a-z_-]+)?/?\?*$'
+  max_pages: 200
+  brand_words: [финам]
+
+# ДОХОДЪ
+"7826685368":
+  seeds:
+    - https://www.dohod.ru/individuals/mutual-funds/open-funds/
+    - https://www.dohod.ru/individuals/mutual-funds/exchange-funds/
+  follow: '^/individuals/mutual-funds/[a-z-]+/[a-z0-9-]+/?\?*$'
+  max_pages: 80
+  brand_words: [доходъ]
+
+# Т-Капитал
+"7743304530":
+  seeds:
+    - https://t-capital-funds.ru/documents/mutual_funds/
+  max_pages: 80
+  brand_words: [т, капитал]
+
+# РСХБ Управление Активами
+"7704814182":
+  seeds:
+    - https://www.rshb-am.ru/paevye-investicionnye-fondy-pif/
+  follow: '^/paevye-investicionnye-fondy-pif/[a-z0-9-]+/?\?*$'
+  max_pages: 40
+  brand_words: [рсхб]
+
+# Промсвязь
+"7718218817":
+  seeds:
+    - https://www.upravlyaem.ru/funds/
+  follow: '^/funds/[A-Za-z0-9_-]+/?\?*$'
+  max_pages: 50
+  brand_words: [промсвязь]
