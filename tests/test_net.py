@@ -209,6 +209,18 @@ async def test_failed_address_is_not_asked_again_inside_freshness_window(tmp_pat
     assert calls == ["/page"]
 
 
+async def test_address_closed_by_robots_needs_no_robots_request_on_repeat_run(tmp_path):
+    handler = robots_handler("User-agent: *\nDisallow: /")
+    async with fetcher_for(tmp_path, handler) as fetcher:
+        with pytest.raises(RobotsDisallowed):
+            await fetcher.get("https://uk.example/page")
+        assert fetcher.stats.sent == 1
+    async with fetcher_for(tmp_path, handler) as fetcher:
+        with pytest.raises(RobotsDisallowed):
+            await fetcher.get("https://uk.example/page")
+        assert fetcher.stats.sent == 0
+
+
 async def test_force_asks_failed_address_again_and_success_clears_failure(tmp_path):
     answers = iter([404, 200])
 

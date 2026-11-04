@@ -127,7 +127,7 @@ class _HostGate:
 
 
 _FAILURE_KINDS: dict[str, type[FetchError]] = {
-    kind.__name__: kind for kind in (FetchError, SiteUnavailable, AccessBlocked, ResourceNotFound)
+    kind.__name__: kind for kind in (FetchError, SiteUnavailable, AccessBlocked, ResourceNotFound, RobotsDisallowed)
 }
 
 
@@ -315,8 +315,6 @@ class Fetcher:
             result = await self._request(
                 method, full_url, key, host, entry, headers, data, uk_inn, fund, retries, documented_api, public_document
             )
-        except RobotsDisallowed:
-            raise
         except FetchError as exc:
             self.cache.failures[key] = {"kind": type(exc).__name__, "detail": exc.detail, "checked_at": time.time()}
             raise
