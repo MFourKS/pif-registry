@@ -1,0 +1,17 @@
+
+User-agent: *
+Disallow: /
+
+User-agent: Yandex
+Allow: /
+Disallow: /admin
+Disallow: /webim
+Disallow: /library/download
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /webim
+Disallow: /library/download
+
+Sitemap: https://arsagera.ru/sitemap.xml

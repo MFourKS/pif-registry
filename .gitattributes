@@ -1,0 +1,6 @@
+* text=auto eol=lf
+tests/fixtures/** -text
+*.woff2 binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
