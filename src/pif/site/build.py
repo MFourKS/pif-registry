@@ -389,11 +389,14 @@ def build_site(settings: Settings, analysis: Analysis, manifest: Manifest, quali
             names={v.fund.rule_number: v.fund.short_name for v in views},
             fund_url=_fund_url,
         )
-        for report in ("quality_report.json", "corrections.csv", "manual_check.csv"):
+        for report in ("quality_report.json", "quality_report.md", "corrections.csv", "manual_check.csv"):
             source = settings.data_dir / report
             if source.exists():
                 shutil.copy(source, dist / "data" / report)
         shutil.copy(settings.manifest_path, dist / "data" / "sources.csv")
+        fund_status = settings.manifest_path.with_name("fund_status.csv")
+        if fund_status.exists():
+            shutil.copy(fund_status, dist / "data" / "fund_status.csv")
         span.set_attribute("pif.pages", len(views) + len(companies) + 3)
         log.info("site_built", path=str(dist), funds=len(views), companies=len(companies))
         return dist

@@ -10,9 +10,18 @@ from dataclasses import asdict
 from datetime import UTC, date, datetime
 from pathlib import Path
 
+import httpx
 import typer
 
-from pif.analytics import build_analysis, quality_report, write_corrections, write_flows, write_quality
+from pif.analytics import (
+    build_analysis,
+    quality_report,
+    write_corrections,
+    write_flows,
+    write_fund_status,
+    write_quality,
+    write_quality_markdown,
+)
 from pif.collect import (
     CollectResult,
     collect_all,
@@ -23,6 +32,7 @@ from pif.collect import (
     without_geo_blocked,
 )
 from pif.config import Settings, load_settings
+from pif.errors import FetchError
 from pif.manual_check import write_manual_sample
 from pif.net.client import Fetcher
 from pif.normalize import fx as fx_module
@@ -122,6 +132,8 @@ def _pipeline(
             issues = collected.issues if collected else []
             report = quality_report(analysis, issues, settings, manifest, collected.uk_failures if collected else None)
             write_quality(settings.data_dir / "quality_report.json", report)
+            write_quality_markdown(settings.data_dir / "quality_report.md", report)
+            write_fund_status(settings.manifest_path.with_name("fund_status.csv"), analysis)
             write_corrections(settings.data_dir / "corrections.csv", analysis.corrections, series.revisions)
             write_flows(settings.data_dir / "flows.csv", analysis)
             write_manual_sample(settings.data_dir / "manual_check.csv", analysis, manifest)
@@ -191,24 +203,29 @@ def fetch_raw(limit: int = typer.Option(0, help="Скачать не больш�
     raise typer.Exit(asyncio.run(_restore_raw(settings, limit)))
 
 
-async def _restore_raw(settings: Settings, limit: int) -> int:
-    from pif.storage.rawstore import sha256_of
-
+async def _restore_raw(settings: Settings, limit: int, transport: httpx.AsyncBaseTransport | None = None) -> int:
+    """Докачивает недостающее. Сбой одного адреса не прерывает работу, итог виден в логе и коде возврата."""
     raw = RawStore(settings.raw_dir)
     manifest = Manifest(settings.manifest_path)
     missing = [r for r in manifest.records() if raw.get(r.sha256, r.fmt) is None]
     unique = list({r.sha256: r for r in missing}.values())
     if limit:
         unique = unique[:limit]
-    changed = 0
-    async with Fetcher(settings, raw, Manifest(settings.out_dir / "restore_manifest.csv"), force=True) as fetcher:
+    changed = failed = 0
+    restore_manifest = Manifest(settings.out_dir / "restore_manifest.csv")
+    async with Fetcher(settings, raw, restore_manifest, force=True, transport=transport) as fetcher:
         for record in unique:
-            result = await fetcher.get(record.url, public_document=True, retries=0)
-            if sha256_of(result.content) != record.sha256:
+            try:
+                result = await fetcher.get(record.url, public_document=True, retries=0)
+            except FetchError as exc:
+                failed += 1
+                log.warning("raw_unavailable", url=record.url, error=str(exc)[:160])
+                continue
+            if result.sha256 != record.sha256:
                 changed += 1
                 log.warning("raw_changed_since_manifest", url=record.url)
-    log.info("raw_restored", requested=len(unique), changed=changed)
-    return 0
+    log.info("raw_restored", requested=len(unique), changed=changed, failed=failed)
+    return 1 if failed else 0
 
 
 @app.command()

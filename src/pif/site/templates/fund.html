@@ -18,6 +18,10 @@
 <section class="kpis">
   <div class="kpi"><b>СЧА{% if view.nav_day %} на {{ view.nav_day | ddate }}{% endif %}</b><span>{{ view.nav_rub | money }} ₽</span></div>
   <div class="kpi"><b>Стоимость пая</b><span>{{ view.price | number }} {{ view.series.currency }}</span></div>
+  {% if view.series.currency != 'RUB' %}
+  <div class="kpi"><b>СЧА в валюте пая</b><span>{{ view.nav_native | money }} {{ view.series.currency }}</span></div>
+  <div class="kpi"><b>Пай в рублях</b><span>{{ view.price_rub | number }} ₽</span></div>
+  {% endif %}
   <div class="kpi"><b>Приток за {{ view.basis_month | month }}</b><span class="{{ view.flow_1m | sign }}">{{ view.flow_1m | money }} ₽</span></div>
   <div class="kpi"><b>Приток за 12 мес.</b><span class="{{ view.flow_12m | sign }}">{{ view.flow_12m | money }} ₽</span></div>
 </section>
@@ -99,7 +103,7 @@
 <section class="panel">
   <h2>Последние точки ряда</h2>
   <div class="scroll"><table class="plain">
-    <thead><tr><th>Дата</th><th class="num">СЧА</th><th class="num">Пай</th><th>Вид</th><th>Источник</th></tr></thead>
+    <thead><tr><th>Дата</th><th class="num">СЧА, {{ view.series.currency }}</th><th class="num">Пай, {{ view.series.currency }}</th><th>Вид</th><th>Источник</th></tr></thead>
     <tbody>
     {% for p in recent %}
       <tr><td>{{ p.day | ddate }}</td><td class="num">{{ p.nav | number }}</td><td class="num">{{ p.unit_price | number(4) }}</td>

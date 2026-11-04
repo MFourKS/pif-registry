@@ -32,6 +32,7 @@ from pif.normalize.fx import FxRates
 from pif.normalize.series import (
     Correction,
     NormalizedSeries,
+    Point,
     Reconciliation,
     documents_only,
     last_month_end,
@@ -75,6 +76,8 @@ class FundView:
     mismatches: list[YieldCheck] = field(default_factory=list)
     pays_income: bool | None = None
     basis_month: str = ""
+    nav_native: Decimal | None = None
+    price_rub: Decimal | None = None
 
 
 @dataclass(slots=True)
@@ -137,11 +140,8 @@ def classify_status(
 _GRACE = date(2000, 2, 15) - date(2000, 1, 1)
 
 
-def _latest_nav(series: NormalizedSeries) -> tuple[Decimal | None, Decimal | None, date | None]:
-    for point in reversed(series.points):
-        if point.nav_rub is not None:
-            return point.nav_rub, point.unit_price, point.day
-    return None, None, None
+def _latest_point(series: NormalizedSeries) -> Point | None:
+    return next((p for p in reversed(series.points) if p.nav_rub is not None), None)
 
 
 def build_analysis(
@@ -215,7 +215,10 @@ def build_analysis(
             status, reason = classify_status(fund, series, outcome, uk_failure, as_of, note)
             view = FundView(fund, series, status, reason)
             view.flows = fund_flows(fund, series, fx, last_complete)
-            view.nav_rub, view.price, view.nav_day = _latest_nav(series)
+            latest = _latest_point(series)
+            if latest is not None:
+                view.nav_rub, view.price, view.nav_day = latest.nav_rub, latest.unit_price, latest.day
+                view.nav_native, view.price_rub = latest.nav, latest.price_rub
             monthly = {f.month: f.flow_rub for f in view.flows if f.flow_rub is not None}
             ends = month_end_points(series.points)
             # КИД за прошлый месяц выходит в середине следующего. Фонды только с КИД считаем на свой
@@ -401,6 +404,72 @@ def _issue(issue: Issue) -> dict[str, str]:
         "fund": issue.fund,
         "message": issue.message,
     }
+
+
+def write_fund_status(path: Path, analysis: Analysis) -> None:
+    """Манифест на уровне фонда: статус есть и у тех фондов, по которым нет ни одного файла."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(
+            ["rule_number", "name", "type", "uk", "uk_inn", "status", "status_label", "reason", "frequency",
+             "points", "first_date", "last_date", "sources", "official_checks", "mismatches"]
+        )  # fmt: skip
+        for rule in sorted(analysis.views):
+            view = analysis.views[rule]
+            points = view.series.points
+            writer.writerow(
+                [rule, view.fund.short_name, view.fund.fund_type.value, view.fund.uk_name, view.fund.uk_inn,
+                 view.status.value, STATUS_LABELS[view.status], view.status_reason, view.series.frequency,
+                 len(points), points[0].day if points else "", points[-1].day if points else "",
+                 len({p.source_id for p in points}), len(view.checks), len(view.mismatches)]
+            )  # fmt: skip
+
+
+def write_quality_markdown(path: Path, report: dict[str, Any]) -> None:
+    """Тот же отчёт для чтения глазами."""
+    check = report["yield_check"]
+    gap = report["collection_gap"]
+    lines = [
+        "# Отчёт качества",
+        "",
+        f"Реестр на {report['registry_as_of']}. Публикация {'разрешена' if report['publish_allowed'] else 'запрещена'}.",
+        "",
+        "| Показатель | Значение |",
+        "|---|---|",
+        f"| Фондов в реестре | {report['funds_total']} |",
+        f"| Фондов с рядом | {report['funds_with_series']} |",
+        f"| Розничных фондов с рядом | {report['retail_funds_with_series']} из {report['retail_funds']} |",
+        f"| Точек в рядах | {report['points_total']} |",
+        f"| Ошибок сбора и разбора | {len(report['errors'])} |",
+        f"| Известных ошибок | {len(report['known_issues'])} |",
+        f"| Предупреждений | {report['warnings_total']} |",
+        f"| Разрывов в сверке итогов | {len(report['tie_out_breaks'])} |",
+        f"| Рядов, не обновлённых из-за сбоя сайта | {gap['funds_with_series']} |",
+        f"| Записей в журнале исправлений | {report['corrections_total']} |",
+        f"| Значений официальной доходности | {check['official_values']} |",
+        f"| Сверено с рядом | {check['compared']} |",
+        f"| В пределах {check['tolerance_pp']} п. п. | {check['within_tolerance']} |",
+        "",
+        "## Статусы фондов",
+        "",
+        "| Статус | Фондов |",
+        "|---|---|",
+        *[f"| {s['label']} | {s['count']} |" for s in report["statuses"].values()],
+        "",
+        "## Расхождения с официальной доходностью",
+        "",
+        "| Фонд | Правила | Период, мес. | Дата | Наш расчёт, % | Официальная, % | Разница, п. п. | Причина | Источник |",
+        "|---|---|---|---|---|---|---|---|---|",
+        *[
+            f"| {m['name']} | {m['fund']} | {m['period_months']} | {m['report_date']} | {m['computed_pct']} | "
+            f"{m['official_pct']} | {m['difference_pp']} | {m['reason']} | {m['source_url']} |"
+            for m in check["mismatches"]
+        ],
+        "",
+    ]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
 
 def write_quality(path: Path, report: dict[str, Any]) -> None:

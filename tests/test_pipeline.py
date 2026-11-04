@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv
 import hashlib
 import re
 from datetime import date
@@ -368,3 +369,76 @@ def test_full_pipeline_from_stored_data(tmp_path, monkeypatch):
     assert (settings.dist_dir / "nested" / "pif" / "index.html").exists()
     assert (settings.out_dir / "last_run.json").exists()
     assert list((settings.out_dir / "traces").glob("*.jsonl"))
+
+
+async def test_fetch_raw_restores_files_and_survives_a_dead_link(tmp_path):
+    from pif import cli
+    from pif.models import SourceRecord
+    from pif.storage.rawstore import sha256_of, source_id_of
+
+    settings = settings_for(tmp_path)
+    body = b"%PDF-1.7 kid"
+    sha = sha256_of(body)
+    manifest = Manifest(settings.manifest_path)
+    manifest.add(SourceRecord(source_id_of(sha), "https://uk.example/kid.pdf", "2026-11-04", "pdf", sha, len(body), 200, "ok"))
+    manifest.add(SourceRecord("0" * 16, "https://uk.example/gone.pdf", "2026-11-04", "pdf", "0" * 64, 1, 200, "ok"))
+    manifest.save()
+
+    def handler(request):
+        if request.url.path == "/kid.pdf":
+            return httpx.Response(200, content=body, headers={"content-type": "application/pdf"})
+        return httpx.Response(404)
+
+    code = await cli._restore_raw(settings, 0, httpx.MockTransport(handler))
+
+    assert code == 1, "о недокачанном файле должен сообщить код возврата"
+    assert RawStore(settings.raw_dir).get(sha, "pdf") == body
+
+
+def test_fund_status_covers_funds_without_files(tmp_path):
+    from pif.analytics import write_fund_status
+
+    funds = [make_fund("1"), make_fund("2")]
+    settings, analysis = analysis_for(tmp_path, funds, {"1": [(d, "1000", "100") for d in month_ends()]})
+    path = tmp_path / "fund_status.csv"
+    write_fund_status(path, analysis)
+    rows = {r["rule_number"]: r for r in csv.DictReader(path.open(encoding="utf-8"))}
+    assert rows["1"]["status"] == "ok" and rows["1"]["points"] == "14"
+    assert rows["2"]["status"] == "not_found" and rows["2"]["reason"]
+
+
+def test_quality_report_for_reading_lists_mismatches(tmp_path):
+    from pif.analytics import write_quality_markdown
+    from pif.models import OfficialReturn
+
+    fund = make_fund()
+    settings = settings_for(tmp_path)
+    store = SeriesStore(settings.series_dir)
+    for day in month_ends():
+        store.add(fund.rule_number, observation(day, "1000", "100"))
+    official = OfficialStore(settings.official_dir / "r.csv")
+    official.add(OfficialReturn(fund.rule_number, date(2026, 10, 31), 1, D("5"), "src"))
+    analysis = build_analysis(settings, registry_of(fund), store, official, FxRates(), None)
+    path = tmp_path / "quality.md"
+    write_quality_markdown(path, quality_report(analysis, [], settings, Manifest(settings.manifest_path)))
+    text = path.read_text(encoding="utf-8")
+    assert "Публикация разрешена" in text
+    assert fund.rule_number in text and "Причина не установлена" in text
+
+
+def test_currency_fund_card_shows_both_currencies(tmp_path):
+    funds = [make_fund("1", uk_inn="7700000001")]
+    settings = settings_for(tmp_path)
+    store = SeriesStore(settings.series_dir)
+    days = month_ends()
+    for day in days:
+        store.add("1", observation(day, "1000", "10", currency="USD"))
+    rates = FxRates({"USD": {day: D("90") for day in days}})
+    analysis = build_analysis(settings, registry_of(*funds), store, OfficialStore(settings.official_dir / "r.csv"), rates, None)
+    settings.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    settings.data_dir.mkdir(parents=True, exist_ok=True)
+    manifest = Manifest(settings.manifest_path)
+    manifest.save()
+    dist = build_site(settings, analysis, manifest, quality_report(analysis, [], settings, manifest))
+    page = (dist / "fund" / "1" / "index.html").read_text(encoding="utf-8")
+    assert "СЧА в валюте пая" in page and "Пай в рублях" in page and "900,00" in page
