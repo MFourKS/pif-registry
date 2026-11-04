@@ -94,7 +94,7 @@ def _pipeline(settings: Settings, *, force: bool, only: set[str] | None, skip_co
             registry.save(settings.data_dir / "registry.json")
 
             issues = collected.issues if collected else []
-            report = quality_report(analysis, issues, settings, manifest, fetch_stats)
+            report = quality_report(analysis, issues, settings, manifest)
             write_quality(settings.data_dir / "quality_report.json", report)
             write_corrections(settings.data_dir / "corrections.csv", analysis.corrections, series.revisions)
             write_flows(settings.data_dir / "flows.csv", analysis)

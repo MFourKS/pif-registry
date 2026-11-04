@@ -27,6 +27,8 @@ from pif.storage.series_store import DocPoint, OfficialStore, SeriesStore
 
 log = get_logger("collect")
 
+KID_CONFLICT_TOLERANCE = 0.02
+
 
 @dataclass(slots=True)
 class Issue:
@@ -87,6 +89,8 @@ class CollectContext:
         self.issues: list[Issue] = []
         self.counters: Counter[str] = Counter()
         self.site_failure: tuple[DataStatus, str] | None = None
+        # Сбой одной ссылки не значит, что сайт недоступен: это решается по итогам всего обхода.
+        self.first_failure: tuple[DataStatus, str] | None = None
 
     async def fetch(self, url: str, *, fund: Fund | None = None, **kwargs: Any) -> FetchResult:
         return await self.fetcher.get(
@@ -111,8 +115,8 @@ class CollectContext:
         if fund is not None:
             outcome = self.outcomes[fund.rule_number]
             outcome.failure, outcome.failure_reason = status, str(exc)[:200]
-        elif self.site_failure is None:
-            self.site_failure = (status, str(exc)[:200])
+        elif self.first_failure is None:
+            self.first_failure = (status, str(exc)[:200])
         self.counters[f"fetch_{status.value}"] += 1
 
     def note_parse_error(self, url: str, exc: ParseError, fund: Fund | None = None) -> None:
@@ -153,6 +157,17 @@ class CollectContext:
 
     def add_kid(self, fund: Fund, kid: KidData, source: FetchResult) -> None:
         if kid.report_date < self.cutoff:
+            return
+        known = self.official.points.get((fund.rule_number, kid.report_date))
+        if (
+            known is not None
+            and known.source_id != source.source_id
+            and known.unit_price
+            and kid.unit_price
+            and abs(float(kid.unit_price / known.unit_price) - 1) > KID_CONFLICT_TOLERANCE
+        ):
+            # Два разных КИД на одну дату у одного фонда: один из них сопоставлен неверно.
+            self.note_unmatched(source.url, f"КИД конфликтует с уже принятым: {kid.fund_name or ''}")
             return
         if kid.unit_price is not None or kid.nav is not None:
             row = SeriesRow(kid.report_date, kid.unit_price, kid.nav, kid.currency)

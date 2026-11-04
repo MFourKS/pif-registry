@@ -259,7 +259,6 @@ def quality_report(
     issues: list[Issue],
     settings: Settings,
     manifest: Manifest,
-    fetch_stats: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     views = analysis.views.values()
     statuses = Counter(v.status.value for v in views)
@@ -317,7 +316,6 @@ def quality_report(
             {"level": t.level, "month": t.month, "difference": str(t.difference)} for t in analysis.tie_out
         ],
         "publish_allowed": not errors and not analysis.tie_out,
-        "fetch": fetch_stats or {},
     }
 
 

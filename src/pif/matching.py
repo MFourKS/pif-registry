@@ -18,7 +18,12 @@ _BOILERPLATE = (
     r"инструментов|комбинированн\w*|опиф\w*|ипиф\w*|бпиф\w*|рфи|под|управлением|ооо|ао|пао|ук|"
     r"управляющ\w*|компани\w*|смешанных|инвестиций|акций|облигаций|фондов"
 )
-_KEEP_WHEN_QUOTED = {"акций", "облигаций", "фонд", "инвестиций", "компаний", "фондов"}
+_FORMULA = re.compile(
+    r"(?i)^\s*(открыт\w+|интервальн\w+|биржев\w+)\s+паев\w+\s+инвестиционн\w+\s+"
+    r"(фонд\w*\s+)?((рыночных\s+финансовых\s+инструментов|смешанных\s+инвестиций|акций|облигаций|фондов|"
+    r"комбинированн\w+)\s+)?(фонд\w*\s+)?"
+)
+_CLOSED_FUND = re.compile(r"(?i)\bзпиф|закрыт\w+\s+паев|заблокированн\w+\s+актив")
 _QUOTED = re.compile(r"[«\"“„]([^»\"”“]{2,160})[»\"”“]")
 _RULE = re.compile(r"\b(\d{4})\s*[–—-]\s*(\d{8}|\d{2}\s?\d{3}\s?\d{3}|СД)\b")
 _TYPE_HINTS: tuple[tuple[str, FundType], ...] = (
@@ -38,9 +43,14 @@ def _tokens(text: str, *, quoted: bool) -> frozenset[str]:
 
 def name_tokens(text: str) -> frozenset[str]:
     """Слова собственного имени фонда: содержимое кавычек или текст без служебных слов."""
+    text = re.split(r"(?i)\bпод\s+управлением\b", text, maxsplit=1)[0]
     found = _QUOTED.findall(text)
     if found:
         return _tokens(found[-1], quoted=True)
+    # Без кавычек отрезаем только типовое начало: в имени бывают слова вроде «Биржевая копилка».
+    stripped = _FORMULA.sub("", text, count=1)
+    if stripped != text:
+        return _tokens(stripped, quoted=True)
     return _tokens(text, quoted=False)
 
 
@@ -91,6 +101,8 @@ class FundMatcher:
         return self.by_rule[hits.pop()] if len(hits) == 1 else None
 
     def match(self, text: str, *, fund_type: FundType | None = None, threshold: float = 0.72) -> Fund | None:
+        if _CLOSED_FUND.search(text):
+            return None  # Закрытых фондов в реестре проекта нет, поэтому близкое имя было бы ошибкой.
         hint = fund_type or fund_type_hint(text)
         wanted = self._clean(name_tokens(text))
         scores: dict[str, float] = {}

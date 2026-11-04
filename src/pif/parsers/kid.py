@@ -43,8 +43,13 @@ _HORIZONTAL_HEADER = re.compile(r"(?i)1[ \t]*мес\S*[ \t]+3[ \t]*мес\S*[ \t
 _HORIZONTAL_VALUES = re.compile(r"(?i)доходность[ \t]+инвестиций[ \t]+([^\n]+)")
 _FUND_NAME = re.compile(
     r"(?is)((?:открыт\w+|интервальн\w+|биржев\w+)\s+паев\w+\s+инвестиционн\w+\s+[^«\"“„]{0,120}?"
-    r"[«\"“„][^»\"”“]{2,120}[»\"”“])"
+    r"(?:[«\"“„][^»\"”“]{2,120}[»\"”“]|(?=под\s+управлением)))"
 )
+_FUND_NAME_PLAIN = re.compile(r"(?is)((?:открыт\w+|интервальн\w+|биржев\w+)\s+паев\w+\s+инвестиционн.{0,200}?)\s+под\s+управлением")
+_HEADING_NAME = re.compile(
+    r"(?is)ключев\w+\s+информационн\w+\s+документ\s+((?:опиф|ипиф|бпиф|зпиф)[^«\"“„]{0,90}[«\"“„].{2,140}?[»\"”“])\s*(?:опубликовано|раздел|\n)"
+)
+_SECTION_ONE = re.compile(r"(?is)раздел\s*1\b.*?(?=раздел\s*2\b|внимание)")
 _MULTIPLIERS = {"тыс": Decimal(1000), "млн": Decimal(10**6), "млрд": Decimal(10**9)}
 _CURRENCIES = {
     "руб": "RUB", "₽": "RUB", "rub": "RUB",
@@ -165,7 +170,15 @@ def parse_kid_text(text: str, source: str = "КИД") -> KidData:
         raise UnknownFormatError(source, "документ не похож на КИД")
 
     unit_price, nav, currency = _result_amounts(flat)
-    name_match = _FUND_NAME.search(flat)
+    # В шапке некоторых КИД перечислены все фонды УК. Имя своего фонда стоит в разделе 1.
+    section = _SECTION_ONE.search(flat)
+    scope = section[0] if section else flat
+    name_match = (
+        _HEADING_NAME.search(flat)
+        or _FUND_NAME_PLAIN.search(scope)
+        or _FUND_NAME.search(scope)
+        or _FUND_NAME.search(flat)
+    )
     return KidData(
         report_date=report_date,
         fund_name=re.sub(r"\s+", " ", name_match[1]).strip() if name_match else None,

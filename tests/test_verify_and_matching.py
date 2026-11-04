@@ -113,3 +113,13 @@ def test_rule_numbers_in_text():
 
 def test_name_tokens_ignore_boilerplate():
     assert name_tokens("Открытый паевой инвестиционный фонд рыночных финансовых инструментов Тестовый") == {"тестовый"}
+
+
+def test_company_after_fund_name_is_ignored():
+    tokens = name_tokens("Открытый паевой инвестиционный фонд ДОХОДЪ. Биржевая копилка Под управлением: ООО «УК «ДОХОДЪ»")
+    assert tokens == {"доходъ", "биржевая", "копилка"}
+
+
+def test_closed_fund_is_never_matched_to_open_namesake():
+    matcher = FundMatcher([make_fund("2565", name="ОПИФ рыночных финансовых инструментов «Чистые деньги»")])
+    assert matcher.match("ЗПИФ рыночных финансовых инструментов «Заблокированные активы фонда «Чистые деньги»") is None

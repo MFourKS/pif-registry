@@ -28,7 +28,7 @@ from pif.parsers.numbers import parse_date
 log = get_logger("adapter.generic")
 
 _DEFAULT_FOLLOW = re.compile(
-    r"(?i)(pif|fund|fond|opif|ipif|bpif|etf|product|disclos|raskr|information|info|kid|invest|paev|"
+    r"(?i)(pif|fund|fond|opif|ipif|bpif|etf|product|disclos|raskr|information|info|kid|invest|paev|compliance|"
     r"фонд|пиф|раскрыт)"
 )
 _SKIP = re.compile(

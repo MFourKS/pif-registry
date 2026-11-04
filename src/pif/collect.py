@@ -92,6 +92,8 @@ async def _collect_uk(
                 span.record_exception(exc)
                 span.set_status(Status(StatusCode.ERROR, type(exc).__name__))
 
+            if ctx.site_failure is None and ctx.first_failure and not ctx.counters.get("pages"):
+                ctx.site_failure = ctx.first_failure
             result.outcomes.update(ctx.outcomes)
             result.issues.extend(ctx.issues)
             result.counters[uk.inn] = dict(ctx.counters)
