@@ -224,7 +224,8 @@ python -m http.server 8000 --directory dist
 | Что | Где |
 |---|---|
 | Манифест источников | [manifest/sources.csv](manifest/sources.csv) |
-| Отчёт качества последнего прогона | [data/quality_report.json](data/quality_report.json) |
+| Статус и причина по каждому фонду | [manifest/fund_status.csv](manifest/fund_status.csv) |
+| Отчёт качества последнего прогона | [data/quality_report.md](data/quality_report.md), [JSON](data/quality_report.json) |
 | Журнал исправлений рядов | [data/corrections.csv](data/corrections.csv) |
 | Ручная сверка 15 значений | [data/manual_check.csv](data/manual_check.csv) |
 | Записка про ИИ | [AI_NOTES.md](AI_NOTES.md) |
@@ -238,14 +239,17 @@ python -m http.server 8000 --directory dist
 | openpyxl | MIT | XLSX |
 | xlrd | BSD-3-Clause | XLS |
 | pdfplumber, pdfminer.six | MIT | PDF |
-| pypdfium2 (через pdfplumber) | Apache-2.0, BSD-3-Clause | PDF |
 | lxml | BSD-3-Clause | HTML |
 | Jinja2 | BSD-3-Clause | Шаблоны сайта |
 | PyYAML | MIT | Настройки |
 | structlog | MIT, Apache-2.0 | Логи |
 | opentelemetry-sdk | Apache-2.0 | Трассировка |
 | typer | MIT | Командная строка |
-| pytest, pytest-asyncio, ruff, mypy | MIT | Разработка |
+| pytest, pytest-asyncio, ruff, mypy | MIT, Apache-2.0 | Разработка |
+
+Полный список с транзитивными пакетами: [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md). Есть исключения: `certifi` (MPL-2.0)
+приходит с `httpx`, `typing_extensions` (PSF-2.0) со многими пакетами, а `pathspec` (MPL-2.0) с `mypy`. Заменить их без отказа
+от этих библиотек нельзя, в сайт они не попадают.
 
 Шрифты Manrope, Inter и JetBrains Mono лежат в сборке, лицензия OFL 1.1: тексты лицензий в
 `src/pif/site/static/fonts/`. Во время работы сайт ничего не загружает извне: это проверяет тест.

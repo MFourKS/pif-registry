@@ -3,7 +3,6 @@ name = "pif-registry"
 version = "0.1.0"
 description = "Реестр розничных ПИФов России: сбор из первичных источников, нормализация, притоки, самопроверка и статический сайт /pif/"
 requires-python = ">=3.12"
-license = { text = "MIT" }
 dependencies = [
   "httpx>=0.27,<1",
   "openpyxl>=3.1,<4",
