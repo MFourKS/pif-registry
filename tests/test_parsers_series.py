@@ -8,7 +8,9 @@ from decimal import Decimal as D
 
 import pytest
 
+from pif.adapters.alfa import fund_slugs, server_state
 from pif.adapters.first import parse_returns_table
+from pif.adapters.tcapital import MIRROR, documents_in
 from pif.errors import UnknownFormatError
 from pif.models import FundType
 from pif.parsers import embedded, series
@@ -167,3 +169,48 @@ def test_solid_nuxt_payload(fixture_text):
     rows = embedded.nuxt_payload(fixture_text("solid_nuxt.html"), "solid")
     assert len(rows) == 30
     assert all(r.unit_price and r.day for r in rows)
+
+
+def test_record_chart_data_in_js_string(fixture_text):
+    rows = embedded.record_arrays(fixture_text("record_chart.html"), "record")
+    assert len(rows) == 30
+    assert rows == sorted(rows, key=lambda r: r.day)
+    assert all(r.unit_price and r.nav is None for r in rows)
+
+
+def test_geroi_series_json(fixture_text):
+    records = json.loads(fixture_text("geroi_series.json"))
+    rows = series.json_records(records, "geroi")
+    assert len(rows) == 30
+    assert rows[-1].unit_price == D(str(records[-1]["share"]))
+    assert rows[-1].nav == D(str(records[-1]["scha"]))
+
+
+def test_alfa_server_state_lists_funds_of_all_types(fixture_text):
+    slugs = fund_slugs(server_state(fixture_text("alfa_disclosure_state.html"), "alfa"))
+    assert {kind for _, _, kind in slugs} >= {"opened", "exchangeTraded", "interval"}
+    assert any(slug == "opif_akop" for slug, _, _ in slugs)
+
+
+def test_alfa_page_without_state_is_an_error():
+    with pytest.raises(UnknownFormatError, match="SERVER_STATE"):
+        server_state("<html></html>", "alfa")
+
+
+def test_tcapital_documents_use_the_company_domain(fixture_text):
+    documents = documents_in(fixture_text("tcapital_documents.html"))
+    assert len(documents) == 6
+    assert all(d.url.startswith(MIRROR) for d in documents)
+    assert all("30.09.2026" in d.name for d in documents)
+
+
+def test_real_spreadsheet_without_series_gives_clear_error(fixture_bytes):
+    with pytest.raises(UnknownFormatError):
+        series.spreadsheet(fixture_bytes("report_without_series.xls"), "xls", "report")
+    with pytest.raises(UnknownFormatError):
+        series.spreadsheet(fixture_bytes("nav_statement_sgb.xlsx"), "xlsx", "statement")
+
+
+def test_unsupported_spreadsheet_format():
+    with pytest.raises(UnknownFormatError, match="не поддержана"):
+        series.spreadsheet(b"", "ods", "x")

@@ -99,27 +99,6 @@ def nested_date_map(page: str, source: str) -> list[SeriesRow]:
     return best
 
 
-def labelled_arrays(page: str, source: str) -> list[SeriesRow]:
-    """График Chart.js: labels: ["18.10.2023", ...] и data: [1.2, ...] рядом друг с другом."""
-    found = re.search(r'(?:labels|categories)\s*["\']?\s*:\s*(\[\s*["\']\d{2}\.\d{2}\.\d{4}["\'])', page)
-    if not found:
-        return []
-    labels = balanced_json(page.replace("'", '"'), found.start(1))
-    tail = page[found.end() : found.end() + 40 * len(labels) + 4000]
-    values = re.search(r'data["\']?\s*:\s*(\[[\d.,\s"\'-]+\])', tail)
-    if not values:
-        return []
-    numbers = json.loads(values[1].replace("'", '"'))
-    if len(numbers) != len(labels):
-        raise UnknownFormatError(source, f"длины рядов графика различаются: {len(labels)} и {len(numbers)}")
-    rows = []
-    for label, raw in zip(labels, numbers, strict=True):
-        day, value = parse_date(label), parse_decimal(raw)
-        if day and value is not None:
-            rows.append(SeriesRow(day, value, None))
-    return rows
-
-
 def nuxt_payload(page: str, source: str) -> list[SeriesRow]:
     """Состояние Nuxt: плоский массив, где поля записи хранят индексы значений (Солид Менеджмент)."""
     found = re.search(r'id="__NUXT_DATA__"[^>]*>(\[.*?\])</script>', page, re.S)
@@ -150,7 +129,6 @@ RECOGNIZERS: tuple[tuple[str, Callable[[str, str], list[SeriesRow]]], ...] = (
     ("js_graph_variable", js_graph_variable),
     ("record_arrays", record_arrays),
     ("nested_date_map", nested_date_map),
-    ("labelled_arrays", labelled_arrays),
     ("nuxt_payload", nuxt_payload),
     ("html_table", plain_table),
 )

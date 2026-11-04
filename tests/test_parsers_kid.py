@@ -214,3 +214,10 @@ def test_number_with_lost_space_and_line_break():
     kid = parse_kid_text(text)
     assert kid.unit_price == D("7330.20")
     assert kid.nav == D("4749613676.12")
+
+
+def test_nav_statement_in_xlsx(fixture_bytes):
+    statement = parse_nav_statement(fixture_bytes("nav_statement_sgb.xlsx"), "xlsx")
+    assert statement.report_date == date(2026, 7, 16)
+    assert statement.nav == D("928814412.22")
+    assert statement.unit_price == D("99518.66")

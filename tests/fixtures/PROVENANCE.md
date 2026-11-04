@@ -29,3 +29,8 @@
 | nav_statement_tcapital.pdf | https://cdn.t-capital-funds.ru/static/documents/otchet-scha-trur-30-09-2026.PDF |
 | first_returns.html | https://www.first-am.ru/disclosure/fund (блок #pif-table) |
 | solid_nuxt.html | https://solid-mn.ru/services/solid-invest/ (30 настоящих записей из __NUXT_DATA__) |
+| record_chart.html | https://recordcap.ru/funds/alenka (последние 30 настоящих точек графика) |
+| geroi_series.json | https://ih-capital.ru/funds?id=1 (последние 30 записей) |
+| tcapital_documents.html | https://t-capital-funds.ru/documents/mutual_funds/ (6 настоящих записей списка документов) |
+| nav_statement_sgb.xlsx | https://uksgb.ru/wp-content/uploads/2026/06/scha_7857_2026_07_16_1_ok.xlsx |
+| report_without_series.xls | https://p-fondy.ru/upload/iblock/6d0/otchet-o-priroste-_umenshenii_-sibirskiy-31.03.2015.xls |
