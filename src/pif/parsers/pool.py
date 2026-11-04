@@ -17,12 +17,12 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
-from pif.errors import ParseError, UnknownFormatError
+from pif.errors import NotApplicableDocument, ParseError, ScannedDocument, UnknownFormatError
 from pif.parsers.kid import KidData, parse_kid
 from pif.parsers.nav_statement import NavStatement, parse_nav_statement
 from pif.storage.atomic import replace_file
 
-PARSER_VERSION = 3
+PARSER_VERSION = 6
 
 
 def _kid_to_json(kid: KidData) -> dict[str, Any]:
@@ -48,6 +48,10 @@ def _kid_from_json(data: dict[str, Any]) -> KidData:
 def _safe_parse_kid(content: bytes, fmt: str, source: str) -> tuple[str, Any]:
     try:
         return "ok", _kid_to_json(parse_kid(content, fmt, source))
+    except NotApplicableDocument as exc:
+        return "skip", str(exc)
+    except ScannedDocument as exc:
+        return "scan", str(exc)
     except ParseError as exc:
         return "error", str(exc)
 
@@ -78,6 +82,10 @@ class DocumentParser:
             hit = await loop.run_in_executor(self._pool, _safe_parse_kid, content, fmt, source)
             self._cache[sha256] = hit
         status, payload = hit
+        if status == "skip":
+            raise NotApplicableDocument(payload)
+        if status == "scan":
+            raise ScannedDocument(payload)
         if status == "error":
             raise UnknownFormatError(source, payload)
         return _kid_from_json(payload)

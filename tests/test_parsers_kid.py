@@ -7,7 +7,7 @@ from decimal import Decimal as D
 
 import pytest
 
-from pif.errors import UnknownFormatError
+from pif.errors import NotApplicableDocument, ScannedDocument, UnknownFormatError
 from pif.parsers.kid import parse_kid, parse_kid_text
 from pif.parsers.nav_statement import parse_nav_statement
 
@@ -44,14 +44,27 @@ def test_fund_name_is_found_inside_document(fixture_bytes):
     assert "Альфа-Капитал Облигации Плюс" in kid.fund_name
 
 
-def test_not_a_kid_gives_clear_error():
-    with pytest.raises(UnknownFormatError, match="не похож на КИД"):
-        parse_kid_text("Отчёт по состоянию на 30.09.2026. Просто текст.")
+FILLER = " Текст документа." * 20
 
 
-def test_document_without_date_gives_clear_error():
+def test_document_about_something_else_is_skipped():
+    with pytest.raises(NotApplicableDocument):
+        parse_kid_text("Ключевой информационный документ о договоре доверительного управления." + FILLER)
+
+
+def test_other_fund_document_is_skipped():
+    with pytest.raises(NotApplicableDocument, match="не похож на КИД"):
+        parse_kid_text("Отчёт о паевом инвестиционном фонде по состоянию на 30.09.2026." + FILLER)
+
+
+def test_kid_without_date_gives_clear_error():
     with pytest.raises(UnknownFormatError, match="нет даты"):
-        parse_kid_text("Ключевой информационный документ без даты")
+        parse_kid_text("Ключевой информационный документ о паевом инвестиционном фонде без даты." + FILLER)
+
+
+def test_scan_without_text_layer_is_reported_separately():
+    with pytest.raises(ScannedDocument):
+        parse_kid_text("  ")
 
 
 def test_corrupted_docx_is_an_error_not_a_zero(fixture_bytes):
@@ -66,7 +79,7 @@ def test_unsupported_document_format():
 
 
 def test_list_of_all_funds_in_header_does_not_confuse_name():
-    text = """Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Чужой фонд» – правила № 1.
+    text = FILLER + """Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Чужой фонд» – правила № 1.
     Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Ещё один» – правила № 2.
     КЛЮЧЕВОЙ ИНФОРМАЦИОННЫЙ ДОКУМЕНТ
     Раздел 1. Общие сведения
@@ -77,7 +90,7 @@ def test_list_of_all_funds_in_header_does_not_confuse_name():
 
 
 def test_name_without_quotes_stops_before_company():
-    text = """Ключевой информационный документ по состоянию на 30.09.2026
+    text = FILLER + """Ключевой информационный документ по состоянию на 30.09.2026
     Открытый паевой инвестиционный фонд рыночных финансовых инструментов ДОХОДЪ. Облигации - Храброе Сердце
     Под управлением: ООО «УК «ДОХОДЪ»"""
     name = parse_kid_text(text).fund_name
@@ -85,7 +98,7 @@ def test_name_without_quotes_stops_before_company():
 
 
 def test_heading_name_wins_over_list_of_funds():
-    text = """Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Арикапитал – Чистые деньги» – правила 2565.
+    text = FILLER + """Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Арикапитал – Чистые деньги» – правила 2565.
     Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Арикапитал – Глобальные инвестиции» – правила 3208.
     Ключевой информационный документ ОПИФ рыночных финансовых инструментов «Арикапитал - Глобальные инвестиции»
     Опубликовано: 07.08.2025, 15:30
@@ -105,3 +118,8 @@ def test_nav_statement_form_0420502(fixture_bytes):
 def test_kid_is_not_taken_for_nav_statement(fixture_bytes):
     with pytest.raises(UnknownFormatError):
         parse_nav_statement(fixture_bytes("kid_tkb.pdf"), "pdf")
+
+
+def test_date_with_quoted_day():
+    text = "Ключевой информационный документ о паевом инвестиционном фонде по состоянию на «31» июля 2025г." + FILLER
+    assert parse_kid_text(text).report_date == date(2025, 7, 31)

@@ -16,7 +16,7 @@ from urllib.parse import urldefrag, urljoin, urlsplit
 import lxml.html
 
 from pif.adapters.base import Adapter, CollectContext
-from pif.errors import ParseError
+from pif.errors import NotApplicableDocument, ParseError, ScannedDocument
 from pif.models import Fund
 from pif.net.client import FetchResult
 from pif.observability import get_logger, tracer
@@ -281,11 +281,29 @@ class GenericAdapter(Adapter):
         result = await ctx.try_fetch(link.url, ttl=180 * 86400, public_document=True)
         if result is None:
             return
+        if result.fmt == "html":
+            # Ссылка ведёт на страницу со списком документов, а не на сам файл.
+            nested = [
+                item for item in _links(result.text, result.final_url)
+                if is_kid_link(item) and item.url != link.url and _DOC_SUFFIX.search(item.url)
+            ]  # fmt: skip
+            for item in nested[: ctx.config.options.get("max_nested_kids", 30)]:
+                day = link_report_date(item.text, item.url)
+                if day is None or day >= ctx.cutoff:
+                    await self.collect_kid(ctx, item, fund=fund)
+            return
         if result.fmt not in {"pdf", "docx"}:
             ctx.counters["kid_not_a_document"] += 1
             return
         try:
             kid = await ctx.documents.kid(result.sha256, result.content, result.fmt, link.url)
+        except NotApplicableDocument:
+            ctx.counters["kid_skipped"] += 1
+            return
+        except ScannedDocument as exc:
+            ctx.issues.append(_warn(ctx, link.url, str(exc)))
+            ctx.counters["kid_scanned"] += 1
+            return
         except ParseError as exc:
             ctx.note_parse_error(link.url, exc)
             return

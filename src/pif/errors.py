@@ -36,6 +36,14 @@ class ParseError(PifError):
     """Файл получен, но разобрать его не удалось."""
 
 
+class NotApplicableDocument(ParseError):
+    """Файл попал в выборку по названию, но это не документ о фонде. Ошибкой не считается."""
+
+
+class ScannedDocument(ParseError):
+    """PDF без текстового слоя. Распознавание сканов в проект не входит, это предупреждение."""
+
+
 class UnknownFormatError(ParseError):
     """Незнакомый формат. Даёт явную ошибку вместо тихого нуля."""
 

@@ -15,7 +15,7 @@ from pif.adapters.generic import GenericAdapter, Link, link_report_date
 
 SEED = "https://t-capital-funds.ru/documents/mutual_funds/"
 _ITEM = re.compile(r'\{"id":"[0-9a-f-]+","name":"')
-_STATEMENT = re.compile(r"(?i)^(сча|справка о стоимости чистых активов)\b")
+_STATEMENT = re.compile(r"(?i)^\s*(сча|справка о стоимости чистых активов)\b")
 _RETAIL = re.compile(r"(?i)\b(опиф|ипиф|бпиф|открыт\w+|интервальн\w+|биржев\w+)\b")
 _CDN = re.compile(r"^https://cdn\.tbank\.ru/")
 MIRROR = "https://cdn.t-capital-funds.ru/"

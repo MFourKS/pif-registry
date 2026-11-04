@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
 
-from pif.errors import ParseError, UnknownFormatError
+from pif.errors import NotApplicableDocument, ParseError, ScannedDocument, UnknownFormatError
 from pif.parsers.numbers import parse_date, parse_decimal
 
 _DATE_TOKEN = r"(\d{1,2}[./]\d{1,2}[./]\d{2,4}|\d{1,2}\s+[а-яё]+\s+\d{4})"
@@ -39,6 +39,7 @@ _RETURN_ROW = {
     6: re.compile(rf"(?i)(?<![\d.,])6[ \t]*мес(?:яцев)?\.?{_RETURN_VALUE}"),
     12: re.compile(rf"(?i)(?<![\d.,])(?:1[ \t]*год|12[ \t]*мес(?:яцев)?\.?){_RETURN_VALUE}"),
 }
+_GLUED_WORDS = re.compile(r"(?i)ключевойинформ|посостоянию|общиесведения")
 _HORIZONTAL_HEADER = re.compile(r"(?i)1[ \t]*мес\S*[ \t]+3[ \t]*мес\S*[ \t]+6[ \t]*мес")
 _HORIZONTAL_VALUES = re.compile(r"(?i)доходность[ \t]+инвестиций[ \t]+([^\n]+)")
 _FUND_NAME = re.compile(
@@ -50,6 +51,7 @@ _HEADING_NAME = re.compile(
     r"(?is)ключев\w+\s+информационн\w+\s+документ\s+((?:опиф|ипиф|бпиф|зпиф)[^«\"“„]{0,90}[«\"“„].{2,140}?[»\"”“])\s*(?:опубликовано|раздел|\n)"
 )
 _SECTION_ONE = re.compile(r"(?is)раздел\s*1\b.*?(?=раздел\s*2\b|внимание)")
+MIN_TEXT_CHARS = 200
 _MULTIPLIERS = {"тыс": Decimal(1000), "млн": Decimal(10**6), "млрд": Decimal(10**9)}
 _CURRENCIES = {
     "руб": "RUB", "₽": "RUB", "rub": "RUB",
@@ -85,7 +87,12 @@ def _pdf_text(content: bytes) -> str:
 
     try:
         with pdfplumber.open(io.BytesIO(content)) as pdf:
-            return "\n".join(page.extract_text() or "" for page in pdf.pages[:6])
+            pages = pdf.pages[:6]
+            text = "\n".join(page.extract_text() or "" for page in pages)
+            # В части PDF пробелы заданы только расстоянием между символами и теряются при разборе.
+            if _GLUED_WORDS.search(text):
+                text = "\n".join(page.extract_text(x_tolerance=1) or "" for page in pages)
+            return text
     except Exception as exc:
         raise ParseError(f"Не удалось прочитать PDF КИД: {exc}") from exc
 
@@ -161,13 +168,18 @@ def _horizontal_returns(body: str) -> dict[int, Decimal]:
 
 
 def parse_kid_text(text: str, source: str = "КИД") -> KidData:
+    if len(text.strip()) < MIN_TEXT_CHARS:
+        raise ScannedDocument(f"{source}: в файле нет текстового слоя")
     flat = re.sub(r"[ \t ]+", " ", text)
+    flat = re.sub(r"[«\"“](\d{1,2})[»\"”]", r"\1", flat)  # «31» июля 2025 г.
+    if not re.search(r"(?i)паев\w+\s+инвестиционн\w+\s+фонд", flat):
+        raise NotApplicableDocument(f"{source}: документ не о паевом фонде")
     date_match = _REPORT_DATE.search(flat) or _REPORT_DATE_FALLBACK.search(flat)
     report_date = parse_date(date_match[1]) if date_match else None
+    if not re.search(r"(?i)ключев\w+\s+информационн\w+\s+документ", flat):
+        raise NotApplicableDocument(f"{source}: документ не похож на КИД")
     if report_date is None:
         raise UnknownFormatError(source, "в документе нет даты «по состоянию на»")
-    if not re.search(r"(?i)ключев\w+\s+информационн\w+\s+документ", flat):
-        raise UnknownFormatError(source, "документ не похож на КИД")
 
     unit_price, nav, currency = _result_amounts(flat)
     # В шапке некоторых КИД перечислены все фонды УК. Имя своего фонда стоит в разделе 1.

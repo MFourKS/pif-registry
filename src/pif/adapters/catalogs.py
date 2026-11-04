@@ -3,12 +3,21 @@
 from __future__ import annotations
 
 import json
+import re
+from datetime import date
 from urllib.parse import urljoin
 
 from pif.adapters.base import CollectContext
 from pif.adapters.generic import GenericAdapter, Link, is_kid_link, is_statement_link, link_report_date
 from pif.errors import ParseError
+from pif.parsers.numbers import parse_date
 from pif.parsers.series import json_records
+
+
+def _file_date(url: str) -> date | None:
+    """key_info_30_09_2026.pdf: дата документа в имени файла."""
+    found = re.search(r"(\d{2})_(\d{2})_(20\d{2})", url)
+    return parse_date(f"{found[1]}.{found[2]}.{found[3]}") if found else None
 
 
 class GeroiAdapter(GenericAdapter):
@@ -32,9 +41,8 @@ class GeroiAdapter(GenericAdapter):
                     except ParseError as exc:
                         ctx.note_parse_error(result.url, exc, fund)
             for item in section.get("files", []):
-                text = f"{item.get('type', '')} {item.get('name', '')}"
-                link = Link(urljoin(self.SITE, item["url"]), text, catalog.url)
-                day = link_report_date(item.get("name", ""), link.url)
+                link = Link(urljoin(self.SITE, item["url"]), item.get("name", ""), catalog.url)
+                day = link_report_date(link.text, link.url) or _file_date(link.url)
                 if not is_kid_link(link) or (day is not None and day < ctx.cutoff):
                     continue
                 await self.collect_kid(ctx, link, fund=fund)
