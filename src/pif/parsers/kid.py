@@ -22,14 +22,14 @@ _REPORT_DATE = re.compile(rf"(?i)по\s+состоянию\s+на(?:\s+кото�
 _REPORT_DATE_FALLBACK = re.compile(rf"(?i)ключев\w+\s+информационн\w+\s+документ[^\n]{{0,80}}?\bна\s+{_DATE_TOKEN}")
 _ANY_DATE = re.compile(r"\b\d{1,2}[./]\d{1,2}[./]\d{2,4}\b")
 _PRICE_LABEL = re.compile(r"(?i)расч[её]тн\w*\s+стоимост\w*")
-_NAV_LABEL = re.compile(r"(?i)стоимост\w*\s+чистых\s+актив\w*")
+_NAV_LABEL = re.compile(r"(?i)стоимост\w*\s*чистых\s*актив\w*")
 _RESULTS_SECTION = re.compile(r"(?i)основные\s+результаты\s+инвестирования")
 _SECTION_END = re.compile(r"(?i)раздел\s*6|комисси\w+,?\s+оплачиваем")
 _LIST_MARKER = re.compile(r"(?m)(^|\s)\d\.\s")
 # Сумма в КИД: либо с дробной частью, либо с явной единицей. Иначе это номер сноски или пункта.
 _MONEY = re.compile(
-    r"(?<![\d.,])(\d{1,3}(?:[ \u00a0]\d{3})+(?:[.,]\d+)?|\d+[.,]\d+|\d+(?=\s*(?:млрд|млн|тыс|руб|₽)))"
-    r"(?!\s*%)(?![\d.,])\s*(млрд|млн|тыс)?\.?\s*(руб|₽|rub|доллар|долл|usd|\$|евро|eur|€|юан|cny)?",
+    r"(?<![\d.,])(\d{1,3}(?:[ \u00a0\n]?\d{3})+(?:[.,]\d+)?|\d+[.,]\d+|\d+(?=\s*(?:млрд|млн|тыс|руб|₽)))"
+    r"(?!\s*%)(?![\d.,])\s*(млрд|млн|тыс)?\.?\s*\(?(руб|₽|rub|доллар|долл|usd|\$|евро|eur|€|юан|cny)?",
     re.I,
 )
 _RETURN_VALUE = r"[ \t]+([-−–]?[ \t]?\d+(?:[.,]\d+)?)[ \t]*%?"
@@ -130,17 +130,25 @@ def _result_amounts(text: str) -> tuple[Decimal | None, Decimal | None, str | No
     start = min(price_label.start(), nav_label.start())
     end_match = _SECTION_END.search(text, max(price_label.end(), nav_label.end()))
     section = text[start : end_match.start() if end_match else start + 1500]
-    section = _LIST_MARKER.sub(" ", _ANY_DATE.sub(" ", section))
-    amounts = [_money(m) for m in _MONEY.finditer(section)]
-    amounts = [a for a in amounts if a[0] is not None and a[0] > 0][:2]
-    if len(amounts) < 2:
-        return None, None, amounts[0][1] if amounts else None
-    first, second = amounts
-    price, nav = (first, second) if price_label.start() <= nav_label.start() else (second, first)
+    # Даты и номера пунктов заменяем пробелами той же длины, чтобы не сбить позиции подписей.
+    blank = lambda found: " " * len(found[0])  # noqa: E731
+    section = _LIST_MARKER.sub(blank, _ANY_DATE.sub(blank, section))
+    tokens = [
+        (m.start(), amount)
+        for m in _MONEY.finditer(section)
+        if (amount := _money(m))[0] is not None and amount[0] > 0
+    ]
+    price_at, nav_at = price_label.end() - start, nav_label.end() - start
+    price = next((t for t in tokens if t[0] >= price_at), None)
+    # В двух колонках подпись СЧА стоит раньше суммы пая, поэтому берём первую сумму, которая не занята паем.
+    nav = next((t for t in tokens if t[0] >= nav_at and t is not price), None)
+    if price is None or nav is None:
+        return None, None, price[1][1] if price else None
+    first, second = price[1], nav[1]
     # СЧА всегда больше стоимости одного пая. Если нет, вёрстка переставила суммы местами.
-    if (price[0] or 0) > (nav[0] or 0):
-        price, nav = nav, price
-    return price[0], nav[0], price[1] or nav[1]
+    if (first[0] or 0) > (second[0] or 0):
+        first, second = second, first
+    return first[0], second[0], first[1] or second[1]
 
 
 def _returns(text: str) -> dict[int, Decimal]:
