@@ -18,7 +18,7 @@
 <section class="kpis">
   <div class="kpi"><b>СЧА{% if view.nav_day %} на {{ view.nav_day | ddate }}{% endif %}</b><span>{{ view.nav_rub | money }} ₽</span></div>
   <div class="kpi"><b>Стоимость пая</b><span>{{ view.price | number }} {{ view.series.currency }}</span></div>
-  <div class="kpi"><b>Приток за {{ last_month | month }}</b><span class="{{ view.flow_1m | sign }}">{{ view.flow_1m | money }} ₽</span></div>
+  <div class="kpi"><b>Приток за {{ view.basis_month | month }}</b><span class="{{ view.flow_1m | sign }}">{{ view.flow_1m | money }} ₽</span></div>
   <div class="kpi"><b>Приток за 12 мес.</b><span class="{{ view.flow_12m | sign }}">{{ view.flow_12m | money }} ₽</span></div>
 </section>
 

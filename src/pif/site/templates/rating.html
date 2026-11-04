@@ -35,7 +35,7 @@
   </div>
 </form>
 
-<p class="note">Доходность и притоки считаются на конец месяца {{ last_month | month }}. Доходность показывает изменение стоимости пая без учёта надбавок и скидок. Это не инвестиционная рекомендация, прошлые результаты не гарантируют будущих.</p>
+<p class="note">Доходность и притоки считаются на конец месяца {{ last_month | month }}. Фонды, у которых за этот месяц ещё нет КИД, показаны на предыдущий месяц с подписью. Доходность показывает изменение стоимости пая без учёта надбавок и скидок. Это не инвестиционная рекомендация, прошлые результаты не гарантируют будущих.</p>
 
 <div class="table-wrap">
 <table class="rating" id="rating">
@@ -55,7 +55,7 @@
     <tr data-search="{{ r.search }}" data-type="{{ r.fund.fund_type.value }}" data-asset="{{ r.fund.asset_class }}" data-cat="{{ r.fund.cbr_category }}" data-uk="{{ r.fund.uk_inn }}" data-cur="{{ r.fund.currency }}" data-qual="{{ 1 if r.fund.for_qualified else 0 }}" data-has="{{ 1 if r.view.series.points else 0 }}"{% for k, v in r["keys"].items() %} data-{{ k }}="{{ v }}"{% endfor %}>
       <td class="col-name">
         <a class="fund-link" href="{{ root }}{{ r.url }}">{{ r.fund.short_name }}</a>
-        <span class="sub">{{ r.fund.uk_name }} · {{ r.fund.fund_type.value }}{% if r.fund.ticker %} · {{ r.fund.ticker }}{% endif %}{% if r.fund.for_qualified %} · для квал.{% endif %}</span>
+        <span class="sub">{{ r.fund.uk_name }} · {{ r.fund.fund_type.value }}{% if r.fund.ticker %} · {{ r.fund.ticker }}{% endif %}{% if r.fund.for_qualified %} · для квал.{% endif %}{% if r.view.series.points and r.view.basis_month != last_month %} · данные на {{ r.view.basis_month | month }}{% endif %}</span>
         {% if r.status_kind != 'ok' %}<span class="badge {{ r.status_kind }}">{{ r.status_label }}</span>{% endif %}
         {% if r.view.mismatches %}<span class="badge warn">Доходность не сошлась</span>{% endif %}
       </td>

@@ -71,6 +71,7 @@ class FundView:
     checks: list[YieldCheck] = field(default_factory=list)
     mismatches: list[YieldCheck] = field(default_factory=list)
     pays_income: bool | None = None
+    basis_month: str = ""
 
 
 @dataclass(slots=True)
@@ -213,11 +214,14 @@ def build_analysis(
             view.flows = fund_flows(fund, series, fx, last_complete)
             view.nav_rub, view.price, view.nav_day = _latest_nav(series)
             monthly = {f.month: f.flow_rub for f in view.flows if f.flow_rub is not None}
-            view.flow_1m = rolling_sum(monthly, last_months(last_month, 1))
-            view.flow_3m = rolling_sum(monthly, last_months(last_month, 3))
-            view.flow_12m = rolling_sum(monthly, last_months(last_month, 12))
             ends = month_end_points(series.points)
-            basis = ends.get(last_month)
+            # КИД за прошлый месяц выходит в середине следующего. Фонды только с КИД считаем на свой
+            # последний отчётный месяц, а на сайте подписываем эту дату.
+            view.basis_month = last_month if last_month in ends else last_months(last_month, 2)[0]
+            view.flow_1m = rolling_sum(monthly, last_months(view.basis_month, 1))
+            view.flow_3m = rolling_sum(monthly, last_months(view.basis_month, 3))
+            view.flow_12m = rolling_sum(monthly, last_months(view.basis_month, 12))
+            basis = ends.get(view.basis_month)
             for period in PERIODS:
                 value = computed_return(series.points, basis.day, period)[0] if basis else None
                 view.returns[period] = value

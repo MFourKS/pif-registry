@@ -7,13 +7,11 @@ on:
   workflow_dispatch:
     inputs:
       runner:
-        description: "Где запускать (сайты части УК закрыты для зарубежных адресов)"
+        description: "Где запускать (сайты части УК могут отвечать только российским адресам)"
         default: ubuntu-latest
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: data-update
@@ -41,9 +39,10 @@ jobs:
           key: raw-${{ github.run_id }}
           restore-keys: raw-
 
-      - name: Сбор, расчёты, отчёт качества и сборка сайта
+      - name: Сбор, расчёты и отчёт качества
         run: python -m pif run --no-gate
 
+      # Публикуются только данные без ошибок сбора и разбора. Коммит в main запускает выкладку демо из CI.
       - name: Ворота публикации
         run: python -m pif gate
 
@@ -54,17 +53,3 @@ jobs:
           git add data manifest
           git diff --cached --quiet || git commit -m "Данные на $(date +%F)"
           git push
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: update
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.pages.outputs.page_url }}pif/
-    steps:
-      - id: pages
-        uses: actions/deploy-pages@v4

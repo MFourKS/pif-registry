@@ -107,7 +107,8 @@ async def build_registry(settings: Settings, fetcher: Fetcher) -> Registry:
                     exchange_traded=row.exchange_traded,
                     previous_names=list(row.previous_names),
                     isin=sec.isin if sec else None,
-                    ticker=sec.secid if sec else None,
+                    # У паёв без торгов биржа подставляет ISIN вместо тикера.
+                    ticker=sec.secid if sec and sec.secid != sec.isin else None,
                 )
             )
         companies = {

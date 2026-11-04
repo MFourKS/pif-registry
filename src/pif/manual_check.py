@@ -1,7 +1,7 @@
 """Выборка 15 случайных значений для ручной сверки с сайтами УК.
 
-Выборка фиксирована зерном и датой реестра: повторный прогон на тех же данных даёт те же строки.
-Уже заполненные результаты проверки при пересборке сохраняются.
+Выборка делается один раз и дальше не меняется, чтобы результаты проверки не терялись.
+Колонка machine_check отделена от checked_by: проверка программой не заменяет проверку глазами.
 """
 
 from __future__ import annotations
@@ -15,8 +15,8 @@ from pif.storage.manifest import Manifest
 
 SAMPLE_SIZE = 15
 COLUMNS = [
-    "rule_number", "fund", "uk", "date", "field", "our_value", "source_url", "seen_value", "matches", "checked_by",
-    "checked_at", "comment",
+    "rule_number", "fund", "uk", "date", "field", "our_value", "source_url", "machine_check", "seen_value", "matches",
+    "checked_by", "checked_at", "comment",
 ]  # fmt: skip
 
 
@@ -28,9 +28,7 @@ def _load_existing(path: Path) -> dict[tuple[str, str, str], dict[str, str]]:
 
 
 def write_manual_sample(path: Path, analysis: Analysis, manifest: Manifest) -> None:
-    existing = _load_existing(path)
-    filled = [row for row in existing.values() if row.get("checked_by")]
-    if len(filled) >= SAMPLE_SIZE:
+    if len(_load_existing(path)) >= SAMPLE_SIZE:
         return
 
     candidates = []
@@ -48,8 +46,6 @@ def write_manual_sample(path: Path, analysis: Analysis, manifest: Manifest) -> N
         field = rng.choice(["nav", "unit_price"])
         value = point.nav if field == "nav" else point.unit_price
         record = manifest.get(point.source_id)
-        key = (view.fund.rule_number, point.day.isoformat(), field)
-        row = existing.get(key, {})
         rows.append(
             {
                 "rule_number": view.fund.rule_number,
@@ -59,11 +55,12 @@ def write_manual_sample(path: Path, analysis: Analysis, manifest: Manifest) -> N
                 "field": field,
                 "our_value": str(value),
                 "source_url": record.url if record else "",
-                "seen_value": row.get("seen_value", ""),
-                "matches": row.get("matches", ""),
-                "checked_by": row.get("checked_by", ""),
-                "checked_at": row.get("checked_at", ""),
-                "comment": row.get("comment", ""),
+                "machine_check": "",
+                "seen_value": "",
+                "matches": "",
+                "checked_by": "",
+                "checked_at": "",
+                "comment": "",
             }
         )
     with path.open("w", encoding="utf-8", newline="") as handle:

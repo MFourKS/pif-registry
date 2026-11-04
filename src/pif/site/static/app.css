@@ -84,7 +84,7 @@ table{border-collapse:collapse;width:100%}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:0}
 .kpi b{display:block;font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .kpi span{font:700 20px var(--display);overflow-wrap:anywhere}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;min-width:0;overflow-x:auto}
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .cols .panel{margin:0}
 .cols{margin:14px 0}
@@ -104,7 +104,8 @@ table{border-collapse:collapse;width:100%}
 .downloads{margin:12px 0 0}
 .facts{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:6px 14px;margin:0}
 .facts dt{color:var(--muted);font-size:13.5px}
-.facts dd{margin:0;overflow-wrap:anywhere}
+.facts dd{margin:0;overflow-wrap:anywhere;min-width:0}
+h1{overflow-wrap:anywhere}
 .scroll{overflow-x:auto}
 .plain th,.plain td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .plain th{font:600 11px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
@@ -152,7 +153,10 @@ table{border-collapse:collapse;width:100%}
   .rating td.num::before{content:attr(data-label);color:var(--muted);font:12px var(--font)}
   .facts{grid-template-columns:minmax(0,1fr)}
   .facts dt{margin-top:6px}
+  .kpi{padding:10px 12px}
   .kpi span{font-size:17px}
+  .kpi b{letter-spacing:.02em;font-size:10.5px}
+  .plain th,.plain td{padding:7px 6px}
   .panel{padding:12px}
   .chart .axis{font-size:13px}
 }
