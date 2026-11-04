@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Установка
+        run: pip install -e ".[dev]"
+      - name: Линтер
+        run: ruff check src tests
+      - name: Типы
+        run: mypy src
+      - name: Тесты
+        run: pytest
+      - name: Сборка сайта из данных репозитория
+        run: python -m pif build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
+          retention-days: 7
