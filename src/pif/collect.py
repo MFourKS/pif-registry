@@ -71,6 +71,14 @@ def load_collect_state(path: Path) -> CollectResult:
     return result
 
 
+def merge_partial(previous: CollectResult, fresh: CollectResult, only: set[str]) -> CollectResult:
+    """Сбор части УК не должен стирать статусы остальных."""
+    previous.issues = [i for i in previous.issues if i.uk_inn not in only] + fresh.issues
+    previous.uk_failures = {k: v for k, v in previous.uk_failures.items() if k not in only} | fresh.uk_failures
+    previous.outcomes |= fresh.outcomes
+    return previous
+
+
 def load_sources(path: Path) -> dict[str, UkConfig]:
     if not path.exists():
         return {}

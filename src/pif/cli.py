@@ -13,7 +13,7 @@ from pathlib import Path
 import typer
 
 from pif.analytics import build_analysis, quality_report, write_corrections, write_flows, write_quality
-from pif.collect import CollectResult, collect_all, load_collect_state, save_collect_state
+from pif.collect import CollectResult, collect_all, load_collect_state, merge_partial, save_collect_state
 from pif.config import Settings, load_settings
 from pif.manual_check import write_manual_sample
 from pif.net.client import Fetcher
@@ -54,6 +54,8 @@ async def _collect(
             registry = await build_registry(settings, fetcher)
             registry.save(registry_path)
             collected = await collect_all(settings, registry, fetcher, series, official, only)
+            if only:
+                collected = merge_partial(load_collect_state(state_path), collected, only)
             save_collect_state(state_path, collected)
 
         currencies = set()

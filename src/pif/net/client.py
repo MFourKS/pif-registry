@@ -229,12 +229,17 @@ class Fetcher:
             if host not in self._robots:
                 rules: RobotsRules | None = None
                 robots_url = f"{parts.scheme}://{host}/robots.txt"
+                remembered = self.cache.entries.get(f"robots:{host}", {}).get("text")
                 try:
                     resp = await self._send("GET", robots_url, host)
                     if resp.status_code == 200 and "html" not in resp.headers.get("content-type", ""):
                         rules = RobotsRules.parse(resp.text, BOT_TOKEN)
+                        self.cache.entries[f"robots:{host}"] = {"text": resp.text}
                 except httpx.HTTPError as exc:
+                    # Сбой сети не отменяет запрет: берём правила, которые видели в прошлый раз.
                     log.info("robots_unavailable", host=host, error=type(exc).__name__)
+                    if remembered:
+                        rules = RobotsRules.parse(remembered, BOT_TOKEN)
                 self._robots[host] = rules
         rules = self._robots[host]
         return rules is None or rules.allowed(url)

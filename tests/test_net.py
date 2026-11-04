@@ -290,3 +290,19 @@ def test_source_revision_is_recorded(tmp_path):
     store.add("r", observation(day, "101", "10"))
     assert store.load("r")[day].nav == D("101")
     assert [(r.field, r.old, r.new) for r in store.revisions] == [("nav", "100", "101")]
+
+
+async def test_network_failure_on_robots_keeps_previous_rules(tmp_path):
+    def closed(request):
+        return httpx.Response(200, text="User-agent: *\nDisallow: /", headers={"content-type": "text/plain"})
+
+    async with fetcher_for(tmp_path, closed) as fetcher:
+        with pytest.raises(RobotsDisallowed):
+            await fetcher.require_open_site("https://uk.example/")
+
+    def broken(request):
+        raise httpx.ConnectTimeout("timeout", request=request)
+
+    async with fetcher_for(tmp_path, broken) as fetcher:
+        with pytest.raises(RobotsDisallowed):
+            await fetcher.require_open_site("https://uk.example/")
