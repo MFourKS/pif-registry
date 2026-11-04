@@ -14,8 +14,8 @@ from typing import Any
 
 import yaml
 
-from pif.adapters.base import FundOutcome, Issue
-from pif.collect import CollectResult
+from pif.adapters.base import FundOutcome, Issue, UkConfig
+from pif.collect import CollectResult, load_sources
 from pif.config import Settings
 from pif.flows.compute import (
     FlowTotals,
@@ -95,6 +95,7 @@ def classify_status(
     outcome: FundOutcome | None,
     uk_failure: tuple[DataStatus, str] | None,
     as_of: date,
+    note: str = "",
 ) -> tuple[DataStatus, str]:
     """Статус описывает данные, а не прогон. Причина показывается рядом с фондом."""
     points = series.points
@@ -106,6 +107,8 @@ def classify_status(
             return outcome.failure, outcome.failure_reason
         if uk_failure:
             return uk_failure
+        if note:
+            return DataStatus.NOT_FOUND, note
         if fund.for_qualified:
             return DataStatus.NOT_FOUND, (
                 "Фонд для квалифицированных инвесторов: на открытых страницах сайта УК ни таблицы СЧА, ни КИД нет. "
@@ -123,7 +126,7 @@ def classify_status(
     if formed_late:
         return DataStatus.FORMED_LATER, f"Фонд сформирован {fund.formed_on:%d.%m.%Y}, раньше данных нет."
     if len(points) < 3:
-        return DataStatus.NO_HISTORY, "УК публикует только текущие значения, архива за 12 месяцев на сайте нет."
+        return DataStatus.NO_HISTORY, note or "УК публикует только текущие значения, архива за 12 месяцев на сайте нет."
     return DataStatus.PARTIAL, f"Источник отдаёт ряд только с {first:%d.%m.%Y}."
 
 
@@ -152,6 +155,7 @@ def build_analysis(
         months = last_months(last_month, WINDOW_MONTHS)
         not_before = date(as_of.year - 2, as_of.month, 1)
 
+        sources = load_sources(settings.config_dir / "sources.yaml")
         by_rule_official: dict[str, list[Any]] = defaultdict(list)
         for record in official.rows.values():
             by_rule_official[record.rule_number].append(record)
@@ -203,7 +207,8 @@ def build_analysis(
             fund.currency = series.currency
             outcome = collected.outcomes.get(fund.rule_number) if collected else None
             uk_failure = collected.uk_failures.get(fund.uk_inn) if collected else None
-            status, reason = classify_status(fund, series, outcome, uk_failure, as_of)
+            note = sources.get(fund.uk_inn, UkConfig()).note
+            status, reason = classify_status(fund, series, outcome, uk_failure, as_of, note)
             view = FundView(fund, series, status, reason)
             view.flows = fund_flows(fund, series, fx, last_complete)
             view.nav_rub, view.price, view.nav_day = _latest_nav(series)

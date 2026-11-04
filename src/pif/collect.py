@@ -8,7 +8,8 @@
 from __future__ import annotations
 
 import asyncio
-from dataclasses import dataclass, field
+import json
+from dataclasses import asdict, dataclass, field
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -36,6 +37,38 @@ class CollectResult:
     issues: list[Issue] = field(default_factory=list)
     uk_failures: dict[str, tuple[DataStatus, str]] = field(default_factory=dict)
     counters: dict[str, dict[str, int]] = field(default_factory=dict)
+
+
+def save_collect_state(path: Path, result: CollectResult) -> None:
+    """Причины статусов и замечания хранятся с данными: команда build не должна их терять."""
+    payload = {
+        "uk_failures": {inn: [status.value, reason] for inn, (status, reason) in sorted(result.uk_failures.items())},
+        "fund_failures": {
+            rule: [outcome.failure.value, outcome.failure_reason]
+            for rule, outcome in sorted(result.outcomes.items())
+            if outcome.failure is not None
+        },
+        "issues": sorted(
+            (asdict(issue) for issue in result.issues),
+            key=lambda i: (i["uk_inn"], i["stage"], i["url"], i["message"]),
+        ),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=0), encoding="utf-8")
+
+
+def load_collect_state(path: Path) -> CollectResult:
+    result = CollectResult()
+    if not path.exists():
+        return result
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    result.uk_failures = {inn: (DataStatus(s), reason) for inn, (s, reason) in payload["uk_failures"].items()}
+    result.outcomes = {
+        rule: FundOutcome(failure=DataStatus(s), failure_reason=reason)
+        for rule, (s, reason) in payload["fund_failures"].items()
+    }
+    result.issues = [Issue(**item) for item in payload["issues"]]
+    return result
 
 
 def load_sources(path: Path) -> dict[str, UkConfig]:
