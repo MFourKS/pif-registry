@@ -6,6 +6,7 @@ import asyncio
 import json
 import sys
 import time
+from dataclasses import asdict
 from datetime import UTC, date, datetime
 from pathlib import Path
 
@@ -104,7 +105,7 @@ def _pipeline(settings: Settings, *, force: bool, only: set[str] | None, skip_co
                 "run_id": run_id,
                 "duration_s": round(time.monotonic() - started, 1),
                 "fetch": fetch_stats,
-                "warnings": [i.__dict__ for i in issues if i.severity == "warning"],
+                "warnings": [asdict(i) for i in issues if i.severity == "warning"],
             }
             settings.out_dir.mkdir(parents=True, exist_ok=True)
             (settings.out_dir / "last_run.json").write_text(

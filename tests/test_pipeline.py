@@ -295,3 +295,29 @@ def test_fixtures_were_not_damaged():
     }
     assert actual == expected
 
+
+
+def test_full_pipeline_from_stored_data(tmp_path, monkeypatch):
+    """Команда build проходит весь путь от накопленных рядов до сайта и отчётов."""
+    import json
+
+    from pif import cli
+
+    funds = [make_fund("0001-00000001", uk_inn="7700000001", uk_name="УК Один")]
+    settings = settings_for(tmp_path)
+    registry_of(*funds).save(settings.data_dir / "registry.json")
+    store = SeriesStore(settings.series_dir)
+    for index, day in enumerate(month_ends()):
+        store.add(funds[0].rule_number, observation(day, str(1000 + index * 10), str(100 + index)))
+    store.save()
+    settings.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(cli, "load_settings", lambda: settings)
+
+    code = cli._pipeline(settings, force=False, only=None, skip_collect=True, build=True)
+
+    assert code == 0
+    report = json.loads((settings.data_dir / "quality_report.json").read_text(encoding="utf-8"))
+    assert report["funds_with_series"] == 1
+    assert (settings.dist_dir / "nested" / "pif" / "index.html").exists()
+    assert (settings.out_dir / "last_run.json").exists()
+    assert list((settings.out_dir / "traces").glob("*.jsonl"))
