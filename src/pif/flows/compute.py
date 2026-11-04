@@ -22,9 +22,10 @@ from decimal import Decimal
 
 from pif.models import Fund
 from pif.normalize.fx import FxRates
-from pif.normalize.series import NormalizedSeries, Point, month_end_points, month_key
+from pif.normalize.series import Correction, NormalizedSeries, Point, month_end_points, month_key
 
 CENT = Decimal("0.01")
+MAX_FLOW_TO_NAV = 5
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,6 +70,20 @@ def fund_flows(fund: Fund, series: NormalizedSeries, fx: FxRates, last_complete:
             value, kind, effect = flow, "initial", Decimal(0)
         else:
             value = net_flow(start.nav, end.nav, start.adj_price, end.adj_price)
+            if abs(value) > MAX_FLOW_TO_NAV * max(start.nav, end.nav):
+                # Такого притока не бывает: значит, ошибочна одна из точек. Лучше пропуск, чем ложная цифра.
+                series.corrections.append(
+                    Correction(
+                        fund.rule_number,
+                        end.day,
+                        "flow",
+                        str(value.quantize(CENT)),
+                        "",
+                        "Неправдоподобный приток: точка на начало или конец месяца ошибочна, месяц пропущен",
+                        end.source_id,
+                    )
+                )
+                continue
             effect = end.nav - start.nav - value
             kind = "regular"
         flows.append(

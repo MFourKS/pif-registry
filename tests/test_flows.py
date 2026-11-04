@@ -145,3 +145,14 @@ def test_period_sum_is_empty_if_a_month_is_missing():
 
 def test_last_months_crosses_year_boundary():
     assert last_months("2026-02", 3) == ["2025-12", "2026-01", "2026-02"]
+
+
+def test_impossible_flow_is_dropped_and_logged():
+    fund = make_fund()
+    data = {
+        date(2026, 1, 30): observation(date(2026, 1, 30), "1000", "1"),
+        date(2026, 2, 27): observation(date(2026, 2, 27), "5000", "100000"),
+    }
+    series = normalize(fund.rule_number, data, FX)
+    assert fund_flows(fund, series, FX, LAST) == []
+    assert any("Неправдоподобный" in c.reason for c in series.corrections)
