@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}{{ fund.short_name }}{% endblock %}
+{% block description %}{{ fund.short_name }}: СЧА, стоимость пая и притоки по данным {{ fund.uk_name }}.{% endblock %}
+{% block content %}
+<nav class="crumbs" aria-label="Навигация"><a href="{{ root }}">Рейтинг</a> / <a href="{{ root }}uk/{{ fund.uk_inn }}/">{{ fund.uk_name }}</a></nav>
+<section class="card-head">
+  <h1>{{ fund.short_name }}</h1>
+  <p class="badges">
+    <span class="badge plain">{{ fund.fund_type.value }}</span>
+    <span class="badge plain">{{ fund.asset_class }}</span>
+    <span class="badge {{ status_kind }}">{{ status_label }}</span>
+    {% if fund.for_qualified %}<span class="badge plain">Для квалифицированных инвесторов</span>{% endif %}
+    {% if view.mismatches %}<span class="badge warn">Доходность не сошлась с официальной</span>{% endif %}
+  </p>
+  {% if view.status_reason %}<p class="status-reason">{{ view.status_reason }}</p>{% endif %}
+</section>
+
+<section class="kpis">
+  <div class="kpi"><b>СЧА{% if view.nav_day %} на {{ view.nav_day | ddate }}{% endif %}</b><span>{{ view.nav_rub | money }} ₽</span></div>
+  <div class="kpi"><b>Стоимость пая</b><span>{{ view.price | number }} {{ view.series.currency }}</span></div>
+  <div class="kpi"><b>Приток за {{ last_month | month }}</b><span class="{{ view.flow_1m | sign }}">{{ view.flow_1m | money }} ₽</span></div>
+  <div class="kpi"><b>Приток за 12 мес.</b><span class="{{ view.flow_12m | sign }}">{{ view.flow_12m | money }} ₽</span></div>
+</section>
+
+<section class="panel" data-fund="{{ root }}data/fund/{{ data_file }}.json">
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="true" data-tab="nav">СЧА</button>
+    <button type="button" role="tab" aria-selected="false" data-tab="price">Стоимость пая</button>
+    <button type="button" role="tab" aria-selected="false" data-tab="flows">Притоки</button>
+  </div>
+  <div class="tab" data-pane="nav">{{ charts.nav | safe }}</div>
+  <div class="tab" data-pane="price" hidden>{{ charts.price | safe }}</div>
+  <div class="tab" data-pane="flows" hidden>{{ charts.flows | safe }}</div>
+  <p class="tip" id="tip" hidden></p>
+  {% if view.series.gaps %}<p class="muted">Заштрихованные участки — пропуски в публикации. Точки там не дорисовываются.</p>{% endif %}
+  <p class="downloads"><a class="btn" href="{{ root }}data/fund/{{ data_file }}.csv" download>Скачать ряд в CSV</a></p>
+</section>
+
+<div class="cols">
+<section class="panel">
+  <h2>Сведения о фонде</h2>
+  <dl class="facts">
+    <dt>Полное название</dt><dd>{{ fund.name }}</dd>
+    <dt>Номер правил</dt><dd class="mono">{{ fund.rule_number }}</dd>
+    <dt>Дата регистрации</dt><dd>{{ fund.registered_on | ddate }}</dd>
+    <dt>Управляющая компания</dt><dd><a href="{{ root }}uk/{{ fund.uk_inn }}/">{{ company.short_name }}</a></dd>
+    <dt>ИНН УК</dt><dd class="mono">{{ fund.uk_inn }}</dd>
+    <dt>Категория ЦБ</dt><dd>{{ fund.cbr_category }}</dd>
+    <dt>ISIN</dt><dd class="mono">{{ fund.isin or '—' }}</dd>
+    <dt>Тикер</dt><dd class="mono">{{ fund.ticker or '—' }}</dd>
+    <dt>Валюта пая</dt><dd>{{ fund.currency }}</dd>
+    <dt>Статус по реестру ЦБ</dt><dd>{{ fund.cbr_status }}</dd>
+  </dl>
+</section>
+<section class="panel">
+  <h2>Доходность</h2>
+  <p class="note">Сверка с ключевым информационным документом{% if view.checks %} на {{ view.checks[0].report_date | ddate }}{% endif %}. Не инвестиционная рекомендация.</p>
+  {% if view.checks %}
+  <table class="plain">
+    <thead><tr><th>Период</th><th class="num">Наш расчёт</th><th class="num">Официальная</th><th class="num">Разница, п. п.</th></tr></thead>
+    <tbody>
+    {% for c in view.checks %}
+      <tr{% if c in view.mismatches %} class="flagged"{% endif %}>
+        <td>{{ c.months }} мес.</td>
+        <td class="num">{{ c.computed_pct | pct }}</td>
+        <td class="num">{{ c.official_pct | pct }}</td>
+        <td class="num">{{ c.difference_pp | number }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if view.mismatches %}<p class="warn-text">Значения выделенных строк расходятся больше чем на 0,5 п. п. Причины разобраны в <a href="{{ root }}quality/">отчёте качества</a>.</p>{% endif %}
+  {% else %}
+  <p class="muted">КИД фонда не найден, сверить доходность не с чем.</p>
+  <table class="plain"><tbody>
+    {% for months, value in view.returns.items() %}<tr><td>{{ months }} мес.</td><td class="num {{ value | sign }}">{{ value | pct }}</td></tr>{% endfor %}
+  </tbody></table>
+  {% endif %}
+</section>
+</div>
+
+{% if flow_rows %}
+<section class="panel">
+  <h2>Притоки по месяцам</h2>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Месяц</th><th class="num">СЧА на начало</th><th class="num">СЧА на конец</th><th class="num">Изменение пая</th><th class="num">Приток, ₽</th></tr></thead>
+    <tbody>
+    {% for f in flow_rows %}
+      <tr><td>{{ f.month | month }}</td><td class="num">{{ f.nav_start | money }}</td><td class="num">{{ f.nav_end | money }}</td>
+      <td class="num">{% if f.price_start %}{{ ((f.price_end / f.price_start - 1) * 100) | pct }}{% else %}—{% endif %}</td>
+      <td class="num {{ f.flow_rub | sign }}">{{ f.flow_rub | money }}{% if f.kind == 'initial' %} <span class="muted">формирование</span>{% endif %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</section>
+{% endif %}
+
+{% if recent %}
+<section class="panel">
+  <h2>Последние точки ряда</h2>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Дата</th><th class="num">СЧА</th><th class="num">Пай</th><th>Вид</th><th>Источник</th></tr></thead>
+    <tbody>
+    {% for p in recent %}
+      <tr><td>{{ p.day | ddate }}</td><td class="num">{{ p.nav | number }}</td><td class="num">{{ p.unit_price | number(4) }}</td>
+      <td>{{ 'КИД, месяц' if p.kind == 'monthly_doc' else 'ежедневно' }}</td>
+      <td>{% if source_by_id.get(p.source_id) and source_by_id[p.source_id].url %}<a href="{{ source_by_id[p.source_id].url }}" rel="nofollow noopener">{{ source_by_id[p.source_id].fmt }} ↗</a>{% else %}—{% endif %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">Источник любой точки показывается при нажатии на график, а полный ряд с адресами и SHA-256 есть в CSV.</p>
+</section>
+{% endif %}
+
+{% if view.series.corrections %}
+<section class="panel">
+  <h2>Исправления ряда</h2>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Дата</th><th>Поле</th><th>Было</th><th>Стало</th><th>Причина</th></tr></thead>
+    <tbody>{% for c in view.series.corrections %}<tr><td>{{ c.day | ddate }}</td><td>{{ c.field }}</td><td class="mono">{{ c.old_value }}</td><td class="mono">{{ c.new_value or '—' }}</td><td>{{ c.reason }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endif %}
+
+{% if sources %}
+<section class="panel">
+  <h2>Источники</h2>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Адрес</th><th>Формат</th><th>Получено</th><th class="num">Точек</th><th>SHA-256</th></tr></thead>
+    <tbody>
+    {% for s in sources[:40] %}
+      <tr><td class="url"><a href="{{ s.url }}" rel="nofollow noopener">{{ s.url }}</a></td><td>{{ s.fmt }}</td><td>{{ s.fetched_at | ddate }}</td><td class="num">{{ s.points }}</td><td class="mono">{{ s.sha256[:12] }}…</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% if sources | length > 40 %}<p class="note">Показаны 40 из {{ sources | length }}. Полный список в CSV ряда.</p>{% endif %}
+</section>
+{% endif %}
+{% endblock %}

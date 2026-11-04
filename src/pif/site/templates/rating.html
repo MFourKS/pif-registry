@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Рейтинг ПИФов{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow"><span class="dot"></span>Реестр розничных ПИФов</p>
+  <h1>Сколько денег в&nbsp;фондах <span class="grad">и куда они идут</span></h1>
+  <p class="lead">Открытые, интервальные и биржевые ПИФы России. В реестре {{ funds_total }} фондов на {{ as_of | ddate }}, ряды собраны по {{ funds_with_data }}. По остальным указана причина.</p>
+</section>
+
+<form class="filters" id="filters" autocomplete="off">
+  <label class="f-search"><span>Поиск</span>
+    <input type="search" name="q" placeholder="Название, ISIN или тикер" aria-label="Поиск по названию, ISIN и тикеру">
+  </label>
+  <label><span>Тип</span>
+    <select name="type"><option value="">Все</option>{% for t in types %}<option>{{ t }}</option>{% endfor %}</select>
+  </label>
+  <label><span>Класс активов</span>
+    <select name="asset"><option value="">Все</option>{% for a in asset_classes %}<option>{{ a }}</option>{% endfor %}</select>
+  </label>
+  <label><span>Категория ЦБ</span>
+    <select name="cat"><option value="">Все</option>{% for c in categories %}<option>{{ c }}</option>{% endfor %}</select>
+  </label>
+  <label><span>УК</span>
+    <select name="uk"><option value="">Все</option>{% for inn, name in uks %}<option value="{{ inn }}">{{ name }}</option>{% endfor %}</select>
+  </label>
+  <label><span>Валюта</span>
+    <select name="cur"><option value="">Все</option>{% for c in currencies %}<option>{{ c }}</option>{% endfor %}</select>
+  </label>
+  <label class="f-check"><input type="checkbox" name="retail" value="1"> Без фондов для квалифицированных</label>
+  <label class="f-check"><input type="checkbox" name="data" value="1"> Только с данными</label>
+  <div class="f-tail">
+    <span class="muted" id="count" aria-live="polite">{{ rows | length }} фондов</span>
+    <button type="button" class="btn ghost" id="reset">Сбросить</button>
+    <a class="btn" id="csv" href="{{ root }}data/rating.csv" download="pif-rating.csv">Скачать CSV</a>
+  </div>
+</form>
+
+<p class="note">Доходность и притоки считаются на конец месяца {{ last_month | month }}. Доходность показывает изменение стоимости пая без учёта надбавок и скидок. Это не инвестиционная рекомендация, прошлые результаты не гарантируют будущих.</p>
+
+<div class="table-wrap">
+<table class="rating" id="rating">
+  <thead><tr>
+    <th class="col-name">Фонд</th>
+    <th class="num"><button type="button" data-sort="nav" aria-sort="descending">СЧА, ₽</button></th>
+    <th class="num"><button type="button" data-sort="flow1">Приток за месяц</button></th>
+    <th class="num"><button type="button" data-sort="flow3">За квартал</button></th>
+    <th class="num"><button type="button" data-sort="flow12">За год</button></th>
+    <th class="num"><button type="button" data-sort="ret1">Дох. 1 мес.</button></th>
+    <th class="num"><button type="button" data-sort="ret3">3 мес.</button></th>
+    <th class="num"><button type="button" data-sort="ret6">6 мес.</button></th>
+    <th class="num"><button type="button" data-sort="ret12">12 мес.</button></th>
+  </tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr data-search="{{ r.search }}" data-type="{{ r.fund.fund_type.value }}" data-asset="{{ r.fund.asset_class }}" data-cat="{{ r.fund.cbr_category }}" data-uk="{{ r.fund.uk_inn }}" data-cur="{{ r.fund.currency }}" data-qual="{{ 1 if r.fund.for_qualified else 0 }}" data-has="{{ 1 if r.view.series.points else 0 }}"{% for k, v in r["keys"].items() %} data-{{ k }}="{{ v }}"{% endfor %}>
+      <td class="col-name">
+        <a class="fund-link" href="{{ root }}{{ r.url }}">{{ r.fund.short_name }}</a>
+        <span class="sub">{{ r.fund.uk_name }} · {{ r.fund.fund_type.value }}{% if r.fund.ticker %} · {{ r.fund.ticker }}{% endif %}{% if r.fund.for_qualified %} · для квал.{% endif %}</span>
+        {% if r.status_kind != 'ok' %}<span class="badge {{ r.status_kind }}">{{ r.status_label }}</span>{% endif %}
+        {% if r.view.mismatches %}<span class="badge warn">Доходность не сошлась</span>{% endif %}
+      </td>
+      <td class="num" data-label="СЧА">{{ r.view.nav_rub | money }}</td>
+      <td class="num {{ r.view.flow_1m | sign }}" data-label="Приток, мес.">{{ r.view.flow_1m | money }}</td>
+      <td class="num {{ r.view.flow_3m | sign }}" data-label="Приток, кв.">{{ r.view.flow_3m | money }}</td>
+      <td class="num {{ r.view.flow_12m | sign }}" data-label="Приток, год">{{ r.view.flow_12m | money }}</td>
+      <td class="num {{ r.view.returns[1] | sign }}" data-label="Дох. 1 мес.">{{ r.view.returns[1] | pct }}</td>
+      <td class="num {{ r.view.returns[3] | sign }}" data-label="3 мес.">{{ r.view.returns[3] | pct }}</td>
+      <td class="num {{ r.view.returns[6] | sign }}" data-label="6 мес.">{{ r.view.returns[6] | pct }}</td>
+      <td class="num {{ r.view.returns[12] | sign }}" data-label="12 мес.">{{ r.view.returns[12] | pct }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="muted" id="empty" hidden>Ни один фонд не подходит под фильтры.</p>
+{% endblock %}

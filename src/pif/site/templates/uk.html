@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ s.company.short_name }}{% endblock %}
+{% block description %}{{ s.company.short_name }}: фонды, суммарная СЧА и притоки.{% endblock %}
+{% block content %}
+<nav class="crumbs" aria-label="Навигация"><a href="{{ root }}">Рейтинг</a> / <a href="{{ root }}market/">Рынок</a></nav>
+<section class="card-head">
+  <h1>{{ s.company.short_name }}</h1>
+  <p class="muted">{{ s.company.name }} · ИНН <span class="mono">{{ s.company.inn }}</span>{% if s.company.site %} · <a href="{{ s.company.site if s.company.site.startswith('http') else 'https://' ~ s.company.site }}" rel="nofollow noopener">сайт УК ↗</a>{% endif %}</p>
+  {% if s.company.sravnenie_id %}<p><a class="btn" href="{{ sravnenie }}uk/{{ s.company.sravnenie_id }}">Эта УК в разделе «Сравнить УК» ↗</a></p>{% endif %}
+</section>
+<section class="kpis">
+  <div class="kpi"><b>Суммарная СЧА</b><span>{{ s.nav | money }} ₽</span></div>
+  <div class="kpi"><b>Фондов с данными</b><span>{{ s.covered }} из {{ s.funds }}</span></div>
+  <div class="kpi"><b>Приток за {{ last_month | month }}</b><span class="{{ s.flow_1m | sign }}">{{ s.flow_1m | money }} ₽</span></div>
+  <div class="kpi"><b>Приток за 12 мес.</b><span class="{{ s.flow_12m | sign }}">{{ s.flow_12m | money }} ₽</span></div>
+</section>
+<section class="panel">
+  <h2>Притоки по месяцам</h2>
+  {{ flows_chart | safe }}
+  <p class="note">Сумма по фондам, у которых есть обе месячные точки.</p>
+</section>
+<section class="panel">
+  <h2>Фонды</h2>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Фонд</th><th>Тип</th><th class="num">СЧА, ₽</th><th class="num">Приток за месяц</th><th class="num">Приток за год</th><th class="num">Дох. 12 мес.</th><th>Данные</th></tr></thead>
+    <tbody>
+    {% for v in s.views %}
+      <tr>
+        <td><a href="{{ root }}{{ fund_url(v.fund.rule_number) }}">{{ v.fund.short_name }}</a></td>
+        <td>{{ v.fund.fund_type.value }}</td>
+        <td class="num">{{ v.nav_rub | money }}</td>
+        <td class="num {{ v.flow_1m | sign }}">{{ v.flow_1m | money }}</td>
+        <td class="num {{ v.flow_12m | sign }}">{{ v.flow_12m | money }}</td>
+        <td class="num {{ v.returns[12] | sign }}">{{ v.returns[12] | pct }}</td>
+        <td><span class="badge {{ status_kind(v.status) }}">{{ status_labels[v.status] }}</span></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">Доходность не является инвестиционной рекомендацией.</p>
+</section>
+{% endblock %}

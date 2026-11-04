@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Качество данных{% endblock %}
+{% block content %}
+<section class="hero small">
+  <p class="eyebrow"><span class="dot"></span>Отчёт качества</p>
+  <h1>Что сошлось, <span class="grad">а что нет</span></h1>
+  <p class="lead">Отчёт строится после каждого прогона. Расхождения не прячутся: они видны здесь и на карточке фонда.</p>
+</section>
+<section class="kpis">
+  <div class="kpi"><b>Фондов с рядом</b><span>{{ q.funds_with_series }} из {{ q.funds_total }}</span></div>
+  <div class="kpi"><b>Точек в рядах</b><span>{{ q.points_total | number(0) }}</span></div>
+  <div class="kpi"><b>Сверено значений</b><span>{{ q.yield_check.compared | number(0) }}</span></div>
+  <div class="kpi"><b>В пределах {{ q.yield_check.tolerance_pp }} п. п.</b><span>{{ q.yield_check.within_tolerance | number(0) }}</span></div>
+</section>
+<section class="panel">
+  <h2>Статусы фондов</h2>
+  <table class="plain"><tbody>
+  {% for status, label, count, kind in statuses %}
+    <tr><td><span class="badge {{ kind }}">{{ label }}</span></td><td class="num">{{ count }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+</section>
+<section class="panel">
+  <h2>Расхождения с официальной доходностью</h2>
+  <p class="note">Источник официальных значений — ключевой информационный документ фонда. В таблице разница больше {{ q.yield_check.tolerance_pp }} п. п. Всего {{ q.yield_check.mismatches | length }}.</p>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Фонд</th><th class="num">Период</th><th>Дата КИД</th><th class="num">Наш расчёт</th><th class="num">Официальная</th><th class="num">Разница, п. п.</th></tr></thead>
+    <tbody>
+    {% for m in q.yield_check.mismatches[:200] %}
+      <tr><td><a href="{{ root }}{{ fund_url(m.fund) }}">{{ m.name }}</a></td><td class="num">{{ m.period_months }} мес.</td><td>{{ m.report_date | ddate }}</td><td class="num">{{ m.computed_pct }}</td><td class="num">{{ m.official_pct }}</td><td class="num">{{ m.difference_pp }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</section>
+<section class="panel">
+  <h2>Журнал исправлений рядов</h2>
+  <p class="note">Всего записей: {{ corrections_total }}. Полный журнал: <a href="{{ root }}data/corrections.csv" download>corrections.csv</a>.</p>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Дата</th><th>Фонд</th><th>Поле</th><th>Причина</th></tr></thead>
+    <tbody>
+    {% for c in corrections %}
+      <tr><td>{{ c.day | ddate }}</td><td><a href="{{ root }}{{ fund_url(c.rule_number) }}">{{ names.get(c.rule_number, c.rule_number) }}</a></td><td>{{ c.field }}</td><td>{{ c.reason }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</section>
+<section class="panel">
+  <h2>Файлы</h2>
+  <ul class="files">
+    <li><a href="{{ root }}data/sources.csv" download>Манифест источников</a></li>
+    <li><a href="{{ root }}data/quality_report.json" download>Отчёт качества, JSON</a></li>
+    <li><a href="{{ root }}data/manual_check.csv" download>Ручная сверка 15 значений</a></li>
+  </ul>
+</section>
+{% endblock %}

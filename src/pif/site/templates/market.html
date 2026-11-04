@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Рынок ПИФов{% endblock %}
+{% macro segments(title, rows) %}
+<section class="panel">
+  <h2>{{ title }}</h2>
+  <div class="scroll"><table class="plain">
+    <thead><tr><th>Разрез</th><th class="num">Фондов</th><th class="num">СЧА, ₽</th><th>Доля</th><th class="num">Приток за месяц</th><th class="num">За квартал</th><th class="num">За 12 мес.</th></tr></thead>
+    <tbody>
+    {% for r in rows %}
+      <tr><td>{{ r.name }}</td><td class="num">{{ r.funds }}</td><td class="num">{{ r.nav | money }}</td>
+      <td class="share"><span class="bar-h" style="width:{{ '%.1f' | format(r.share) }}%"></span><span class="share-v">{{ '%.1f' | format(r.share) }} %</span></td>
+      <td class="num {{ r.flow_1m | sign }}">{{ r.flow_1m | money }}</td>
+      <td class="num {{ r.flow_3m | sign }}">{{ r.flow_3m | money }}</td>
+      <td class="num {{ r.flow_12m | sign }}">{{ r.flow_12m | money }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</section>
+{% endmacro %}
+{% block content %}
+<section class="hero small">
+  <p class="eyebrow"><span class="dot"></span>Рынок</p>
+  <h1>СЧА и притоки <span class="grad">по всему рынку</span></h1>
+  <p class="lead">Суммы по {{ funds_with_data }} из {{ funds_total }} фондов, у которых собраны данные. Фонды без данных в сумму не входят, поэтому итог занижен. Закрытые за период фонды в действующий реестр не попадают.</p>
+</section>
+<section class="kpis">
+  <div class="kpi"><b>СЧА в выборке</b><span>{{ nav_total | money }} ₽</span></div>
+  <div class="kpi"><b>Приток за {{ last_month | month }}</b><span class="{{ market.get(last_month) | sign }}">{{ market.get(last_month) | money }} ₽</span></div>
+</section>
+<section class="panel">
+  <h2>Чистые притоки по месяцам</h2>
+  {{ flows_chart | safe }}
+  <p class="note">В месячный итог входят только фонды, у которых есть точки на конец этого и прошлого месяца. Состав меняется от месяца к месяцу.</p>
+</section>
+{{ segments("По типам фондов", by_type) }}
+{{ segments("По классам активов", by_asset) }}
+{{ segments("По категориям реестра ЦБ", by_category) }}
+<div class="cols">
+<section class="panel">
+  <h2>Топ-10 УК по СЧА</h2>
+  <ol class="toplist">
+  {% for c in top_nav %}
+    <li><a href="{{ root }}uk/{{ c.company.inn }}/">{{ c.company.short_name }}</a><span class="num">{{ c.nav | money }}</span></li>
+  {% endfor %}
+  </ol>
+</section>
+<section class="panel">
+  <h2>Топ-10 УК по притокам за 12 месяцев</h2>
+  <ol class="toplist">
+  {% for c in top_flow %}
+    <li><a href="{{ root }}uk/{{ c.company.inn }}/">{{ c.company.short_name }}</a><span class="num {{ c.flow_12m | sign }}">{{ c.flow_12m | money }}</span></li>
+  {% endfor %}
+  </ol>
+</section>
+</div>
+{% endblock %}
