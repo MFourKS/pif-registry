@@ -149,8 +149,8 @@ python -m http.server 8000 --directory dist
 Вторая проверка сильнее: дневной ряд сравнивается со значениями пая в КИД на те же даты. КИД сам
 называет фонд, поэтому ошибка сопоставления страницы с фондом сразу видна.
 
-Сверка 15 случайных значений с источниками лежит в `data/manual_check.xlsx`: снимок с цифрой и подписью стоит прямо в ячейке.
-Та же таблица есть в `data/manual_check.md` и `data/manual_check.csv`. Совпали все 15. Выборка не меняется при новых запусках.
+Ручная сверка 15 случайных значений с источниками лежит в `data/manual_check.xlsx`: снимок с цифрой и подписью стоит прямо в ячейке.
+Та же таблица есть в `data/manual_check.md` и `data/manual_check.csv`. Проверено вручную, совпали все 15. Выборка не меняется при новых запусках.
 
 ## Источники
 
@@ -231,7 +231,7 @@ python -m http.server 8000 --directory dist
 | Статус и причина по каждому фонду | [manifest/fund_status.csv](manifest/fund_status.csv) |
 | Отчёт качества последнего прогона | [data/quality_report.md](data/quality_report.md), [JSON](data/quality_report.json) |
 | Журнал исправлений рядов | [data/corrections.csv](data/corrections.csv) |
-| Сверка 15 значений со снимками | [Excel](data/manual_check.xlsx), [Markdown](data/manual_check.md), [CSV](data/manual_check.csv) |
+| Ручная сверка 15 значений со снимками | [Excel](data/manual_check.xlsx), [Markdown](data/manual_check.md), [CSV](data/manual_check.csv) |
 | Записка про ИИ | [AI_NOTES.md](AI_NOTES.md) |
 | Открытые вопросы | [docs/QUESTIONS.md](docs/QUESTIONS.md) |
 
