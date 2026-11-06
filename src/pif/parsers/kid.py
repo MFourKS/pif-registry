@@ -39,6 +39,8 @@ _RETURN_ROW = {
     6: re.compile(rf"(?i)(?<![\d.,])6[ \t]*мес(?:яцев)?\.?{_RETURN_VALUE}"),
     12: re.compile(rf"(?i)(?<![\d.,])(?:1[ \t]*год|12[ \t]*мес(?:яцев)?\.?){_RETURN_VALUE}"),
 }
+# В строке «1 месяц 0,54 (-2,74)» первое число уже инфляция, а в скобках отклонение фонда от неё.
+_DEVIATION = re.compile(r"[ \t]*\(([-−–+]?[ \t]?\d+(?:[.,]\d+)?)\)")
 _GLUED_WORDS = re.compile(r"(?i)ключевойинформ|посостоянию|общиесведения")
 _HORIZONTAL_HEADER = re.compile(r"(?i)1[ \t]*мес\S*[ \t]+3[ \t]*мес\S*[ \t]+6[ \t]*мес")
 _HORIZONTAL_VALUES = re.compile(r"(?i)доходность[ \t]+инвестиций[ \t]+([^\n]+)")
@@ -160,10 +162,20 @@ def _returns(text: str) -> dict[int, Decimal]:
     result: dict[int, Decimal] = {}
     for months, pattern in _RETURN_ROW.items():
         match = pattern.search(body)
-        value = parse_decimal(re.sub(r"[ 	]", "", match[1])) if match else None
+        value = _row_value(body, match) if match else None
         if value is not None:
             result[months] = value
     return result
+
+
+def _row_value(body: str, match: re.Match[str]) -> Decimal | None:
+    value = parse_decimal(re.sub(r"[ \t]", "", match[1]))
+    deviation = _DEVIATION.match(body, match.end())
+    if value is None or deviation is None:
+        return value
+    # Значение фонда текстовый слой унёс к диаграмме. Доходность фонда = база + отклонение от неё.
+    shift = parse_decimal(re.sub(r"[ \t]", "", deviation[1]))
+    return None if shift is None else value + shift
 
 
 def _pays_income(text: str) -> bool | None:

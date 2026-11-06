@@ -8,7 +8,7 @@ from decimal import Decimal as D
 import pytest
 
 from pif.errors import NotApplicableDocument, ScannedDocument, UnknownFormatError
-from pif.parsers.kid import parse_kid, parse_kid_text
+from pif.parsers.kid import _returns, parse_kid, parse_kid_text
 from pif.parsers.nav_statement import parse_nav_statement
 
 CASES = [
@@ -19,7 +19,7 @@ CASES = [
     ("kid_tkb.pdf", date(2026, 9, 30), "4965.94", "659866237.72", {1: "-8.15", 3: "6.59", 6: "-9.98", 12: "4.83"}),
     ("kid_trinfico.pdf", date(2026, 9, 30), "684.91", "233076124.30", {1: "-1.33", 3: "0.52", 6: "-2.85", 12: "2.53"}),
     ("kid_rshb_young_fund.pdf", date(2026, 9, 30), "1025.19", "593841217.27", {1: "0.68", 3: "2.64"}),
-    ("kid_record_millions.pdf", date(2026, 9, 30), "9912.89", "26690000", {1: "0.54", 3: "1.24"}),
+    ("kid_record_millions.pdf", date(2026, 9, 30), "9912.89", "26690000", {1: "0.49", 3: "1.24"}),
     ("kid_mkb_horizontal.pdf", date(2026, 8, 31), "368.63", "8000000", {1: "0", 3: "-0.08", 6: "-0.25", 12: "-0.46"}),
 ]
 
@@ -32,6 +32,14 @@ def test_real_kid_documents(fixture_bytes, name, day, price, nav, returns):
     assert kid.unit_price == D(price)
     assert kid.nav == D(nav)
     assert kid.returns == {months: D(value) for months, value in returns.items()}
+
+
+@pytest.mark.parametrize(
+    ("row", "expected"),
+    [("1 месяц 0,54 (-2,74)", "-2.20"), ("1 месяц 0,54 (+1,10)", "1.64"), ("1 месяц -2,20 0,54 (-2,74)", "-2.20")],
+)
+def test_inflation_is_not_taken_for_fund_return(row, expected):
+    assert _returns(f"Доходность за период, %\n{row}\n") == {1: D(expected)}
 
 
 def test_blank_periods_of_young_fund_are_not_filled(fixture_bytes):

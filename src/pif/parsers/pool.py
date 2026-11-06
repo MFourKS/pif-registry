@@ -23,7 +23,7 @@ from pif.parsers.kid import KidData, parse_kid
 from pif.parsers.nav_statement import NavStatement, parse_nav_statement
 from pif.storage.atomic import replace_file
 
-PARSER_VERSION = 10
+PARSER_VERSION = 11
 
 
 def _kid_to_json(kid: KidData) -> dict[str, Any]:
