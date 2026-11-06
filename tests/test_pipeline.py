@@ -16,7 +16,7 @@ from conftest import FIXTURES, make_fund, observation
 from pif.adapters.base import Adapter, CollectContext, FundOutcome, Issue, UkConfig
 from pif.adapters.generic import Link, is_kid_link, link_report_date
 from pif.adapters.wim import export_request
-from pif.analytics import build_analysis, classify_status, quality_report
+from pif.analytics import build_analysis, classify_status, quality_report, write_corrections
 from pif.collect import CollectResult, _collect_uk, load_sources, merge_partial, without_geo_blocked
 from pif.config import Settings
 from pif.errors import SiteUnavailable
@@ -29,7 +29,7 @@ from pif.registry.build import Registry
 from pif.site.build import build_site
 from pif.storage.manifest import Manifest
 from pif.storage.rawstore import RawStore
-from pif.storage.series_store import OfficialStore, SeriesStore
+from pif.storage.series_store import OfficialStore, Revision, SeriesStore
 
 AS_OF = date(2026, 11, 4)
 
@@ -291,6 +291,15 @@ def test_link_report_date(text, url, expected):
 )
 def test_kid_link_recognition(text, url, expected):
     assert is_kid_link(Link(url, text, "https://x/")) is expected
+
+
+def test_source_revision_stays_in_journal_after_next_run(tmp_path):
+    path = tmp_path / "corrections.csv"
+    revision = Revision("1", date(2026, 9, 30), "nav", "100", "101", "abc")
+    write_corrections(path, [], [revision])
+    write_corrections(path, [], [])
+    write_corrections(path, [], [revision])
+    assert path.read_text(encoding="utf-8").count("Источник изменил") == 1
 
 
 def test_wim_export_request_comes_from_page_form():

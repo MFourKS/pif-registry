@@ -18,6 +18,7 @@ from pif.adapters.base import FundOutcome, Issue, UkConfig
 from pif.collect import CollectResult, load_sources
 from pif.config import Settings
 from pif.flows.compute import (
+    ROUNDED_FLOW_ERROR,
     FlowTotals,
     MonthlyFlow,
     TieOut,
@@ -45,7 +46,7 @@ from pif.normalize.series import (
 from pif.observability import get_logger, tracer
 from pif.registry.build import Registry
 from pif.storage.manifest import Manifest
-from pif.storage.series_store import OfficialStore, Revision, SeriesStore
+from pif.storage.series_store import REVISION_REASONS, OfficialStore, Revision, SeriesStore
 from pif.verify.yields import PERIODS, YieldCheck, check_fund, computed_return
 
 log = get_logger("analytics")
@@ -258,18 +259,26 @@ def build_analysis(
         return Analysis(registry, views, totals, tie_out, corrections, last_month, months, conflicts)
 
 
+def _known_revisions(path: Path) -> set[tuple[str, ...]]:
+    if not path.exists():
+        return set()
+    with path.open(encoding="utf-8", newline="") as handle:
+        return {tuple(row) for row in list(csv.reader(handle))[1:] if row[5] in REVISION_REASONS}
+
+
 def write_corrections(path: Path, corrections: list[Correction], revisions: list[Revision]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rows = sorted(corrections, key=lambda c: (c.rule_number, c.day, c.field))
+    # Правка источника случается один раз, а журнал пишется заново: прошлые записи надо сохранить.
+    history = {
+        (r.rule_number, r.day.isoformat(), r.field, r.old, r.new, r.reason, r.source_id) for r in revisions
+    } | _known_revisions(path)
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["rule_number", "date", "field", "old_value", "new_value", "reason", "source_id"])
         for c in rows:
             writer.writerow([c.rule_number, c.day.isoformat(), c.field, c.old_value, c.new_value, c.reason, c.source_id])
-        for r in sorted(revisions, key=lambda r: (r.rule_number, r.day, r.field)):
-            writer.writerow(
-                [r.rule_number, r.day.isoformat(), r.field, r.old, r.new, "Источник изменил опубликованное значение", r.source_id]
-            )
+        writer.writerows(sorted(history))
 
 
 def write_flows(path: Path, analysis: Analysis) -> None:
@@ -278,13 +287,14 @@ def write_flows(path: Path, analysis: Analysis) -> None:
         writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(
             ["rule_number", "month", "start_day", "end_day", "nav_start", "nav_end", "price_start", "price_end",
-             "flow", "market_effect", "flow_rub", "kind"]
+             "flow", "market_effect", "flow_rub", "kind", "nav_rounded"]
         )  # fmt: skip
         for rule in sorted(analysis.views):
             for f in analysis.views[rule].flows:
                 writer.writerow(
                     [f.rule_number, f.month, f.start_day or "", f.end_day, f.nav_start or "", f.nav_end,
-                     f.price_start or "", f.price_end, f.flow, f.market_effect, f.flow_rub or "", f.kind]
+                     f.price_start or "", f.price_end, f.flow, f.market_effect, f.flow_rub or "", f.kind,
+                     int(f.nav_rounded)]
                 )  # fmt: skip
 
 
@@ -337,6 +347,7 @@ def quality_report(
     stale_share = len(stale) / len(with_series) if with_series else 0.0
     all_checks = [c for v in views for c in v.checks]
     compared = [c for c in all_checks if c.computed_pct is not None]
+    rounded = [f for v in views for f in v.flows if f.nav_rounded]
     return {
         "registry_as_of": analysis.registry.as_of.isoformat(),
         "funds_total": len(analysis.views),
@@ -359,6 +370,11 @@ def quality_report(
             "not_comparable": len(all_checks) - len(compared),
             "within_tolerance": len(compared) - len(mismatches),
             "mismatches": sorted(mismatches, key=lambda m: -abs(float(m["difference_pp"]))),
+        },
+        "rounded_nav": {
+            "funds": len({f.rule_number for f in rounded}),
+            "flows": len(rounded),
+            "flows_within_error": sum(1 for f in rounded if abs(f.flow) < ROUNDED_FLOW_ERROR),
         },
         "corrections_total": len(analysis.corrections),
         "kid_conflicts": [
@@ -446,6 +462,8 @@ def write_quality_markdown(path: Path, report: dict[str, Any]) -> None:
         f"| Предупреждений | {report['warnings_total']} |",
         f"| Разрывов в сверке итогов | {len(report['tie_out_breaks'])} |",
         f"| Рядов, не обновлённых из-за сбоя сайта | {gap['funds_with_series']} |",
+        f"| Притоков по округлённой СЧА, точность ±10 тыс. ₽ | {report['rounded_nav']['flows']} |",
+        f"| Из них меньше этой точности | {report['rounded_nav']['flows_within_error']} |",
         f"| Записей в журнале исправлений | {report['corrections_total']} |",
         f"| Значений официальной доходности | {check['official_values']} |",
         f"| Сверено с рядом | {check['compared']} |",

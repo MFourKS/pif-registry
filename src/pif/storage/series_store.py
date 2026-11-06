@@ -18,6 +18,9 @@ from pif.storage.atomic import replace_file
 _COLUMNS = ["date", "nav", "unit_price", "currency", "kind", "source_id"]
 # Дневной ряд точнее месячного документа: в КИД значения бывают округлены до млн.
 _KIND_PRIORITY = {"daily": 3, "monthly_doc": 2, "statement": 1}
+SOURCE_CHANGED = "Источник изменил опубликованное значение"
+DAILY_REPLACED_DOCUMENT = "Дневной ряд УК заменил значение из документа на эту дату"
+REVISION_REASONS = (SOURCE_CHANGED, DAILY_REPLACED_DOCUMENT)
 
 
 def safe_name(rule_number: str) -> str:
@@ -34,6 +37,7 @@ class Revision:
     old: str
     new: str
     source_id: str
+    reason: str = SOURCE_CHANGED
 
 
 class SeriesStore:
@@ -100,8 +104,10 @@ class SeriesStore:
         for field in ("nav", "unit_price"):
             old_value, new_value = getattr(current, field), getattr(new, field)
             if old_value is not None and new_value is not None and old_value != new_value:
+                replaced = current.kind != "daily" and new.kind == "daily"
+                reason = DAILY_REPLACED_DOCUMENT if replaced else SOURCE_CHANGED
                 self.revisions.append(
-                    Revision(rule_number, current.day, field, str(old_value), str(new_value), new.source_id)
+                    Revision(rule_number, current.day, field, str(old_value), str(new_value), new.source_id, reason)
                 )
         if (new.nav is None and current.nav is not None) or (
             new.unit_price is None and current.unit_price is not None

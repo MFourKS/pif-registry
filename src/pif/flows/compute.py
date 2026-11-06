@@ -26,6 +26,10 @@ from pif.normalize.series import Correction, NormalizedSeries, Point, month_end_
 
 CENT = Decimal("0.01")
 MAX_FLOW_TO_NAV = 5
+# СЧА в КИД бывает указана в млн с двумя знаками. Такая сумма кратна 10 тысячам, а точность притока
+# у этого месяца около ±10 тысяч: по ±5 тысяч на начало и конец.
+ROUNDED_NAV_STEP = Decimal(10_000)
+ROUNDED_FLOW_ERROR = Decimal(10_000)
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,11 +46,16 @@ class MonthlyFlow:
     market_effect: Decimal
     flow_rub: Decimal | None
     kind: str  # regular | initial
+    nav_rounded: bool = False
 
 
 def _previous_month(month: str) -> str:
     year, number = (int(part) for part in month.split("-"))
     return f"{year - 1:04d}-12" if number == 1 else f"{year:04d}-{number - 1:02d}"
+
+
+def is_rounded_nav(nav: Decimal | None) -> bool:
+    return nav is not None and nav != 0 and nav % ROUNDED_NAV_STEP == 0
 
 
 def net_flow(nav_start: Decimal, nav_end: Decimal, price_start: Decimal, price_end: Decimal) -> Decimal:
@@ -100,6 +109,7 @@ def fund_flows(fund: Fund, series: NormalizedSeries, fx: FxRates, last_complete:
                 market_effect=effect.quantize(CENT),
                 flow_rub=(value * rate).quantize(CENT) if rate is not None else None,
                 kind=kind,
+                nav_rounded=is_rounded_nav(end.nav) or (start is not None and is_rounded_nav(start.nav)),
             )
         )
     return flows

@@ -92,10 +92,11 @@
     {% for f in flow_rows %}
       <tr><td>{{ f.month | month }}</td><td class="num">{{ f.nav_start | money }}</td><td class="num">{{ f.nav_end | money }}</td>
       <td class="num">{% if f.price_start %}{{ ((f.price_end / f.price_start - 1) * 100) | pct }}{% else %}—{% endif %}</td>
-      <td class="num {{ f.flow_rub | sign }}">{{ f.flow_rub | money }}{% if f.kind == 'initial' %} <span class="muted">формирование</span>{% endif %}</td></tr>
+      <td class="num {{ f.flow_rub | sign }}">{{ f.flow_rub | money }}{% if f.kind == 'initial' %} <span class="muted">формирование</span>{% endif %}{% if f.nav_rounded %} <span class="muted">±10 тыс.</span>{% endif %}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>
+  {% if flow_rows | selectattr('nav_rounded') | list %}<p class="muted">±10 тыс.: СЧА в КИД указана в миллионах с двумя знаками, поэтому точность притока за этот месяц около 10 тысяч рублей.</p>{% endif %}
 </section>
 {% endif %}
 
