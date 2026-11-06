@@ -281,6 +281,7 @@ class Fetcher:
         params: dict[str, Any] | None = None,
         method: str = "GET",
         data: dict[str, Any] | None = None,
+        as_json: bool = False,
         headers: dict[str, str] | None = None,
         uk_inn: str = "",
         fund: str = "",
@@ -319,7 +320,8 @@ class Fetcher:
 
         try:
             result = await self._request(
-                method, full_url, key, host, entry, headers, data, uk_inn, fund, retries, documented_api, public_document
+                method, full_url, key, host, entry, headers, data, as_json, uk_inn, fund, retries, documented_api,
+                public_document,
             )
         except FetchError as exc:
             self.cache.failures[key] = {"kind": type(exc).__name__, "detail": exc.detail, "checked_at": time.time()}
@@ -336,6 +338,7 @@ class Fetcher:
         entry: dict[str, Any] | None,
         headers: dict[str, str] | None,
         data: dict[str, Any] | None,
+        as_json: bool,
         uk_inn: str,
         fund: str,
         retries: int | None,
@@ -367,7 +370,8 @@ class Fetcher:
             last_error: FetchError | None = None
             for attempt in range(attempts):
                 try:
-                    response = await self._send(method, full_url, host, headers=conditional, data=data)
+                    body = {"json": data} if as_json else {"data": data}
+                    response = await self._send(method, full_url, host, headers=conditional, **body)
                 except httpx.HTTPError as exc:
                     last_error = SiteUnavailable(full_url, f"{type(exc).__name__}: {exc}"[:200])
                 else:

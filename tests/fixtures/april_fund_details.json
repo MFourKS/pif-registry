@@ -1,0 +1,27 @@
+{
+ "error": null,
+ "success": [
+  {
+   "active": true,
+   "id": 2,
+   "shortName": "ОПИФ рыночных финансовых инструментов «Апрель Капитал - Акции»",
+   "priceList": [
+    {
+     "assetValue": 40917905068,
+     "date": 1790629200,
+     "sharePrice": 108770
+    },
+    {
+     "assetValue": 41002291070,
+     "date": 1790715600,
+     "sharePrice": 108993
+    },
+    {
+     "assetValue": 41134250871,
+     "date": 1790802000,
+     "sharePrice": 109344
+    }
+   ]
+  }
+ ]
+}

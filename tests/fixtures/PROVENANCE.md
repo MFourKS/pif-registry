@@ -35,3 +35,5 @@
 | nav_statement_sgb.xlsx | https://uksgb.ru/wp-content/uploads/2026/06/scha_7857_2026_07_16_1_ok.xlsx |
 | report_without_series.xls | https://p-fondy.ru/upload/iblock/6d0/otchet-o-priroste-_umenshenii_-sibirskiy-31.03.2015.xls |
 | tkb_usd_rub.html | https://www.tkbip.ru/funds/tkb-bnp-pariba-zoloto/results/ (последние 30 точек рублёвого и долларового рядов) |
+| april_fund_details.json | https://april-capital.ru/api/v01_fund_details_list (фонд «Акции», три настоящие точки) |
+| ingos_quotes.json | https://www.ingosinvest-am.ru/api/Info/FundQuotesDynamic/17587 (последние 5 записей) |

@@ -4,14 +4,16 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import date
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any
 from urllib.parse import urljoin
 
 from pif.adapters.base import CollectContext
 from pif.adapters.generic import GenericAdapter, Link, is_kid_link, is_statement_link, link_report_date
-from pif.errors import ParseError
+from pif.errors import ParseError, UnknownFormatError
 from pif.parsers.numbers import parse_date
-from pif.parsers.series import json_records
+from pif.parsers.series import SeriesRow, json_records
 
 
 def _file_date(url: str) -> date | None:
@@ -46,6 +48,43 @@ class GeroiAdapter(GenericAdapter):
                 if not is_kid_link(link) or (day is not None and day < ctx.cutoff):
                     continue
                 await self.collect_kid(ctx, link, fund=fund)
+
+
+def ingos_rows(items: list[dict[str, Any]], source: str) -> list[SeriesRow]:
+    rows: list[SeriesRow] = []
+    for item in items:
+        try:
+            day = datetime.fromisoformat(item["date"]).date()
+            rows.append(SeriesRow(day, Decimal(str(item["unitValue"])), Decimal(str(item["assetsValue"])), "RUB"))
+        except (KeyError, TypeError, ValueError, ArithmeticError) as exc:
+            raise UnknownFormatError(source, f"точка ряда без даты, пая или СЧА: {item!r}"[:160]) from exc
+    return rows
+
+
+class IngosAdapter(GenericAdapter):
+    """Ингосстрах: список фондов и полный дневной ряд в рублях через API сайта.
+
+    В robots.txt закрыты адреса с параметрами (`Disallow: /*?*`), поэтому берём только адреса без
+    них. Список КИД отдаётся лишь с фильтром, так что официальной доходности у этих фондов нет.
+    """
+
+    SITE = "https://www.ingosinvest-am.ru"
+
+    async def collect(self, ctx: CollectContext) -> None:
+        listing = await ctx.fetch(f"{self.SITE}/api/Info/LatestFundsData")
+        ctx.counters["pages"] += 1
+        for item in json.loads(listing.content):
+            fund = ctx.matcher.match(item["fullName"])
+            if fund is None:
+                ctx.note_unmatched(listing.url, item["fullName"])
+                continue
+            quotes = await ctx.try_fetch(f"{self.SITE}/api/Info/FundQuotesDynamic/{item['fundId']}", fund=fund)
+            if quotes is None:
+                continue
+            try:
+                ctx.add_series(fund, ingos_rows(json.loads(quotes.content), quotes.url), quotes)
+            except ParseError as exc:
+                ctx.note_parse_error(quotes.url, exc, fund)
 
 
 class OzonAdapter(GenericAdapter):
