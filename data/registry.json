@@ -1,7 +1,7 @@
 {
- "as_of": "2026-11-05",
+ "as_of": "2026-11-06",
  "source_url": "https://www.cbr.ru/vfs/finmarkets/files/supervision/list_pif.xlsx",
- "source_id": "14deb57448077799",
+ "source_id": "8fb17822f84336c9",
  "funds": [
   {
    "rule_number": "0007-45141428",
@@ -11576,8 +11576,8 @@
    "uk_ogrn": "1027809172368",
    "uk_name": "ООО \"УК \"БФА\"",
    "registered_on": "2026-09-25",
-   "formed_on": null,
-   "cbr_status": "Формируется",
+   "formed_on": "2026-10-29",
+   "cbr_status": "Сформирован",
    "for_qualified": true,
    "exchange_traded": true,
    "previous_names": [],

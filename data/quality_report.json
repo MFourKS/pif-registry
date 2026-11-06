@@ -1,14 +1,14 @@
 {
- "registry_as_of": "2026-11-05",
+ "registry_as_of": "2026-11-06",
  "funds_total": 562,
  "statuses": {
   "ok": {
    "label": "Ряд собран",
-   "count": 235
+   "count": 263
   },
   "partial": {
    "label": "Ряд неполный",
-   "count": 41
+   "count": 26
   },
   "formed_later": {
    "label": "Фонд сформирован позже",
@@ -16,7 +16,7 @@
   },
   "not_formed": {
    "label": "Фонд ещё формируется",
-   "count": 16
+   "count": 15
   },
   "no_history": {
    "label": "УК не публикует историю",
@@ -24,25 +24,25 @@
   },
   "site_unavailable": {
    "label": "Сайт УК недоступен",
-   "count": 2
+   "count": 1
   },
   "blocked": {
    "label": "Сайт УК блокирует автоматический доступ",
-   "count": 55
+   "count": 56
   },
   "not_found": {
    "label": "Данные фонда не найдены на сайте УК",
-   "count": 155
+   "count": 143
   },
   "parse_error": {
    "label": "Ошибка разбора источника",
    "count": 0
   }
  },
- "funds_with_series": 334,
+ "funds_with_series": 347,
  "retail_funds": 396,
- "retail_funds_with_series": 313,
- "points_total": 46425,
+ "retail_funds_with_series": 326,
+ "points_total": 54716,
  "errors": [],
  "known_issues": [
   {
@@ -118,18 +118,18 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 2288,
+ "warnings_total": 4223,
  "warnings_by_stage": {
-  "fetch": 778,
-  "match": 334,
-  "parse": 1176
+  "fetch": 2084,
+  "match": 626,
+  "parse": 1513
  },
  "yield_check": {
   "tolerance_pp": 0.5,
-  "official_values": 1009,
-  "compared": 897,
+  "official_values": 1033,
+  "compared": 921,
   "not_comparable": 112,
-  "within_tolerance": 801,
+  "within_tolerance": 827,
   "mismatches": [
    {
     "fund": "0311-74549820",
@@ -211,7 +211,7 @@
     "official_pct": "13.68",
     "computed_pct": "-0.42",
     "difference_pp": "-14.10",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -235,7 +235,7 @@
     "official_pct": "15.33",
     "computed_pct": "1.65",
     "difference_pp": "-13.68",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -271,7 +271,7 @@
     "official_pct": "8.65",
     "computed_pct": "-4.20",
     "difference_pp": "-12.85",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -343,7 +343,7 @@
     "official_pct": "1.84",
     "computed_pct": "-8.97",
     "difference_pp": "-10.81",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -547,7 +547,7 @@
     "official_pct": "6.50",
     "computed_pct": "-0.33",
     "difference_pp": "-6.83",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -595,7 +595,7 @@
     "official_pct": "2.25",
     "computed_pct": "-4.42",
     "difference_pp": "-6.67",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -607,7 +607,7 @@
     "official_pct": "4.18",
     "computed_pct": "-2.36",
     "difference_pp": "-6.54",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -619,7 +619,7 @@
     "official_pct": "6.97",
     "computed_pct": "0.54",
     "difference_pp": "-6.43",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -679,7 +679,7 @@
     "official_pct": "-3.07",
     "computed_pct": "-9.17",
     "difference_pp": "-6.10",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -991,7 +991,7 @@
     "official_pct": "7.64",
     "computed_pct": "3.89",
     "difference_pp": "-3.75",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1039,7 +1039,7 @@
     "official_pct": "7.44",
     "computed_pct": "4.02",
     "difference_pp": "-3.42",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1051,7 +1051,7 @@
     "official_pct": "5.23",
     "computed_pct": "1.83",
     "difference_pp": "-3.40",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1063,7 +1063,7 @@
     "official_pct": "3.19",
     "computed_pct": "-0.19",
     "difference_pp": "-3.38",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1123,7 +1123,7 @@
     "official_pct": "3.48",
     "computed_pct": "0.33",
     "difference_pp": "-3.15",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1164,18 +1164,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "3343",
-    "name": "ОПИФ рыночных финансовых инструментов «Алёнка – Капитал»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "0.54",
-    "computed_pct": "-2.20",
-    "difference_pp": "-2.74",
-    "source_id": "39d2bc056c6c9cc4",
-    "source_url": "https://recordcap.ru/doc/funds/1535/download",
-    "reason": "Причина не установлена."
-   },
-   {
     "fund": "4978",
     "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд облигаций с выплатой дохода»",
     "period_months": 3,
@@ -1186,18 +1174,6 @@
     "source_id": "77ba313f8285e2fd",
     "source_url": "https://www.first-am.ru/download/26530/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "7565",
-    "name": "ОПИФ рыночных финансовых инструментов «ЛЕВЧЕНКО»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "0.54",
-    "computed_pct": "-2.00",
-    "difference_pp": "-2.54",
-    "source_id": "7e5c369aef7142e6",
-    "source_url": "https://recordcap.ru/doc/funds/1536/download",
-    "reason": "Причина не установлена."
    },
    {
     "fund": "4978",
@@ -1231,7 +1207,7 @@
     "official_pct": "2.21",
     "computed_pct": "0.40",
     "difference_pp": "-1.81",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1255,7 +1231,7 @@
     "official_pct": "1.07",
     "computed_pct": "-0.24",
     "difference_pp": "-1.31",
-    "source_id": "b560a2bc3d2d3e1d",
+    "source_id": "e29b4e877d2fcb42",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1285,25 +1261,54 @@
    }
   ]
  },
- "corrections_total": 289,
+ "rounded_nav": {
+  "funds": 14,
+  "flows": 144,
+  "flows_within_error": 13
+ },
+ "corrections_total": 296,
  "kid_conflicts": [
+  {
+   "fund": "0118-14241730",
+   "compared": 10,
+   "mismatched": 2,
+   "worst_day": "2025-07-31",
+   "worst_pct": 86.447
+  },
+  {
+   "fund": "0424-79363131",
+   "compared": 14,
+   "mismatched": 1,
+   "worst_day": "2025-10-31",
+   "worst_pct": 97.418
+  },
+  {
+   "fund": "6226",
+   "compared": 15,
+   "mismatched": 1,
+   "worst_day": "2025-08-19",
+   "worst_pct": 3.743
+  },
   {
    "fund": "6589",
    "compared": 15,
    "mismatched": 1,
    "worst_day": "2026-02-27",
    "worst_pct": 99.815
+  },
+  {
+   "fund": "6778",
+   "compared": 14,
+   "mismatched": 1,
+   "worst_day": "2026-08-31",
+   "worst_pct": 79.596
   }
  ],
  "tie_out_breaks": [],
  "collection_gap": {
-  "companies": [
-   "ООО \"УК \"РЕКОРД КАПИТАЛ\"",
-   "ООО \"УК ПРОМСВЯЗЬ\"",
-   "ООО УК «Парма-Менеджмент»"
-  ],
-  "funds_with_series": 24,
-  "share": 0.0719,
+  "companies": [],
+  "funds_with_series": 0,
+  "share": 0.0,
   "limit": 0.1
  },
  "publish_allowed": true
