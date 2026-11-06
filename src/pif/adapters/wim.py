@@ -7,7 +7,7 @@
 from __future__ import annotations
 
 import re
-from datetime import date, timedelta
+from datetime import date
 from urllib.parse import urljoin
 
 from pif.adapters.base import CollectContext
@@ -48,9 +48,8 @@ class WimAdapter(GenericAdapter):
             if fund is None:
                 ctx.note_unmatched(url, "страница ВИМ с формой выгрузки")
                 continue
-            known = ctx.series.last_date(fund.rule_number)
-            start = known - timedelta(days=7) if known else ctx.cutoff
-            request = export_request(page, url, start, last_day)
+            # Начало не зависит от накопленных точек: иначе адрес менялся бы и повторный запуск шёл на сайт.
+            request = export_request(page, url, ctx.cutoff, last_day)
             if request is None:
                 continue
             target, params = request
