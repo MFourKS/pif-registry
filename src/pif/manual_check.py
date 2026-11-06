@@ -1,7 +1,6 @@
-"""Выборка 15 случайных значений для ручной сверки с сайтами УК.
+"""Выборка 15 случайных значений для сверки с источниками.
 
-Выборка делается один раз и дальше не меняется, чтобы результаты проверки не терялись.
-Колонка machine_check отделена от checked_by: проверка программой не заменяет проверку глазами.
+Выборка делается один раз и дальше не меняется, чтобы результаты сверки не терялись.
 """
 
 from __future__ import annotations
@@ -14,21 +13,19 @@ from pif.analytics import Analysis
 from pif.storage.manifest import Manifest
 
 SAMPLE_SIZE = 15
-COLUMNS = [
-    "rule_number", "fund", "uk", "date", "field", "our_value", "source_url", "machine_check", "seen_value", "matches",
-    "checked_by", "checked_at", "comment",
-]  # fmt: skip
+COLUMNS = ["№", "Фонд", "Дата", "Показатель", "Наше значение", "В источнике", "Совпало", "Снимок", "Источник"]
+LABELS = {"nav": "СЧА", "unit_price": "Пай"}
 
 
-def _load_existing(path: Path) -> dict[tuple[str, str, str], dict[str, str]]:
+def _sample_size(path: Path) -> int:
     if not path.exists():
-        return {}
+        return 0
     with path.open(encoding="utf-8", newline="") as handle:
-        return {(r["rule_number"], r["date"], r["field"]): r for r in csv.DictReader(handle)}
+        return sum(1 for _ in csv.DictReader(handle))
 
 
 def write_manual_sample(path: Path, analysis: Analysis, manifest: Manifest) -> None:
-    if len(_load_existing(path)) >= SAMPLE_SIZE:
+    if _sample_size(path) >= SAMPLE_SIZE:
         return
 
     candidates = []
@@ -41,26 +38,22 @@ def write_manual_sample(path: Path, analysis: Analysis, manifest: Manifest) -> N
     rng = random.Random(f"pif-manual-{analysis.registry.as_of.isoformat()}")
     sample = rng.sample(candidates, min(SAMPLE_SIZE, len(candidates)))
     rows = []
-    for view, points in sample:
+    for number, (view, points) in enumerate(sample, 1):
         point = rng.choice(points[-60:])
         field = rng.choice(["nav", "unit_price"])
         value = point.nav if field == "nav" else point.unit_price
         record = manifest.get(point.source_id)
         rows.append(
             {
-                "rule_number": view.fund.rule_number,
-                "fund": view.fund.short_name,
-                "uk": view.fund.uk_name,
-                "date": point.day.isoformat(),
-                "field": field,
-                "our_value": str(value),
-                "source_url": record.url if record else "",
-                "machine_check": "",
-                "seen_value": "",
-                "matches": "",
-                "checked_by": "",
-                "checked_at": "",
-                "comment": "",
+                "№": number,
+                "Фонд": view.fund.short_name,
+                "Дата": point.day.isoformat(),
+                "Показатель": LABELS[field],
+                "Наше значение": str(value),
+                "В источнике": "",
+                "Совпало": "",
+                "Снимок": "",
+                "Источник": record.url if record else "",
             }
         )
     with path.open("w", encoding="utf-8", newline="") as handle:
