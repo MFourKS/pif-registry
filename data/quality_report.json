@@ -1,6 +1,6 @@
 {
- "registry_as_of": "2026-11-06",
- "funds_total": 562,
+ "registry_as_of": "2026-11-09",
+ "funds_total": 563,
  "statuses": {
   "ok": {
    "label": "Ряд собран",
@@ -24,7 +24,7 @@
   },
   "site_unavailable": {
    "label": "Сайт УК недоступен",
-   "count": 2
+   "count": 6
   },
   "blocked": {
    "label": "Сайт УК блокирует автоматический доступ",
@@ -32,7 +32,7 @@
   },
   "not_found": {
    "label": "Данные фонда не найдены на сайте УК",
-   "count": 142
+   "count": 139
   },
   "parse_error": {
    "label": "Ошибка разбора источника",
@@ -40,9 +40,9 @@
   }
  },
  "funds_with_series": 347,
- "retail_funds": 396,
+ "retail_funds": 397,
  "retail_funds_with_series": 326,
- "points_total": 54826,
+ "points_total": 55012,
  "errors": [],
  "known_issues": [
   {
@@ -80,14 +80,6 @@
   {
    "stage": "parse",
    "uk_inn": "7702172846",
-   "url": "https://www.bcswm.ru/ajax/files/68039/a4e1cfb62ac767ceb7667b4735c28d7d/",
-   "fund": "",
-   "message": "Незнакомый формат источника https://www.bcswm.ru/ajax/files/68039/a4e1cfb62ac767ceb7667b4735c28d7d/: Незнакомый формат источника https://www.bcswm.ru/ajax/files/68039/a4e1cfb62ac767ceb7667b4735c28d7d/: в документе нет даты «по состоянию на»",
-   "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
-  },
-  {
-   "stage": "parse",
-   "uk_inn": "7702172846",
    "url": "https://www.bcswm.ru/ajax/files/68127/61fedd8d82fed8872339cef9d0cfad2e/",
    "fund": "",
    "message": "Незнакомый формат источника https://www.bcswm.ru/ajax/files/68127/61fedd8d82fed8872339cef9d0cfad2e/: Незнакомый формат источника https://www.bcswm.ru/ajax/files/68127/61fedd8d82fed8872339cef9d0cfad2e/: в документе нет даты «по состоянию на»",
@@ -118,18 +110,18 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 2730,
+ "warnings_total": 4137,
  "warnings_by_stage": {
-  "fetch": 922,
-  "match": 314,
-  "parse": 1494
+  "fetch": 2082,
+  "match": 573,
+  "parse": 1482
  },
  "yield_check": {
   "tolerance_pp": 0.5,
   "official_values": 1033,
-  "compared": 921,
-  "not_comparable": 112,
-  "within_tolerance": 827,
+  "compared": 924,
+  "not_comparable": 109,
+  "within_tolerance": 833,
   "mismatches": [
    {
     "fund": "0311-74549820",
@@ -147,12 +139,12 @@
     "fund": "5585",
     "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "5.51",
-    "computed_pct": "-10.54",
-    "difference_pp": "-16.05",
-    "source_id": "9ecc6b434f89ab3e",
-    "source_url": "https://www.rshb-am.ru/upload/iblock/b19/kjmg6go4q1crmd60q2o6sw3juvp3n81y/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.09.2026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "8.98",
+    "computed_pct": "-7.20",
+    "difference_pp": "-16.18",
+    "source_id": "8c7c996bbd919eb2",
+    "source_url": "https://www.rshb-am.ru/upload/iblock/53d/nrfyhsz66qqv2wflxloausdrq6ojik2w/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.10.2026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -183,12 +175,12 @@
     "fund": "5007",
     "name": "ОПИФ рыночных финансовых инструментов «Финансовый поток»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "11.82",
-    "computed_pct": "-3.35",
-    "difference_pp": "-15.17",
-    "source_id": "3d9dea8e238ca6c4",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/030/bkixa6lwpi358sw3klj2yqx4cap66chd/16.-OPIF-Finansovyy-potok_30092026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "13.23",
+    "computed_pct": "-1.79",
+    "difference_pp": "-15.02",
+    "source_id": "eee8c0383c7a6c33",
+    "source_url": "https://www.upravlyaem.ru/upload/iblock/4dd/x58y9bww8w1m7gthidppconv30libmd1/16.-OPIF-Finansovyy-potok_30102026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -211,7 +203,7 @@
     "official_pct": "13.68",
     "computed_pct": "-0.42",
     "difference_pp": "-14.10",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -235,7 +227,7 @@
     "official_pct": "15.33",
     "computed_pct": "1.65",
     "difference_pp": "-13.68",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -271,7 +263,7 @@
     "official_pct": "8.65",
     "computed_pct": "-4.20",
     "difference_pp": "-12.85",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -288,6 +280,18 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
+    "fund": "5210",
+    "name": "ОПИФ рыночных финансовых инструментов «Дивидендные акции»",
+    "period_months": 12,
+    "report_date": "2026-10-30",
+    "official_pct": "4.00",
+    "computed_pct": "-8.56",
+    "difference_pp": "-12.56",
+    "source_id": "8558c20681fcda2e",
+    "source_url": "https://www.upravlyaem.ru/upload/iblock/fa0/75wif5efs9pk8gvldk9a7lwfr7iddz96/5.-OPIF-Dividendnye-aktsii_30102026.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
     "fund": "6226",
     "name": "ОПИФ рыночных финансовых инструментов «ВИМ - Сбалансированный. Рантье»",
     "period_months": 12,
@@ -297,18 +301,6 @@
     "difference_pp": "-11.93",
     "source_id": "4db4f1d010ce22ca",
     "source_url": "https://www.wealthim.ru/upload/iblock/12d/i24k8zzva3uah9p52srrgspq83dlun6q/26_09_30_KID_OPIF_SbalRante.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "5210",
-    "name": "ОПИФ рыночных финансовых инструментов «Дивидендные акции»",
-    "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "-9.74",
-    "computed_pct": "-21.59",
-    "difference_pp": "-11.85",
-    "source_id": "21c22c41c215642d",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/c86/od7kyur6m54w3aserncjxd8b21xeygbw/5.-OPIF-Dividendnye-aktsii_30092026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -343,7 +335,7 @@
     "official_pct": "1.84",
     "computed_pct": "-8.97",
     "difference_pp": "-10.81",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -410,61 +402,49 @@
    {
     "fund": "5210",
     "name": "ОПИФ рыночных финансовых инструментов «Дивидендные акции»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "0.85",
-    "computed_pct": "-7.75",
-    "difference_pp": "-8.60",
-    "source_id": "21c22c41c215642d",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/c86/od7kyur6m54w3aserncjxd8b21xeygbw/5.-OPIF-Dividendnye-aktsii_30092026.pdf",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "-2.79",
+    "computed_pct": "-11.38",
+    "difference_pp": "-8.59",
+    "source_id": "8558c20681fcda2e",
+    "source_url": "https://www.upravlyaem.ru/upload/iblock/fa0/75wif5efs9pk8gvldk9a7lwfr7iddz96/5.-OPIF-Dividendnye-aktsii_30102026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
     "fund": "5007",
     "name": "ОПИФ рыночных финансовых инструментов «Финансовый поток»",
     "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "3.11",
-    "computed_pct": "-5.36",
-    "difference_pp": "-8.47",
-    "source_id": "3d9dea8e238ca6c4",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/030/bkixa6lwpi358sw3klj2yqx4cap66chd/16.-OPIF-Finansovyy-potok_30092026.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "5585",
-    "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-0.77",
-    "computed_pct": "-9.16",
-    "difference_pp": "-8.39",
-    "source_id": "9ecc6b434f89ab3e",
-    "source_url": "https://www.rshb-am.ru/upload/iblock/b19/kjmg6go4q1crmd60q2o6sw3juvp3n81y/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.09.2026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "5.23",
+    "computed_pct": "-3.22",
+    "difference_pp": "-8.45",
+    "source_id": "eee8c0383c7a6c33",
+    "source_url": "https://www.upravlyaem.ru/upload/iblock/4dd/x58y9bww8w1m7gthidppconv30libmd1/16.-OPIF-Finansovyy-potok_30102026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
     "fund": "5210",
     "name": "ОПИФ рыночных финансовых инструментов «Дивидендные акции»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "-2.29",
-    "computed_pct": "-10.62",
-    "difference_pp": "-8.33",
-    "source_id": "21c22c41c215642d",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/c86/od7kyur6m54w3aserncjxd8b21xeygbw/5.-OPIF-Dividendnye-aktsii_30092026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "7.67",
+    "computed_pct": "-0.74",
+    "difference_pp": "-8.41",
+    "source_id": "8558c20681fcda2e",
+    "source_url": "https://www.upravlyaem.ru/upload/iblock/fa0/75wif5efs9pk8gvldk9a7lwfr7iddz96/5.-OPIF-Dividendnye-aktsii_30102026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "5210",
-    "name": "ОПИФ рыночных финансовых инструментов «Дивидендные акции»",
+    "fund": "5585",
+    "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
     "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-13.64",
-    "computed_pct": "-21.96",
-    "difference_pp": "-8.32",
-    "source_id": "21c22c41c215642d",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/c86/od7kyur6m54w3aserncjxd8b21xeygbw/5.-OPIF-Dividendnye-aktsii_30092026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "1.86",
+    "computed_pct": "-6.52",
+    "difference_pp": "-8.38",
+    "source_id": "8c7c996bbd919eb2",
+    "source_url": "https://www.rshb-am.ru/upload/iblock/53d/nrfyhsz66qqv2wflxloausdrq6ojik2w/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.10.2026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -559,7 +539,7 @@
     "official_pct": "6.50",
     "computed_pct": "-0.33",
     "difference_pp": "-6.83",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -595,7 +575,7 @@
     "official_pct": "2.25",
     "computed_pct": "-4.42",
     "difference_pp": "-6.67",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -607,7 +587,7 @@
     "official_pct": "4.18",
     "computed_pct": "-2.36",
     "difference_pp": "-6.54",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -619,7 +599,7 @@
     "official_pct": "6.97",
     "computed_pct": "0.54",
     "difference_pp": "-6.43",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -679,7 +659,7 @@
     "official_pct": "-3.07",
     "computed_pct": "-9.17",
     "difference_pp": "-6.10",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -720,18 +700,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "5585",
-    "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
-    "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "0.40",
-    "computed_pct": "-4.79",
-    "difference_pp": "-5.19",
-    "source_id": "9ecc6b434f89ab3e",
-    "source_url": "https://www.rshb-am.ru/upload/iblock/b19/kjmg6go4q1crmd60q2o6sw3juvp3n81y/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.09.2026.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "4980",
     "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
     "period_months": 6,
@@ -744,18 +712,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "5585",
-    "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "0.04",
-    "computed_pct": "-5.13",
-    "difference_pp": "-5.17",
-    "source_id": "9ecc6b434f89ab3e",
-    "source_url": "https://www.rshb-am.ru/upload/iblock/b19/kjmg6go4q1crmd60q2o6sw3juvp3n81y/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.09.2026.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "5626",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
     "period_months": 6,
@@ -765,6 +721,18 @@
     "difference_pp": "-5.16",
     "source_id": "20f608b731acc39e",
     "source_url": "https://www.alfacapital.ru/disclosure/file/61802",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "5585",
+    "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
+    "period_months": 3,
+    "report_date": "2026-10-30",
+    "official_pct": "2.51",
+    "computed_pct": "-2.64",
+    "difference_pp": "-5.15",
+    "source_id": "8c7c996bbd919eb2",
+    "source_url": "https://www.rshb-am.ru/upload/iblock/53d/nrfyhsz66qqv2wflxloausdrq6ojik2w/KID_-OPIF_RSKHB_Denezhnyy-potok_-30.10.2026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -819,12 +787,12 @@
     "fund": "5007",
     "name": "ОПИФ рыночных финансовых инструментов «Финансовый поток»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "4.19",
-    "computed_pct": "-0.43",
-    "difference_pp": "-4.62",
-    "source_id": "3d9dea8e238ca6c4",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/030/bkixa6lwpi358sw3klj2yqx4cap66chd/16.-OPIF-Finansovyy-potok_30092026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "5.63",
+    "computed_pct": "1.06",
+    "difference_pp": "-4.57",
+    "source_id": "eee8c0383c7a6c33",
+    "source_url": "https://www.upravlyaem.ru/upload/iblock/4dd/x58y9bww8w1m7gthidppconv30libmd1/16.-OPIF-Finansovyy-potok_30102026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -837,18 +805,6 @@
     "difference_pp": "-4.52",
     "source_id": "44db9bd3bb6a36bf",
     "source_url": "https://www.am-aton.ru/upload/iblock/fdb/fq1ykuvcbep2gg72c493pr3s9986vsuu.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "5007",
-    "name": "ОПИФ рыночных финансовых инструментов «Финансовый поток»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "2.06",
-    "computed_pct": "-2.46",
-    "difference_pp": "-4.52",
-    "source_id": "3d9dea8e238ca6c4",
-    "source_url": "https://www.upravlyaem.ru/upload/iblock/030/bkixa6lwpi358sw3klj2yqx4cap66chd/16.-OPIF-Finansovyy-potok_30092026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -979,7 +935,7 @@
     "official_pct": "7.64",
     "computed_pct": "3.89",
     "difference_pp": "-3.75",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1027,7 +983,7 @@
     "official_pct": "7.44",
     "computed_pct": "4.02",
     "difference_pp": "-3.42",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1039,7 +995,7 @@
     "official_pct": "5.23",
     "computed_pct": "1.83",
     "difference_pp": "-3.40",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1051,7 +1007,7 @@
     "official_pct": "3.19",
     "computed_pct": "-0.19",
     "difference_pp": "-3.38",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1123,7 +1079,7 @@
     "official_pct": "3.48",
     "computed_pct": "0.33",
     "difference_pp": "-3.15",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1207,7 +1163,7 @@
     "official_pct": "2.21",
     "computed_pct": "0.40",
     "difference_pp": "-1.81",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1231,7 +1187,7 @@
     "official_pct": "1.07",
     "computed_pct": "-0.24",
     "difference_pp": "-1.31",
-    "source_id": "61f25d8b6ecaa938",
+    "source_id": "b7d7d9eb1eea7ffe",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1306,13 +1262,9 @@
  ],
  "tie_out_breaks": [],
  "collection_gap": {
-  "companies": [
-   "ООО \"УК \"КРАСНЫЙ МОСТ\"",
-   "ООО \"УК \"РЕКОРД КАПИТАЛ\"",
-   "ООО \"УК ПРОМСВЯЗЬ\""
-  ],
-  "funds_with_series": 25,
-  "share": 0.072,
+  "companies": [],
+  "funds_with_series": 0,
+  "share": 0.0,
   "limit": 0.1
  },
  "publish_allowed": true
