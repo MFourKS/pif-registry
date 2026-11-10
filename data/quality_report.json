@@ -1,5 +1,5 @@
 {
- "registry_as_of": "2026-11-09",
+ "registry_as_of": "2026-11-10",
  "funds_total": 563,
  "statuses": {
   "ok": {
@@ -24,7 +24,7 @@
   },
   "site_unavailable": {
    "label": "Сайт УК недоступен",
-   "count": 6
+   "count": 0
   },
   "blocked": {
    "label": "Сайт УК блокирует автоматический доступ",
@@ -32,7 +32,7 @@
   },
   "not_found": {
    "label": "Данные фонда не найдены на сайте УК",
-   "count": 139
+   "count": 145
   },
   "parse_error": {
    "label": "Ошибка разбора источника",
@@ -42,7 +42,7 @@
  "funds_with_series": 347,
  "retail_funds": 397,
  "retail_funds_with_series": 326,
- "points_total": 55012,
+ "points_total": 55169,
  "errors": [],
  "known_issues": [
   {
@@ -110,18 +110,18 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 4137,
+ "warnings_total": 4170,
  "warnings_by_stage": {
   "fetch": 2082,
-  "match": 573,
-  "parse": 1482
+  "match": 580,
+  "parse": 1508
  },
  "yield_check": {
   "tolerance_pp": 0.5,
-  "official_values": 1033,
-  "compared": 924,
-  "not_comparable": 109,
-  "within_tolerance": 833,
+  "official_values": 1034,
+  "compared": 941,
+  "not_comparable": 93,
+  "within_tolerance": 851,
   "mismatches": [
    {
     "fund": "0311-74549820",
@@ -203,7 +203,7 @@
     "official_pct": "13.68",
     "computed_pct": "-0.42",
     "difference_pp": "-14.10",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -211,12 +211,12 @@
     "fund": "5739",
     "name": "ОПИФ рыночных финансовых инструментов «А-Капитал Облигации Рантье»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "13.01",
-    "computed_pct": "-1.04",
-    "difference_pp": "-14.05",
-    "source_id": "da1d359e9b84fe88",
-    "source_url": "https://www.acapital-am.ru/upload/iblock/fda/w0m8yenz14u85e4xusj3u8ybd5w9t6bx/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "13.11",
+    "computed_pct": "-0.72",
+    "difference_pp": "-13.83",
+    "source_id": "db37bb83b76df23f",
+    "source_url": "https://www.acapital-am.ru/upload/iblock/455/tbirue453cb36n71e6cutmrvsbkf7wod/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -227,7 +227,7 @@
     "official_pct": "15.33",
     "computed_pct": "1.65",
     "difference_pp": "-13.68",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -235,12 +235,12 @@
     "fund": "4978",
     "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд облигаций с выплатой дохода»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "11.17",
-    "computed_pct": "-2.35",
-    "difference_pp": "-13.52",
-    "source_id": "77ba313f8285e2fd",
-    "source_url": "https://www.first-am.ru/download/26530/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "10.78",
+    "computed_pct": "-2.50",
+    "difference_pp": "-13.28",
+    "source_id": "7bfc7773c2cd887a",
+    "source_url": "https://www.first-am.ru/download/26850/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -263,7 +263,7 @@
     "official_pct": "8.65",
     "computed_pct": "-4.20",
     "difference_pp": "-12.85",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -335,7 +335,7 @@
     "official_pct": "1.84",
     "computed_pct": "-8.97",
     "difference_pp": "-10.81",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -376,6 +376,18 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
+    "fund": "4980",
+    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
+    "period_months": 12,
+    "report_date": "2026-10-30",
+    "official_pct": "-0.06",
+    "computed_pct": "-9.28",
+    "difference_pp": "-9.22",
+    "source_id": "8ec1c6babe7a60d2",
+    "source_url": "https://www.first-am.ru/download/26839/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
     "fund": "7276",
     "name": "ОПИФ рыночных финансовых инструментов «Облигации роста - Рантье»",
     "period_months": 6,
@@ -385,18 +397,6 @@
     "difference_pp": "-8.95",
     "source_id": "25f1ec6abfbffaa0",
     "source_url": "https://finstar-capital.ru/upload/iblock/2b0/56fdlrpgs9e3wcjw2o53jdprqaixqgqy.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "4980",
-    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
-    "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "-14.71",
-    "computed_pct": "-23.34",
-    "difference_pp": "-8.63",
-    "source_id": "28fa4821d190579c",
-    "source_url": "https://www.first-am.ru/download/26534/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -487,12 +487,12 @@
     "fund": "5739",
     "name": "ОПИФ рыночных финансовых инструментов «А-Капитал Облигации Рантье»",
     "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "4.75",
-    "computed_pct": "-2.73",
-    "difference_pp": "-7.48",
-    "source_id": "da1d359e9b84fe88",
-    "source_url": "https://www.acapital-am.ru/upload/iblock/fda/w0m8yenz14u85e4xusj3u8ybd5w9t6bx/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "4.70",
+    "computed_pct": "-3.08",
+    "difference_pp": "-7.78",
+    "source_id": "db37bb83b76df23f",
+    "source_url": "https://www.acapital-am.ru/upload/iblock/455/tbirue453cb36n71e6cutmrvsbkf7wod/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -539,7 +539,7 @@
     "official_pct": "6.50",
     "computed_pct": "-0.33",
     "difference_pp": "-6.83",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -575,7 +575,7 @@
     "official_pct": "2.25",
     "computed_pct": "-4.42",
     "difference_pp": "-6.67",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -587,7 +587,7 @@
     "official_pct": "4.18",
     "computed_pct": "-2.36",
     "difference_pp": "-6.54",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -599,20 +599,8 @@
     "official_pct": "6.97",
     "computed_pct": "0.54",
     "difference_pp": "-6.43",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "4978",
-    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд облигаций с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "2.29",
-    "computed_pct": "-4.10",
-    "difference_pp": "-6.39",
-    "source_id": "77ba313f8285e2fd",
-    "source_url": "https://www.first-am.ru/download/26530/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -625,6 +613,18 @@
     "difference_pp": "-6.34",
     "source_id": "7ff78e9374f9822c",
     "source_url": "https://www.alfacapital.ru/disclosure/file/61804",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "4978",
+    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд облигаций с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "2.27",
+    "computed_pct": "-4.02",
+    "difference_pp": "-6.29",
+    "source_id": "7bfc7773c2cd887a",
+    "source_url": "https://www.first-am.ru/download/26850/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -659,7 +659,7 @@
     "official_pct": "-3.07",
     "computed_pct": "-9.17",
     "difference_pp": "-6.10",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -673,6 +673,18 @@
     "difference_pp": "-5.89",
     "source_id": "44db9bd3bb6a36bf",
     "source_url": "https://www.am-aton.ru/upload/iblock/fdb/fq1ykuvcbep2gg72c493pr3s9986vsuu.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "4980",
+    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "-4.75",
+    "computed_pct": "-10.18",
+    "difference_pp": "-5.43",
+    "source_id": "8ec1c6babe7a60d2",
+    "source_url": "https://www.first-am.ru/download/26839/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -697,18 +709,6 @@
     "difference_pp": "-5.21",
     "source_id": "e387442b53e21cac",
     "source_url": "https://www.alfacapital.ru/disclosure/file/61738",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "4980",
-    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-17.42",
-    "computed_pct": "-22.60",
-    "difference_pp": "-5.18",
-    "source_id": "28fa4821d190579c",
-    "source_url": "https://www.first-am.ru/download/26534/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -820,18 +820,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "4980",
-    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "3.90",
-    "computed_pct": "-0.44",
-    "difference_pp": "-4.34",
-    "source_id": "28fa4821d190579c",
-    "source_url": "https://www.first-am.ru/download/26534/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "3863",
     "name": "ОПИФ рыночных финансовых инструментов «Лидар»",
     "period_months": 3,
@@ -841,6 +829,18 @@
     "difference_pp": "-4.21",
     "source_id": "ba535e83bd5c9154",
     "source_url": "https://www.trinfico-am.ru/upload/iblock/f56/z30u435nxrt7v4igrzxoymwl6fgwhl8i/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.09.2026.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "4980",
+    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
+    "period_months": 3,
+    "report_date": "2026-10-30",
+    "official_pct": "11.05",
+    "computed_pct": "6.84",
+    "difference_pp": "-4.21",
+    "source_id": "8ec1c6babe7a60d2",
+    "source_url": "https://www.first-am.ru/download/26839/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -868,15 +868,27 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "4980",
-    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд акций с выплатой дохода»",
+    "fund": "5739",
+    "name": "ОПИФ рыночных финансовых инструментов «А-Капитал Облигации Рантье»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "-3.73",
-    "computed_pct": "-7.75",
-    "difference_pp": "-4.02",
-    "source_id": "28fa4821d190579c",
-    "source_url": "https://www.first-am.ru/download/26534/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%90%D0%BA%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "2.35",
+    "computed_pct": "-1.75",
+    "difference_pp": "-4.10",
+    "source_id": "db37bb83b76df23f",
+    "source_url": "https://www.acapital-am.ru/upload/iblock/455/tbirue453cb36n71e6cutmrvsbkf7wod/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "5739",
+    "name": "ОПИФ рыночных финансовых инструментов «А-Капитал Облигации Рантье»",
+    "period_months": 1,
+    "report_date": "2026-10-30",
+    "official_pct": "1.23",
+    "computed_pct": "-2.82",
+    "difference_pp": "-4.05",
+    "source_id": "db37bb83b76df23f",
+    "source_url": "https://www.acapital-am.ru/upload/iblock/455/tbirue453cb36n71e6cutmrvsbkf7wod/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -935,7 +947,7 @@
     "official_pct": "7.64",
     "computed_pct": "3.89",
     "difference_pp": "-3.75",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -949,18 +961,6 @@
     "difference_pp": "-3.72",
     "source_id": "8e9c81ac5b4b7258",
     "source_url": "https://www.alfacapital.ru/disclosure/file/61814",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "5739",
-    "name": "ОПИФ рыночных финансовых инструментов «А-Капитал Облигации Рантье»",
-    "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "2.40",
-    "computed_pct": "-1.30",
-    "difference_pp": "-3.70",
-    "source_id": "da1d359e9b84fe88",
-    "source_url": "https://www.acapital-am.ru/upload/iblock/fda/w0m8yenz14u85e4xusj3u8ybd5w9t6bx/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -983,7 +983,7 @@
     "official_pct": "7.44",
     "computed_pct": "4.02",
     "difference_pp": "-3.42",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -995,7 +995,7 @@
     "official_pct": "5.23",
     "computed_pct": "1.83",
     "difference_pp": "-3.40",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1007,7 +1007,7 @@
     "official_pct": "3.19",
     "computed_pct": "-0.19",
     "difference_pp": "-3.38",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1079,7 +1079,7 @@
     "official_pct": "3.48",
     "computed_pct": "0.33",
     "difference_pp": "-3.15",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1123,24 +1123,12 @@
     "fund": "4978",
     "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд облигаций с выплатой дохода»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "1.33",
-    "computed_pct": "-1.25",
-    "difference_pp": "-2.58",
-    "source_id": "77ba313f8285e2fd",
-    "source_url": "https://www.first-am.ru/download/26530/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "4978",
-    "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд облигаций с выплатой дохода»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "-0.46",
-    "computed_pct": "-2.99",
-    "difference_pp": "-2.53",
-    "source_id": "77ba313f8285e2fd",
-    "source_url": "https://www.first-am.ru/download/26530/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "1.34",
+    "computed_pct": "-1.20",
+    "difference_pp": "-2.54",
+    "source_id": "7bfc7773c2cd887a",
+    "source_url": "https://www.first-am.ru/download/26850/%D0%9E%D0%9F%D0%98%D0%A4%20%D0%9E%D0%B1%D0%BB%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -1163,7 +1151,7 @@
     "official_pct": "2.21",
     "computed_pct": "0.40",
     "difference_pp": "-1.81",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1187,7 +1175,7 @@
     "official_pct": "1.07",
     "computed_pct": "-0.24",
     "difference_pp": "-1.31",
-    "source_id": "b7d7d9eb1eea7ffe",
+    "source_id": "3e9b8beb6c7e7eec",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1222,7 +1210,7 @@
   "flows": 144,
   "flows_within_error": 13
  },
- "corrections_total": 296,
+ "corrections_total": 297,
  "kid_conflicts": [
   {
    "fund": "0118-14241730",

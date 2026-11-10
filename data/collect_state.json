@@ -12,10 +12,6 @@
 "blocked",
 "http://www.raiffeisen-capital.ru/: сайт целиком закрыт для роботов в robots.txt"
 ],
-"7707500642": [
-"site_unavailable",
-"https://d8am.ru: HTTP 502"
-],
 "7709853192": [
 "blocked",
 "https://www.tetis-capital.ru/information/pifs/: адрес закрыт в robots.txt"
@@ -35,10 +31,6 @@
 "9703217363": [
 "blocked",
 "https://ozon-am.ru/api/mutual-funds: адрес закрыт в robots.txt"
-],
-"9704234114": [
-"site_unavailable",
-"https://www.finansovmir.ru: ConnectTimeout: "
 ],
 "9725033031": [
 "blocked",
@@ -13254,10 +13246,346 @@
 },
 {
 "severity": "warning",
-"stage": "fetch",
+"stage": "match",
 "uk_inn": "7707500642",
-"url": "https://d8am.ru",
-"message": "https://d8am.ru: HTTP 502",
+"url": "https://d8am.ru/upload/iblock/1de/8m5rm4ep01w0gq6cwgcrkx0cqrurvdc9.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.06.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/1fc/ewtylc9v2bliycbeaz3nojr37r1xd7ju.pdf",
+"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов инвестиционного фонда \"ОЛМА - ФОНД ОТРАСЛЕВОГО РОСТА\"",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/22b/ey2c441epomhpfofzoq00kholve57v9a.pdf",
+"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов инвестиционного фонда \"ОЛМА - ФОНД ОТРАСЛЕВОГО РОСТА\"",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/327/sokzquhs8vagftlyv5at4rwiey0cmwyz.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31.07.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/581/ha7bqrvwqixhqtuhq244mszovc4ees2d.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.09.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/71d/l5p6dvqeuftutw36wf10v55d4vkxz992.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31.08.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/7cf/hznsr108r9eyof1dsx3m6iao171zd3cd.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.06.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/998/uy8roq2qrpp8s528ycqqccdy9ssggkn5.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31.07.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/9a0/kltxu7bhmlcs7p0qz3fnb6x8k378o741.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.09.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/ac2/nkouboczrsdpt5e3rtuoevydac2ctpic.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 29.05.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/bb2/ggmgai23obz166oveq9ifmyjg7nz49hl.pdf",
+"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов инвестиционного фонда \"ОЛМА - ФОНД ОТРАСЛЕВОГО РОСТА\"",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/cec/2nednpid4mt5290ev6z8aovoi2btysak.pdf",
+"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов инвестиционного фонда \"ОЛМА - ФОНД ОТРАСЛЕВОГО РОСТА\"",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/da3/iz2ao2jbajwwml1cl7jv764s7ean3jiz.pdf",
+"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов инвестиционного фонда \"ОЛМА - ФОНД ОТРАСЛЕВОГО РОСТА\"",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/f83/23sk51cx7zt7a90p2c91reoef26iiu28.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31.08.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20241115_02.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20241115_02.pdf: Незнакомый формат источника https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20241115_02.pdf: нет строки 14 (СЧА) или строки 16 (с",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20250416_02.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20250416_02.pdf: Незнакомый формат источника https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20250416_02.pdf: в справке нет даты «по состоянию на»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20250818_02.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20250818_02.pdf: Незнакомый формат источника https://d8am.ru/doc/fond_doc_rep/PIF05_REP_20250818_02.pdf: нет строки 14 (СЧА) или строки 16 (с",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/024/vo2bp6d3xj9geax5jmwj43sg4gvzvn7w.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/024/vo2bp6d3xj9geax5jmwj43sg4gvzvn7w.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/024/vo2bp6d3xj9geax5jmwj43sg4gvzvn7w.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/0c8/4yheet9lnmffscun8djtf3lxe0r45noj.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/0c8/4yheet9lnmffscun8djtf3lxe0r45noj.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/0c8/4yheet9lnmffscun8djtf3lxe0r45noj.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/103/opt4n0jn1hnu8nddpqouxumf10ymey09.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/103/opt4n0jn1hnu8nddpqouxumf10ymey09.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/103/opt4n0jn1hnu8nddpqouxumf10ymey09.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/1b6/xcqg2etyugh00co0u8hzi8dk585139uf.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/1b6/xcqg2etyugh00co0u8hzi8dk585139uf.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/1b6/xcqg2etyugh00co0u8hzi8dk585139uf.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/27d/2rb9kh7mq76ai82bs5migvou1w52uhrt.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/27d/2rb9kh7mq76ai82bs5migvou1w52uhrt.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/27d/2rb9kh7mq76ai82bs5migvou1w52uhrt.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/312/skcb0ebez39xcv28jtsblx2l9mmh7e2z.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/312/skcb0ebez39xcv28jtsblx2l9mmh7e2z.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/312/skcb0ebez39xcv28jtsblx2l9mmh7e2z.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/37f/xub3yskgw2brb3wa523mujkargy4cckg.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/37f/xub3yskgw2brb3wa523mujkargy4cckg.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/37f/xub3yskgw2brb3wa523mujkargy4cckg.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/437/xn7ys2vpfhxn7kt5ckj7tfhi56igxndn.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/437/xn7ys2vpfhxn7kt5ckj7tfhi56igxndn.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/437/xn7ys2vpfhxn7kt5ckj7tfhi56igxndn.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/45a/h97103fkhj7ckt5uu3fue4ffghpf16j0.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/45a/h97103fkhj7ckt5uu3fue4ffghpf16j0.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/45a/h97103fkhj7ckt5uu3fue4ffghpf16j0.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/51b/ujvr6oil3tvy5nctftb82ndnrcfoxk4d.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/51b/ujvr6oil3tvy5nctftb82ndnrcfoxk4d.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/51b/ujvr6oil3tvy5nctftb82ndnrcfoxk4d.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/5bd/hjt9gup4ecb23fcs3mo8kn95adzw5fva.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/5bd/hjt9gup4ecb23fcs3mo8kn95adzw5fva.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/5bd/hjt9gup4ecb23fcs3mo8kn95adzw5fva.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/63b/nxzs5ngpxu1vsgb4qu9j4ih6x6rjrfjj.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/63b/nxzs5ngpxu1vsgb4qu9j4ih6x6rjrfjj.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/63b/nxzs5ngpxu1vsgb4qu9j4ih6x6rjrfjj.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/6e5/p2n5hi4vgz7gqsl334gnqf31azfstavj.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/6e5/p2n5hi4vgz7gqsl334gnqf31azfstavj.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/6e5/p2n5hi4vgz7gqsl334gnqf31azfstavj.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/706/wvs52uir10fgruind2hcopxemm7mwmil.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/706/wvs52uir10fgruind2hcopxemm7mwmil.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/706/wvs52uir10fgruind2hcopxemm7mwmil.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/729/3v4c5rky77y6hwcb3om4un0n33es7ipt.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/729/3v4c5rky77y6hwcb3om4un0n33es7ipt.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/729/3v4c5rky77y6hwcb3om4un0n33es7ipt.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/73f/vvrrm4z4portts6ubtb788w7e1jzm98e.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/73f/vvrrm4z4portts6ubtb788w7e1jzm98e.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/73f/vvrrm4z4portts6ubtb788w7e1jzm98e.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/768/9fgv33qk36ramss0bzq33i95pftloazw.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/768/9fgv33qk36ramss0bzq33i95pftloazw.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/768/9fgv33qk36ramss0bzq33i95pftloazw.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/778/bg324v3pwcavbmsj3c23ta0mpkkckqlr.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/778/bg324v3pwcavbmsj3c23ta0mpkkckqlr.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/778/bg324v3pwcavbmsj3c23ta0mpkkckqlr.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/90d/91401lpz9q06iaipw4k7llsw7v07c5xy.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/90d/91401lpz9q06iaipw4k7llsw7v07c5xy.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/90d/91401lpz9q06iaipw4k7llsw7v07c5xy.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/a29/gdx6t21qy4pm49zkqyea019ox73dcbws.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/a29/gdx6t21qy4pm49zkqyea019ox73dcbws.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/a29/gdx6t21qy4pm49zkqyea019ox73dcbws.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/c6f/8qezkx8l23z47lzv5ofzmisr3n03518p.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/c6f/8qezkx8l23z47lzv5ofzmisr3n03518p.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/c6f/8qezkx8l23z47lzv5ofzmisr3n03518p.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/c81/d5hcf08o4fblvksv3brviw2lmxk91ccp.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/c81/d5hcf08o4fblvksv3brviw2lmxk91ccp.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/c81/d5hcf08o4fblvksv3brviw2lmxk91ccp.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/f0f/8yjj7pa9l1o9wxuwwwxbd255qx98l87a.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/f0f/8yjj7pa9l1o9wxuwwwxbd255qx98l87a.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/f0f/8yjj7pa9l1o9wxuwwwxbd255qx98l87a.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/fa7/4fwvkgghld56l3ey41ev9xlwbhphnu2x.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/fa7/4fwvkgghld56l3ey41ev9xlwbhphnu2x.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/fa7/4fwvkgghld56l3ey41ev9xlwbhphnu2x.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/fb1/lo2e27zlhjed5x9ixqryk8huz44l68rs.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/fb1/lo2e27zlhjed5x9ixqryk8huz44l68rs.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/fb1/lo2e27zlhjed5x9ixqryk8huz44l68rs.pdf: нет строки 1",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/fd2/14nu7sq1ifgjv0n6xp5ws7jrpawj8ymh.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://d8am.ru/upload/iblock/fd2/14nu7sq1ifgjv0n6xp5ws7jrpawj8ymh.pdf: Незнакомый формат источника https://d8am.ru/upload/iblock/fd2/14nu7sq1ifgjv0n6xp5ws7jrpawj8ymh.pdf: нет строки 1",
 "fund": ""
 },
 {
@@ -15152,62 +15480,6 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14745/Американские акции.pdf",
-"message": "Не сопоставлено с реестром: КИД: Биржевой паевой инвестиционный фонд рыночных финансовых инструментов «Первая - Фонд Американские акции»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14746/Биотехнологии.pdf",
-"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Первая – Биотехнологии»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14747/Блокчейн.pdf",
-"message": "Не сопоставлено с реестром: КИД: Биржевой паевой инвестиционный фонд рыночных финансовых инструментов «Первая - Фонд Блокчейн Экономика»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14750/Глобальный интернет.pdf",
-"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Первая - Глобальный Интернет»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14751/Глобальный портфель.pdf",
-"message": "Не сопоставлено с реестром: КИД: Биржевой паевой инвестиционный фонд рыночных финансовых инструментов «Первая - Фонд Глобальный портфель»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14752/Глобальный.pdf",
-"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Первая – Глобальный»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
-"url": "https://www.first-am.ru/download/14760/Фин сектор.pdf",
-"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Первая – Финансовый сектор»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7710183778",
 "url": "https://www.first-am.ru/download/15019/Валют обл_руб.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ",
 "fund": ""
@@ -15305,7 +15577,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-moex",
-"message": "Не сопоставлено с реестром: ряд из 2003 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 2004 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15321,7 +15593,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-sbmm",
-"message": "Не сопоставлено с реестром: ряд из 1258 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1259 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15337,7 +15609,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-sipo",
-"message": "Не сопоставлено с реестром: ряд из 575 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 576 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15353,7 +15625,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/fond-konservativnyi-smart",
-"message": "Не сопоставлено с реестром: ряд из 1342 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1343 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15361,7 +15633,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/bond-fund-with-income-payment",
-"message": "Не сопоставлено с реестром: ряд из 1094 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1095 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15369,7 +15641,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/fond-levitan",
-"message": "Не сопоставлено с реестром: ряд из 365 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 366 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15385,7 +15657,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/opif-aktsiy-fond-ros-aktsiy",
-"message": "Не сопоставлено с реестром: ряд из 7294 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 7295 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15417,7 +15689,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/stock-fund-with-income-payment",
-"message": "Не сопоставлено с реестром: ряд из 1094 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1095 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -18898,6 +19170,22 @@
 "uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/1565/view",
 "message": "https://recordcap.ru/doc/funds/1565/view: адрес закрыт в robots.txt",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7718919844",
+"url": "https://recordcap.ru/doc/funds/1566/download",
+"message": "https://recordcap.ru/doc/funds/1566/download: адрес закрыт в robots.txt",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7718919844",
+"url": "https://recordcap.ru/doc/funds/1566/view",
+"message": "https://recordcap.ru/doc/funds/1566/view: адрес закрыт в robots.txt",
 "fund": ""
 },
 {
@@ -28494,30 +28782,6 @@
 },
 {
 "severity": "warning",
-"stage": "parse",
-"uk_inn": "7743304530",
-"url": "https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tmos-30-06-2026.PDF",
-"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tmos-30-06-2026.PDF: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tmos-30-06-2026",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "parse",
-"uk_inn": "7743304530",
-"url": "https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-27-02-2026.pdf",
-"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-27-02-2026.pdf: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-27-02-2026",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "parse",
-"uk_inn": "7743304530",
-"url": "https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-30-09-2026.PDF",
-"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-30-09-2026.PDF: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-30-09-2026",
-"fund": ""
-},
-{
-"severity": "warning",
 "stage": "fetch",
 "uk_inn": "7744002123",
 "url": "https://sberbank-insurance.ru/products?utm_source=site&utm_medium=baneronline&utm_campaign=glavnaya",
@@ -29065,7 +29329,7 @@
 "stage": "match",
 "uk_inn": "7825489723",
 "url": "https://www.tkbip.ru/funds/tkb-bnp-pariba-fond-sbalansirovannyy-konservativnyy/results/",
-"message": "Не сопоставлено с реестром: ряд из 4956 точек (tkb_chart_data+record_arrays)",
+"message": "Не сопоставлено с реестром: ряд из 4957 точек (tkb_chart_data+record_arrays)",
 "fund": ""
 },
 {
@@ -29114,14 +29378,6 @@
 "uk_inn": "9703217363",
 "url": "http://ozon-am.ru/",
 "message": "https://ozon-am.ru/api/mutual-funds: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "9704234114",
-"url": "https://www.finansovmir.ru",
-"message": "https://www.finansovmir.ru: ConnectTimeout: ",
 "fund": ""
 },
 {
