@@ -1,5 +1,5 @@
 {
- "registry_as_of": "2026-11-10",
+ "registry_as_of": "2026-11-11",
  "funds_total": 563,
  "statuses": {
   "ok": {
@@ -12,15 +12,15 @@
   },
   "formed_later": {
    "label": "Фонд сформирован позже",
-   "count": 39
+   "count": 40
   },
   "not_formed": {
    "label": "Фонд ещё формируется",
-   "count": 15
+   "count": 13
   },
   "no_history": {
    "label": "УК не публикует историю",
-   "count": 19
+   "count": 21
   },
   "site_unavailable": {
    "label": "Сайт УК недоступен",
@@ -32,17 +32,17 @@
   },
   "not_found": {
    "label": "Данные фонда не найдены на сайте УК",
-   "count": 145
+   "count": 144
   },
   "parse_error": {
    "label": "Ошибка разбора источника",
    "count": 0
   }
  },
- "funds_with_series": 347,
+ "funds_with_series": 350,
  "retail_funds": 397,
- "retail_funds_with_series": 326,
- "points_total": 55169,
+ "retail_funds_with_series": 329,
+ "points_total": 55325,
  "errors": [],
  "known_issues": [
   {
@@ -110,18 +110,18 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 4170,
+ "warnings_total": 4207,
  "warnings_by_stage": {
-  "fetch": 2082,
-  "match": 580,
-  "parse": 1508
+  "fetch": 2118,
+  "match": 560,
+  "parse": 1529
  },
  "yield_check": {
   "tolerance_pp": 0.5,
-  "official_values": 1034,
-  "compared": 941,
-  "not_comparable": 93,
-  "within_tolerance": 851,
+  "official_values": 1035,
+  "compared": 943,
+  "not_comparable": 92,
+  "within_tolerance": 852,
   "mismatches": [
    {
     "fund": "0311-74549820",
@@ -163,12 +163,12 @@
     "fund": "5473",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Облигации с выплатой дохода»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "11.4",
-    "computed_pct": "-4.08",
-    "difference_pp": "-15.48",
-    "source_id": "e60f3cfe8efb5dcd",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61812",
+    "report_date": "2026-10-30",
+    "official_pct": "11.3",
+    "computed_pct": "-4.03",
+    "difference_pp": "-15.33",
+    "source_id": "51c32c8a09e82f70",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63324",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -203,7 +203,7 @@
     "official_pct": "13.68",
     "computed_pct": "-0.42",
     "difference_pp": "-14.10",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -227,7 +227,7 @@
     "official_pct": "15.33",
     "computed_pct": "1.65",
     "difference_pp": "-13.68",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -263,7 +263,7 @@
     "official_pct": "8.65",
     "computed_pct": "-4.20",
     "difference_pp": "-12.85",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -307,24 +307,24 @@
     "fund": "4929",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа - Капитал Сбалансированный с выплатой дохода»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "-3.4",
-    "computed_pct": "-14.34",
-    "difference_pp": "-10.94",
-    "source_id": "8e9c81ac5b4b7258",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61814",
+    "report_date": "2026-10-30",
+    "official_pct": "7.3",
+    "computed_pct": "-4.07",
+    "difference_pp": "-11.37",
+    "source_id": "d00f5f79d5c73aa5",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63326",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
     "fund": "3863",
     "name": "ОПИФ рыночных финансовых инструментов «Лидар»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "2.53",
-    "computed_pct": "-8.32",
-    "difference_pp": "-10.85",
-    "source_id": "ba535e83bd5c9154",
-    "source_url": "https://www.trinfico-am.ru/upload/iblock/f56/z30u435nxrt7v4igrzxoymwl6fgwhl8i/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.09.2026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "6.49",
+    "computed_pct": "-4.54",
+    "difference_pp": "-11.03",
+    "source_id": "1e40f9f1ea2db719",
+    "source_url": "https://www.trinfico-am.ru/upload/iblock/9a9/e0575pvwo6rvxuwhfsh51xf93wjsuc46/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.10.2026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -335,7 +335,7 @@
     "official_pct": "1.84",
     "computed_pct": "-8.97",
     "difference_pp": "-10.81",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -388,18 +388,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "7276",
-    "name": "ОПИФ рыночных финансовых инструментов «Облигации роста - Рантье»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "5.81",
-    "computed_pct": "-3.14",
-    "difference_pp": "-8.95",
-    "source_id": "25f1ec6abfbffaa0",
-    "source_url": "https://finstar-capital.ru/upload/iblock/2b0/56fdlrpgs9e3wcjw2o53jdprqaixqgqy.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "5210",
     "name": "ОПИФ рыночных финансовых инструментов «Дивидендные акции»",
     "period_months": 6,
@@ -436,6 +424,18 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
+    "fund": "7276",
+    "name": "ОПИФ рыночных финансовых инструментов «Облигации роста - Рантье»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "5.73",
+    "computed_pct": "-2.68",
+    "difference_pp": "-8.41",
+    "source_id": "9a57aad672c0edaa",
+    "source_url": "https://finstar-capital.ru/upload/iblock/8de/n9hw6xit4r3ng9t4y3x37d3xb1hejyl5.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
     "fund": "5585",
     "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
     "period_months": 6,
@@ -448,39 +448,27 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "5473",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Облигации с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "3.7",
-    "computed_pct": "-4.29",
-    "difference_pp": "-7.99",
-    "source_id": "e60f3cfe8efb5dcd",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61812",
+    "fund": "6467",
+    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
+    "period_months": 12,
+    "report_date": "2026-10-30",
+    "official_pct": "8.8",
+    "computed_pct": "0.51",
+    "difference_pp": "-8.29",
+    "source_id": "4be845be4af2b45a",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63287",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
     "fund": "5626",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
     "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "-9.4",
-    "computed_pct": "-17.32",
-    "difference_pp": "-7.92",
-    "source_id": "20f608b731acc39e",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61802",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "6467",
-    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
-    "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "-7.2",
-    "computed_pct": "-15.04",
-    "difference_pp": "-7.84",
-    "source_id": "e387442b53e21cac",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61738",
+    "report_date": "2026-10-30",
+    "official_pct": "6.2",
+    "computed_pct": "-1.93",
+    "difference_pp": "-8.13",
+    "source_id": "ef51be91f18266e6",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63313",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -493,6 +481,30 @@
     "difference_pp": "-7.78",
     "source_id": "db37bb83b76df23f",
     "source_url": "https://www.acapital-am.ru/upload/iblock/455/tbirue453cb36n71e6cutmrvsbkf7wod/%D0%9A%D0%98%D0%94%20-%20%D0%9E%D0%B1%D0%BB.%20%D0%A0%D0%B0%D0%BD%D1%82%D1%8C%D0%B5.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "5473",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Облигации с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "3.4",
+    "computed_pct": "-3.99",
+    "difference_pp": "-7.39",
+    "source_id": "51c32c8a09e82f70",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63324",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "4929",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа - Капитал Сбалансированный с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "0.8",
+    "computed_pct": "-6.58",
+    "difference_pp": "-7.38",
+    "source_id": "d00f5f79d5c73aa5",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63326",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -532,6 +544,18 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
+    "fund": "3863",
+    "name": "ОПИФ рыночных финансовых инструментов «Лидар»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "1.70",
+    "computed_pct": "-5.13",
+    "difference_pp": "-6.83",
+    "source_id": "1e40f9f1ea2db719",
+    "source_url": "https://www.trinfico-am.ru/upload/iblock/9a9/e0575pvwo6rvxuwhfsh51xf93wjsuc46/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.10.2026.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
     "fund": "7137",
     "name": "БПИФ рыночных финансовых инструментов «Первая – Фонд Ежемесячный доход»",
     "period_months": 6,
@@ -539,8 +563,20 @@
     "official_pct": "6.50",
     "computed_pct": "-0.33",
     "difference_pp": "-6.83",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "6267",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Валютные облигации с выплатой дохода»",
+    "period_months": 12,
+    "report_date": "2026-10-30",
+    "official_pct": "2.6",
+    "computed_pct": "-4.15",
+    "difference_pp": "-6.75",
+    "source_id": "d6b3809090a1cc5b",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63315",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -556,18 +592,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "3863",
-    "name": "ОПИФ рыночных финансовых инструментов «Лидар»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-2.85",
-    "computed_pct": "-9.52",
-    "difference_pp": "-6.67",
-    "source_id": "ba535e83bd5c9154",
-    "source_url": "https://www.trinfico-am.ru/upload/iblock/f56/z30u435nxrt7v4igrzxoymwl6fgwhl8i/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.09.2026.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "5325",
     "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд взвешенный с выплатой дохода»",
     "period_months": 6,
@@ -575,7 +599,7 @@
     "official_pct": "2.25",
     "computed_pct": "-4.42",
     "difference_pp": "-6.67",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -587,7 +611,7 @@
     "official_pct": "4.18",
     "computed_pct": "-2.36",
     "difference_pp": "-6.54",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -599,20 +623,20 @@
     "official_pct": "6.97",
     "computed_pct": "0.54",
     "difference_pp": "-6.43",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "6267",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Валютные облигации с выплатой дохода»",
-    "period_months": 12,
-    "report_date": "2026-09-30",
-    "official_pct": "1.5",
-    "computed_pct": "-4.84",
-    "difference_pp": "-6.34",
-    "source_id": "7ff78e9374f9822c",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61804",
+    "fund": "5626",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "1.8",
+    "computed_pct": "-4.51",
+    "difference_pp": "-6.31",
+    "source_id": "ef51be91f18266e6",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63313",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -640,18 +664,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "4929",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа - Капитал Сбалансированный с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-8.2",
-    "computed_pct": "-14.44",
-    "difference_pp": "-6.24",
-    "source_id": "8e9c81ac5b4b7258",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61814",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "4979",
     "name": "ОПИФ рыночных финансовых инструментов «Первая - Фонд смешанный с выплатой дохода»",
     "period_months": 6,
@@ -659,7 +671,7 @@
     "official_pct": "-3.07",
     "computed_pct": "-9.17",
     "difference_pp": "-6.10",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -673,6 +685,18 @@
     "difference_pp": "-5.89",
     "source_id": "44db9bd3bb6a36bf",
     "source_url": "https://www.am-aton.ru/upload/iblock/fdb/fq1ykuvcbep2gg72c493pr3s9986vsuu.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "6467",
+    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "3.7",
+    "computed_pct": "-1.74",
+    "difference_pp": "-5.44",
+    "source_id": "4be845be4af2b45a",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63287",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -700,30 +724,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "6467",
-    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-11.0",
-    "computed_pct": "-16.21",
-    "difference_pp": "-5.21",
-    "source_id": "e387442b53e21cac",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61738",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "5626",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "-11.7",
-    "computed_pct": "-16.86",
-    "difference_pp": "-5.16",
-    "source_id": "20f608b731acc39e",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61802",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "5585",
     "name": "ОПИФ рыночных финансовых инструментов «РСХБ – Денежный поток»",
     "period_months": 3,
@@ -748,30 +748,6 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "6467",
-    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "4.8",
-    "computed_pct": "0.01",
-    "difference_pp": "-4.79",
-    "source_id": "e387442b53e21cac",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61738",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "6467",
-    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
-    "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "3.9",
-    "computed_pct": "-0.82",
-    "difference_pp": "-4.72",
-    "source_id": "e387442b53e21cac",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61738",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "6226",
     "name": "ОПИФ рыночных финансовых инструментов «ВИМ - Сбалансированный. Рантье»",
     "period_months": 6,
@@ -781,6 +757,18 @@
     "difference_pp": "-4.71",
     "source_id": "4db4f1d010ce22ca",
     "source_url": "https://www.wealthim.ru/upload/iblock/12d/i24k8zzva3uah9p52srrgspq83dlun6q/26_09_30_KID_OPIF_SbalRante.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "6467",
+    "name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Управляемые акции с выплатой дохода»",
+    "period_months": 3,
+    "report_date": "2026-10-30",
+    "official_pct": "14.1",
+    "computed_pct": "9.43",
+    "difference_pp": "-4.67",
+    "source_id": "4be845be4af2b45a",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63287",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -820,15 +808,27 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "3863",
-    "name": "ОПИФ рыночных финансовых инструментов «Лидар»",
+    "fund": "5626",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "0.52",
-    "computed_pct": "-3.69",
-    "difference_pp": "-4.21",
-    "source_id": "ba535e83bd5c9154",
-    "source_url": "https://www.trinfico-am.ru/upload/iblock/f56/z30u435nxrt7v4igrzxoymwl6fgwhl8i/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.09.2026.pdf",
+    "report_date": "2026-10-30",
+    "official_pct": "12.9",
+    "computed_pct": "8.62",
+    "difference_pp": "-4.28",
+    "source_id": "ef51be91f18266e6",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63313",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "4929",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа - Капитал Сбалансированный с выплатой дохода»",
+    "period_months": 3,
+    "report_date": "2026-10-30",
+    "official_pct": "7.7",
+    "computed_pct": "3.46",
+    "difference_pp": "-4.24",
+    "source_id": "d00f5f79d5c73aa5",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63326",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -844,27 +844,39 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
+    "fund": "7276",
+    "name": "ОПИФ рыночных финансовых инструментов «Облигации роста - Рантье»",
+    "period_months": 3,
+    "report_date": "2026-10-30",
+    "official_pct": "2.26",
+    "computed_pct": "-1.95",
+    "difference_pp": "-4.21",
+    "source_id": "9a57aad672c0edaa",
+    "source_url": "https://finstar-capital.ru/upload/iblock/8de/n9hw6xit4r3ng9t4y3x37d3xb1hejyl5.pdf",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
     "fund": "3863",
     "name": "ОПИФ рыночных финансовых инструментов «Лидар»",
-    "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "-1.33",
-    "computed_pct": "-5.47",
-    "difference_pp": "-4.14",
-    "source_id": "ba535e83bd5c9154",
-    "source_url": "https://www.trinfico-am.ru/upload/iblock/f56/z30u435nxrt7v4igrzxoymwl6fgwhl8i/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.09.2026.pdf",
+    "period_months": 3,
+    "report_date": "2026-10-30",
+    "official_pct": "2.59",
+    "computed_pct": "-1.61",
+    "difference_pp": "-4.20",
+    "source_id": "1e40f9f1ea2db719",
+    "source_url": "https://www.trinfico-am.ru/upload/iblock/9a9/e0575pvwo6rvxuwhfsh51xf93wjsuc46/%D0%9B%D0%B8%D0%B4%D0%B0%D1%80%2030.10.2026.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
     "fund": "7276",
     "name": "ОПИФ рыночных финансовых инструментов «Облигации роста - Рантье»",
-    "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "2.72",
-    "computed_pct": "-1.42",
-    "difference_pp": "-4.14",
-    "source_id": "25f1ec6abfbffaa0",
-    "source_url": "https://finstar-capital.ru/upload/iblock/2b0/56fdlrpgs9e3wcjw2o53jdprqaixqgqy.pdf",
+    "period_months": 1,
+    "report_date": "2026-10-30",
+    "official_pct": "0.73",
+    "computed_pct": "-3.42",
+    "difference_pp": "-4.15",
+    "source_id": "9a57aad672c0edaa",
+    "source_url": "https://finstar-capital.ru/upload/iblock/8de/n9hw6xit4r3ng9t4y3x37d3xb1hejyl5.pdf",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -892,27 +904,15 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "5626",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
-    "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "3.2",
-    "computed_pct": "-0.73",
-    "difference_pp": "-3.93",
-    "source_id": "20f608b731acc39e",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61802",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
     "fund": "5473",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Облигации с выплатой дохода»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "1.8",
-    "computed_pct": "-2.09",
-    "difference_pp": "-3.89",
-    "source_id": "e60f3cfe8efb5dcd",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61812",
+    "report_date": "2026-10-30",
+    "official_pct": "1.9",
+    "computed_pct": "-1.97",
+    "difference_pp": "-3.87",
+    "source_id": "51c32c8a09e82f70",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63324",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -947,20 +947,20 @@
     "official_pct": "7.64",
     "computed_pct": "3.89",
     "difference_pp": "-3.75",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
-    "fund": "4929",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа - Капитал Сбалансированный с выплатой дохода»",
-    "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "1.9",
-    "computed_pct": "-1.82",
-    "difference_pp": "-3.72",
-    "source_id": "8e9c81ac5b4b7258",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61814",
+    "fund": "6267",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Валютные облигации с выплатой дохода»",
+    "period_months": 6,
+    "report_date": "2026-10-30",
+    "official_pct": "6.2",
+    "computed_pct": "2.59",
+    "difference_pp": "-3.61",
+    "source_id": "d6b3809090a1cc5b",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63315",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -983,7 +983,7 @@
     "official_pct": "7.44",
     "computed_pct": "4.02",
     "difference_pp": "-3.42",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -995,7 +995,7 @@
     "official_pct": "5.23",
     "computed_pct": "1.83",
     "difference_pp": "-3.40",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1007,7 +1007,7 @@
     "official_pct": "3.19",
     "computed_pct": "-0.19",
     "difference_pp": "-3.38",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1021,18 +1021,6 @@
     "difference_pp": "-3.35",
     "source_id": "090d11050dd3a026",
     "source_url": "https://www.tkbip.ru/Marketing/attachments/funds/items/21535000000580922/description/%D0%9A%D0%98%D0%94%20%D0%A2%D0%9A%D0%91%20%D0%98%D0%BD%D0%B2%D0%B5%D1%81%D1%82%D0%BC%D0%B5%D0%BD%D1%82%20%D0%9F%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80%D1%81%20%E2%80%93%20%D0%A4%D0%BE%D0%BD%D0%B4%20%D1%81%D0%B1%D0%B0%D0%BB%D0%B0%D0%BD%D1%81%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%20%D1%81%20%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%B0%20%D0%B7%D0%B0%20%D0%BE%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%202026.pdf",
-    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
-   },
-   {
-    "fund": "6267",
-    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Валютные облигации с выплатой дохода»",
-    "period_months": 6,
-    "report_date": "2026-09-30",
-    "official_pct": "2.7",
-    "computed_pct": "-0.65",
-    "difference_pp": "-3.35",
-    "source_id": "7ff78e9374f9822c",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61804",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -1079,7 +1067,7 @@
     "official_pct": "3.48",
     "computed_pct": "0.33",
     "difference_pp": "-3.15",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1135,12 +1123,12 @@
     "fund": "6267",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Валютные облигации с выплатой дохода»",
     "period_months": 3,
-    "report_date": "2026-09-30",
-    "official_pct": "3.6",
-    "computed_pct": "1.77",
-    "difference_pp": "-1.83",
-    "source_id": "7ff78e9374f9822c",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61804",
+    "report_date": "2026-10-30",
+    "official_pct": "1.4",
+    "computed_pct": "-0.58",
+    "difference_pp": "-1.98",
+    "source_id": "d6b3809090a1cc5b",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63315",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -1151,7 +1139,7 @@
     "official_pct": "2.21",
     "computed_pct": "0.40",
     "difference_pp": "-1.81",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1159,12 +1147,12 @@
     "fund": "5473",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Облигации с выплатой дохода»",
     "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "0.1",
-    "computed_pct": "-1.28",
-    "difference_pp": "-1.38",
-    "source_id": "e60f3cfe8efb5dcd",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61812",
+    "report_date": "2026-10-30",
+    "official_pct": "1.2",
+    "computed_pct": "-0.34",
+    "difference_pp": "-1.54",
+    "source_id": "51c32c8a09e82f70",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63324",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
@@ -1175,7 +1163,7 @@
     "official_pct": "1.07",
     "computed_pct": "-0.24",
     "difference_pp": "-1.31",
-    "source_id": "3e9b8beb6c7e7eec",
+    "source_id": "5ad8941b0ebb4a68",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1192,25 +1180,49 @@
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
    {
+    "fund": "4929",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа - Капитал Сбалансированный с выплатой дохода»",
+    "period_months": 1,
+    "report_date": "2026-10-30",
+    "official_pct": "7.1",
+    "computed_pct": "5.90",
+    "difference_pp": "-1.20",
+    "source_id": "d00f5f79d5c73aa5",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63326",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
+    "fund": "5626",
+    "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Акции с выплатой дохода»",
+    "period_months": 1,
+    "report_date": "2026-10-30",
+    "official_pct": "10.7",
+    "computed_pct": "9.64",
+    "difference_pp": "-1.06",
+    "source_id": "ef51be91f18266e6",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63313",
+    "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
+   },
+   {
     "fund": "6267",
     "name": "ОПИФ рыночных финансовых инструментов «Альфа-Капитал Валютные облигации с выплатой дохода»",
     "period_months": 1,
-    "report_date": "2026-09-30",
-    "official_pct": "-3.0",
-    "computed_pct": "-3.70",
-    "difference_pp": "-0.70",
-    "source_id": "7ff78e9374f9822c",
-    "source_url": "https://www.alfacapital.ru/disclosure/file/61804",
+    "report_date": "2026-10-30",
+    "official_pct": "-2.3",
+    "computed_pct": "-2.91",
+    "difference_pp": "-0.61",
+    "source_id": "d6b3809090a1cc5b",
+    "source_url": "https://www.alfacapital.ru/disclosure/file/63315",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    }
   ]
  },
  "rounded_nav": {
   "funds": 14,
-  "flows": 144,
-  "flows_within_error": 13
+  "flows": 148,
+  "flows_within_error": 15
  },
- "corrections_total": 297,
+ "corrections_total": 298,
  "kid_conflicts": [
   {
    "fund": "0118-14241730",
@@ -1232,6 +1244,13 @@
    "mismatched": 1,
    "worst_day": "2025-08-19",
    "worst_pct": 3.743
+  },
+  {
+   "fund": "6267",
+   "compared": 16,
+   "mismatched": 1,
+   "worst_day": "2026-10-30",
+   "worst_pct": 50.716
   },
   {
    "fund": "6589",

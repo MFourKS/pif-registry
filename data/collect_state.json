@@ -4792,6 +4792,22 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/0ee/KID_4025_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/0fb/KID_5994_20260130.pdf",
+"message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/111/KID_3964_20260930.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.09.2026",
 "fund": ""
@@ -4888,14 +4904,6 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/264/KID_5994_20260430.pdf",
-"message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/266/KID_3858_20260630.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.06.2026",
 "fund": ""
@@ -4944,6 +4952,14 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/3a6/KID_6003_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/3b4/KID_3964_20250829.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 29.08.2025",
 "fund": ""
@@ -4984,6 +5000,14 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/44c/KID_5994_20260227.pdf",
+"message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/483/KID_4025_20260930.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.09.2026",
 "fund": ""
@@ -5000,7 +5024,7 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/4b2/KID_5994_20260630.pdf",
+"url": "https://ew-mc.ru/upload/iblock/4af/KID_5994_20260430.pdf",
 "message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
 "fund": ""
 },
@@ -5008,7 +5032,7 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/4c7/KID_5994_20260227.pdf",
+"url": "https://ew-mc.ru/upload/iblock/4b2/KID_5994_20260630.pdf",
 "message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
 "fund": ""
 },
@@ -5018,22 +5042,6 @@
 "uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/4ed/KID_4025_20260430.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.04.2026",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/4ed/KID_6003_20260227.pdf",
-"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/546/KID_6003_20260430.pdf",
-"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
 "fund": ""
 },
 {
@@ -5098,6 +5106,22 @@
 "uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/612/KID_4025_20260130.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.01.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/680/KID_5994_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/688/KID_6003_20260227.pdf",
+"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
 "fund": ""
 },
 {
@@ -5192,6 +5216,14 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/7a5/KID_3802_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/7b1/KID_5994_20260331-_isprav._.pdf",
 "message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
 "fund": ""
@@ -5208,8 +5240,24 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/824/KID_6003_20260430.pdf",
+"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/841/KID_3964_20251128.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 28.11.2025",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/84a/KID_6003_20260130.pdf",
+"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
 "fund": ""
 },
 {
@@ -5242,6 +5290,14 @@
 "uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/910/KID_5994_20260731.pdf",
 "message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://ew-mc.ru/upload/iblock/93d/KID_3858_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
 "fund": ""
 },
 {
@@ -5296,8 +5352,8 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/9cd/KID_5994_20260130.pdf",
-"message": "Не сопоставлено с реестром: КИД: Биржевого паевого инвестиционного фонда рыночных финансовых инструментов «Лидеры технологий»",
+"url": "https://ew-mc.ru/upload/iblock/a33/KID_3964_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
 "fund": ""
 },
 {
@@ -5472,14 +5528,6 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "6454074653",
-"url": "https://ew-mc.ru/upload/iblock/f0d/KID_6003_20260130.pdf",
-"message": "Не сопоставлено с реестром: КИД: Интервального паевого инвестиционного фонда рыночных финансовых инструментов «Индустрии будущего»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "6454074653",
 "url": "https://ew-mc.ru/upload/iblock/f83/KID_3802_20250829.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 29.08.2025",
 "fund": ""
@@ -5498,6 +5546,14 @@
 "uk_inn": "6454074653",
 "url": "https://www.ew-mc.ru/upload/iblock/0d0/KID_4025_20251230.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.12.2025",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://www.ew-mc.ru/upload/iblock/0ee/KID_4025_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
 "fund": ""
 },
 {
@@ -5714,6 +5770,14 @@
 "uk_inn": "6454074653",
 "url": "https://www.ew-mc.ru/upload/iblock/9b1/KID_3964_20260731.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 31.07.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "6454074653",
+"url": "https://www.ew-mc.ru/upload/iblock/a33/KID_3964_20261030.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
 "fund": ""
 },
 {
@@ -9056,6 +9120,14 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7701155020",
+"url": "https://www.trinfico-am.ru/upload/iblock/03b/rudq1kmho1z1a9i5x43rt9b0e7xbpmgn/МФК 30.10.2026.pdf",
+"message": "Не сопоставлено с реестром: КИД: ЗПИФ рыночных финансовых инструментов «МФК – инвестиции»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7701155020",
 "url": "https://www.trinfico-am.ru/upload/iblock/04b/6scyyufls7o483lhxql7yq28o71t8bpc/МА 31.03.2026.pdf",
 "message": "Не сопоставлено с реестром: КИД: ЗПИФ рыночных финансовых инструментов «Мировые акции»",
 "fund": ""
@@ -9256,6 +9328,14 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7701155020",
+"url": "https://www.trinfico-am.ru/upload/iblock/8d6/pxnhsvn22wk3a6uuj21v9930ojcew3be/МА 30.10.2026.pdf",
+"message": "Не сопоставлено с реестром: КИД: ЗПИФ рыночных финансовых инструментов «Мировые акции»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7701155020",
 "url": "https://www.trinfico-am.ru/upload/iblock/91b/kvdroo1ne9rup0lguoa464xv32hifc55/МА 29.08.2025.pdf",
 "message": "Не сопоставлено с реестром: КИД: ЗПИФ рыночных финансовых инструментов «Мировые акции»",
 "fund": ""
@@ -9338,6 +9418,14 @@
 "uk_inn": "7701155020",
 "url": "https://www.trinfico-am.ru/upload/iblock/d4a/f81e6yzv1u43b6wolva9upraal4moxe8/МФК 30.12.2025.pdf",
 "message": "Не сопоставлено с реестром: КИД: ЗПИФ рыночных финансовых инструментов «МФК – инвестиции»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7701155020",
+"url": "https://www.trinfico-am.ru/upload/iblock/dfa/0j9j8k6sfiwbf2xg8lxusnhcecmsyhsq/ГРУ 30.10.2026.pdf",
+"message": "Не сопоставлено с реестром: КИД: ЗПИФ рыночных финансовых инструментов \"ТРИНФИКО Глобал.ру\"",
 "fund": ""
 },
 {
@@ -9504,7 +9592,7 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7705525627",
-"url": "https://storage.aricapital.ru/disclosure/2026/10/09/2026.09.30.aricapital.fund.gi.za.kid.pdf",
+"url": "https://storage.aricapital.ru/disclosure/2026/11/11/2026.10.30.aricapital.fund.gi.za.kid.pdf",
 "message": "Не сопоставлено с реестром: КИД конфликтует с уже принятым: ЗПИФ рыночных финансовых инструментов «Заблокированные активы паевого инвестиционного фонда «Глобальные инве",
 "fund": ""
 },
@@ -13272,6 +13360,14 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7707500642",
+"url": "https://d8am.ru/upload/iblock/28e/8vr8q0p01jxuzfv07fl1es2mwspi93jb.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.10.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7707500642",
 "url": "https://d8am.ru/upload/iblock/327/sokzquhs8vagftlyv5at4rwiey0cmwyz.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31.07.2026",
 "fund": ""
@@ -13296,8 +13392,8 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7707500642",
-"url": "https://d8am.ru/upload/iblock/7cf/hznsr108r9eyof1dsx3m6iao171zd3cd.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.06.2026",
+"url": "https://d8am.ru/upload/iblock/7ee/7h7l7byv806z5gbdo0z3tqe7uyoz2fbo.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.10.2026",
 "fund": ""
 },
 {
@@ -13314,14 +13410,6 @@
 "uk_inn": "7707500642",
 "url": "https://d8am.ru/upload/iblock/9a0/kltxu7bhmlcs7p0qz3fnb6x8k378o741.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30.09.2026",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7707500642",
-"url": "https://d8am.ru/upload/iblock/ac2/nkouboczrsdpt5e3rtuoevydac2ctpic.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 29.05.2026",
 "fund": ""
 },
 {
@@ -15577,7 +15665,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-moex",
-"message": "Не сопоставлено с реестром: ряд из 2004 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 2005 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15593,7 +15681,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-sbmm",
-"message": "Не сопоставлено с реестром: ряд из 1259 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1260 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15609,7 +15697,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-sipo",
-"message": "Не сопоставлено с реестром: ряд из 576 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 577 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15625,7 +15713,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/fond-konservativnyi-smart",
-"message": "Не сопоставлено с реестром: ряд из 1343 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1344 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15633,7 +15721,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/bond-fund-with-income-payment",
-"message": "Не сопоставлено с реестром: ряд из 1095 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1096 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15641,7 +15729,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/fond-levitan",
-"message": "Не сопоставлено с реестром: ряд из 366 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 367 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15657,7 +15745,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/opif-aktsiy-fond-ros-aktsiy",
-"message": "Не сопоставлено с реестром: ряд из 7295 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 7296 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15689,7 +15777,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/stock-fund-with-income-payment",
-"message": "Не сопоставлено с реестром: ряд из 1095 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1096 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -16130,22 +16218,6 @@
 "uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/1057/view",
 "message": "https://recordcap.ru/doc/funds/1057/view: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/1058/download",
-"message": "https://recordcap.ru/doc/funds/1058/download: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/1058/view",
-"message": "https://recordcap.ru/doc/funds/1058/view: адрес закрыт в robots.txt",
 "fund": ""
 },
 {
@@ -25232,14 +25304,6 @@
 "severity": "warning",
 "stage": "match",
 "uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/1054/view",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 29.10.2021г.",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/1132/view",
 "message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Алгоритмический»",
 "fund": ""
@@ -25489,14 +25553,6 @@
 "stage": "match",
 "uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/1184/view",
-"message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Облигационный резерв»",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "match",
-"uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/1185/view",
 "message": "Не сопоставлено с реестром: КИД: Открытый паевой инвестиционный фонд рыночных финансовых инструментов «Облигационный резерв»",
 "fund": ""
 },
@@ -25993,6 +26049,38 @@
 "stage": "match",
 "uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/1534/view",
+"message": "Не сопоставлено с реестром: КИД: ЗПИФ недвижимости «Созидатель»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7718919844",
+"url": "https://recordcap.ru/doc/funds/1570/download",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026г. Загружен: 11.11.2026 Доступен до: 11.11.2029",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7718919844",
+"url": "https://recordcap.ru/doc/funds/1570/view",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026г.",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7718919844",
+"url": "https://recordcap.ru/doc/funds/1571/download",
+"message": "Не сопоставлено с реестром: КИД: ЗПИФ недвижимости «Созидатель»",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "7718919844",
+"url": "https://recordcap.ru/doc/funds/1571/view",
 "message": "Не сопоставлено с реестром: КИД: ЗПИФ недвижимости «Созидатель»",
 "fund": ""
 },
@@ -28782,6 +28870,30 @@
 },
 {
 "severity": "warning",
+"stage": "parse",
+"uk_inn": "7743304530",
+"url": "https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tmos-30-06-2026.PDF",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tmos-30-06-2026.PDF: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tmos-30-06-2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7743304530",
+"url": "https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-27-02-2026.pdf",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-27-02-2026.pdf: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-27-02-2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7743304530",
+"url": "https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-30-09-2026.PDF",
+"message": "Справка о СЧА не разобрана: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-30-09-2026.PDF: Незнакомый формат источника https://cdn.t-capital-funds.ru/static/documents/otchet-scha-tusd-30-09-2026",
+"fund": ""
+},
+{
+"severity": "warning",
 "stage": "fetch",
 "uk_inn": "7744002123",
 "url": "https://sberbank-insurance.ru/products?utm_source=site&utm_medium=baneronline&utm_campaign=glavnaya",
@@ -29062,274 +29174,450 @@
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции август 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 29 августа 2025 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/24777/",
+"message": "https://tkbip.ru/disclosure-of-information/access/24777/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции август 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 августа 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/24779/",
+"message": "https://tkbip.ru/disclosure-of-information/access/24779/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции апрель 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 апреля 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/24781/",
+"message": "https://tkbip.ru/disclosure-of-information/access/24781/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции декабрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 декабря 2025 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/27779/",
+"message": "https://tkbip.ru/disclosure-of-information/access/27779/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции за октябрь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 октября 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/27785/",
+"message": "https://tkbip.ru/disclosure-of-information/access/27785/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции июль 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 июля 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/27790/",
+"message": "https://tkbip.ru/disclosure-of-information/access/27790/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции июнь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 июня 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/32315/",
+"message": "https://tkbip.ru/disclosure-of-information/access/32315/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции май 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 29 мая 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/access/65739/",
+"message": "https://tkbip.ru/disclosure-of-information/access/65739/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции март 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 марта 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/criteria-for-determining-a-foreign-taxpayer/fatca-crs/",
+"message": "https://tkbip.ru/disclosure-of-information/criteria-for-determining-a-foreign-taxpayer/fatca-crs/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции на 2 октября 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 02 октября 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/criteria-for-determining-a-foreign-taxpayer/pod-ft-ed-fromu/",
+"message": "https://tkbip.ru/disclosure-of-information/criteria-for-determining-a-foreign-taxpayer/pod-ft-ed-fromu/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции ноябрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 28 ноября 2025 г.",
+"url": "https://tkbip.ru/disclosure-of-information/documents-on-the-investment-advice/?PAGEN_1=2",
+"message": "https://tkbip.ru/disclosure-of-information/documents-on-the-investment-advice/?PAGEN_1=2: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции октябрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 октября 2025 г.",
+"url": "https://tkbip.ru/disclosure-of-information/documents-on-the-investment-advice/?PAGEN_1=3",
+"message": "https://tkbip.ru/disclosure-of-information/documents-on-the-investment-advice/?PAGEN_1=3: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции сентябрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 сентября 2025 г.",
+"url": "https://tkbip.ru/disclosure-of-information/documents/documents/?SECTION_CODE=documents&PAGEN_1=1",
+"message": "https://tkbip.ru/disclosure-of-information/documents/documents/?SECTION_CODE=documents&PAGEN_1=1: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции сентябрь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 сентября 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/doveritelnoe-upravlenie/dokumenty-po-upravleniyu-tsennymi-bumagami/",
+"message": "https://tkbip.ru/disclosure-of-information/doveritelnoe-upravlenie/dokumenty-po-upravleniyu-tsennymi-bumagami/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции февраль 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 27 февраля 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/doveritelnoe-upravlenie/obyazatelnoe-raskrytie-informatsii-professionalnym-uchastnikom-rynka-tsennykh-bumag/",
+"message": "https://tkbip.ru/disclosure-of-information/doveritelnoe-upravlenie/obyazatelnoe-raskrytie-informatsii-professionalnym-uchastnikom-rynka-tsennykh-bumag/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/1008331/КИД Альтернативные инвестиции январь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 января 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/doveritelnoe-upravlenie/standartnye-strategii-upravleniya/",
+"message": "https://tkbip.ru/disclosure-of-information/doveritelnoe-upravlenie/standartnye-strategii-upravleniya/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции август 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 29 августа 2025г.",
+"url": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=2",
+"message": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=2: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции август 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 августа 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=3",
+"message": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=3: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции апрель 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 апреля 2026г.",
+"url": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=4",
+"message": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=4: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции декабрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 декабря 2025г.",
+"url": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=5",
+"message": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=5: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции за октябрь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 октября 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=6",
+"message": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=6: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции июль 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 июля 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=7",
+"message": "https://tkbip.ru/disclosure-of-information/informatsiya-o-konflikte-interesov/?PAGEN_1=7: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции июнь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 июня 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/kvalifikatsiya-investora/?archive=y",
+"message": "https://tkbip.ru/disclosure-of-information/kvalifikatsiya-investora/?archive=y: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции май 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 29 мая 2026г.",
+"url": "https://tkbip.ru/disclosure-of-information/message-about-edo/edo-s-klientami/",
+"message": "https://tkbip.ru/disclosure-of-information/message-about-edo/edo-s-klientami/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции март 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 марта 2026г.",
+"url": "https://tkbip.ru/disclosure-of-information/message-about-edo/edo-s-klientami/?SECTION_CODE=edo-s-klientami&PAGEN_1=2",
+"message": "https://tkbip.ru/disclosure-of-information/message-about-edo/edo-s-klientami/?SECTION_CODE=edo-s-klientami&PAGEN_1=2: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции на 2 октября 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 02 октября 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/message-about-edo/sertifikat-klyucha-proverki-kep-uk/",
+"message": "https://tkbip.ru/disclosure-of-information/message-about-edo/sertifikat-klyucha-proverki-kep-uk/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции ноябрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 28 ноября 2025г.",
+"url": "https://tkbip.ru/disclosure-of-information/message-about-edo/spetsifikatsii-formatov-ed/",
+"message": "https://tkbip.ru/disclosure-of-information/message-about-edo/spetsifikatsii-formatov-ed/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции октябрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 31 октября 2025г.",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/fond-sbalansirovannyy-s-vyplatoy-dokhoda/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/fond-sbalansirovannyy-s-vyplatoy-dokhoda/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции сентябрь 2025.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 сентября 2025г.",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/premium-fond-aktsiy/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/premium-fond-aktsiy/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции сентябрь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 сентября 2026 г.",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/kidy/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/kidy/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции февраль 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 27 февраля 2026г.",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/stoimost-paya-i-scha/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/stoimost-paya-i-scha/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/Lawyers/attachments/disclosure-of-information/reporting-of-mutual-funds/21535000935845761/КИД Системные инвестиции январь 2026.pdf",
-"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ о паевом инвестиционном фонде по состоянию на 30 января 2026г.",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/vse-usloviya/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/vse-usloviya/: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/funds/tkb-bnp-pariba-fond-obligatsiy/results/",
-"message": "Не сопоставлено с реестром: ряд из 5011 точек (tkb_chart_data+record_arrays)",
+"url": "https://tkbip.ru/disclosure-of-information/rezultaty-provedeniya-spetsialnoy-otsenki-usloviy-truda/?PAGEN_1=2",
+"message": "https://tkbip.ru/disclosure-of-information/rezultaty-provedeniya-spetsialnoy-otsenki-usloviy-truda/?PAGEN_1=2: HTTP 503",
 "fund": ""
 },
 {
 "severity": "warning",
-"stage": "match",
+"stage": "fetch",
 "uk_inn": "7825489723",
-"url": "https://www.tkbip.ru/funds/tkb-bnp-pariba-fond-sbalansirovannyy-konservativnyy/results/",
-"message": "Не сопоставлено с реестром: ряд из 4957 точек (tkb_chart_data+record_arrays)",
+"url": "https://tkbip.ru/journal/investments/",
+"message": "https://tkbip.ru/journal/investments/: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/journal/investments/girl-math/",
+"message": "https://tkbip.ru/journal/investments/girl-math/: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/journal/investments/megatrends-of-the-next-decade/",
+"message": "https://tkbip.ru/journal/investments/megatrends-of-the-next-decade/: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/journal/investments/passive-income/",
+"message": "https://tkbip.ru/journal/investments/passive-income/: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/pifs/zoloto/?ELEMENT_CODE=zoloto&PAGEN_1=1",
+"message": "https://tkbip.ru/pifs/zoloto/?ELEMENT_CODE=zoloto&PAGEN_1=1: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/0d0/iw7uj3mo0n66xsi17nocluuo3zvvhcdz/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото апрель 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/0d0/iw7uj3mo0n66xsi17nocluuo3zvvhcdz/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/17c/euix7h2zk800446196nbu5b1yc8fqesc/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото сентябрь 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/17c/euix7h2zk800446196nbu5b1yc8fqesc/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/1bc/ncbpm29l3jahjkztuzjzh1ewubev9w42/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода июль 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/1bc/ncbpm29l3jahjkztuzjzh1ewubev9w42/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/330/0194zcblxte507kwz2eg8gss3i870m37/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото июль 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/330/0194zcblxte507kwz2eg8gss3i870m37/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/490/q40zxyblrfdovmirq64ov2skqwxbbpaq/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото январь 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/490/q40zxyblrfdovmirq64ov2skqwxbbpaq/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/51e/15kpde1212tv407tt8vyouaqhel1ucpz/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото май 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/51e/15kpde1212tv407tt8vyouaqhel1ucpz/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/81f/noiegojuuwzxj43t8cn346lh0r4qh29a/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода февраль 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/81f/noiegojuuwzxj43t8cn346lh0r4qh29a/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/884/soyadv8pkcg3n9je9z3k2s0n3kdmwzgs/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода март 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/884/soyadv8pkcg3n9je9z3k2s0n3kdmwzgs/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/8fa/dals4b19whcjzu248tl0k9rm7vhpj3ck/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода август 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/8fa/dals4b19whcjzu248tl0k9rm7vhpj3ck/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/9b7/9qdxxff7429k7w1aqd1ti7c8oewyirid/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода апрель 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/9b7/9qdxxff7429k7w1aqd1ti7c8oewyirid/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/9c2/layz92t748s8c7e08233kcq2888w4akr/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода июнь 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/9c2/layz92t748s8c7e08233kcq2888w4akr/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/b5a/131upvl25l73zk9w05bo9url1kg52ei9/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода январь 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/b5a/131upvl25l73zk9w05bo9url1kg52ei9/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/c1e/ctwscf4vlyd6tkgqpwm1734jc1qyremk/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото февраль 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/c1e/ctwscf4vlyd6tkgqpwm1734jc1qyremk/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/c99/fhadaysmzscco1f5rf04wq2hej0ltkdy/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода май 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/c99/fhadaysmzscco1f5rf04wq2hej0ltkdy/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/d6c/v730pz6j0ve8f8n29hqru6xf8d9298wl/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото март 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/d6c/v730pz6j0ve8f8n29hqru6xf8d9298wl/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/d81/hc6f3dqif5v03h9g068yhj2wplnbyhga/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото август 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/d81/hc6f3dqif5v03h9g068yhj2wplnbyhga/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/e3c/7neecc3h68lcv7rtjz8ad06rmc3qutud/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Фонд Сбалансированный с выплатой дохода сентябрь 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/e3c/7neecc3h68lcv7rtjz8ad06rmc3qutud/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/upload/iblock/e6e/8ljjj4hznhq5xua1vu7r6v7b2yxuabtc/Отчет о приросте (об уменьшении) стоимости имущества ОПИФ Золото июнь 2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://tkbip.ru/upload/iblock/e6e/8ljjj4hznhq5xua1vu7r6v7b2yxuabtc/%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D1%81%D1%82%D0%B5%20(%D0%BE%D0%B1%20%D1%83%D0%BC",
 "fund": ""
 },
 {
@@ -29370,6 +29658,14 @@
 "uk_inn": "9703154610",
 "url": "https://finstar-capital.ru/upload/iblock/6b1/iycqam208b4jpkvtrcg30l70xxj8swtm.pdf",
 "message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.09.2026",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "match",
+"uk_inn": "9703154610",
+"url": "https://finstar-capital.ru/upload/iblock/ae6/7o416ev5glkout61ueqwv6bbnwp0hp3c.pdf",
+"message": "Не сопоставлено с реестром: КИД: Ключевой информационный документ по состоянию на 30.10.2026",
 "fund": ""
 },
 {
