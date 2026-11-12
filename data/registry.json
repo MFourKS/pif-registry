@@ -1,7 +1,7 @@
 {
- "as_of": "2026-11-11",
+ "as_of": "2026-11-12",
  "source_url": "https://www.cbr.ru/vfs/finmarkets/files/supervision/list_pif.xlsx",
- "source_id": "3b8346c6f174f2d2",
+ "source_id": "328d6dd936400434",
  "funds": [
   {
    "rule_number": "0007-45141428",
@@ -11701,8 +11701,8 @@
    "for_qualified": false,
    "exchange_traded": true,
    "previous_names": [],
-   "isin": null,
-   "ticker": null,
+   "isin": "RU000A10GF35",
+   "ticker": "TCNY",
    "currency": "RUB"
   },
   {
