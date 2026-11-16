@@ -15665,7 +15665,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-moex",
-"message": "Не сопоставлено с реестром: ряд из 2007 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 2008 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15681,7 +15681,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-sbmm",
-"message": "Не сопоставлено с реестром: ряд из 1262 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1263 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15697,7 +15697,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/etf-sipo",
-"message": "Не сопоставлено с реестром: ряд из 579 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 580 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15713,7 +15713,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/etf/fond-konservativnyi-smart",
-"message": "Не сопоставлено с реестром: ряд из 1346 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1347 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15721,7 +15721,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/bond-fund-with-income-payment",
-"message": "Не сопоставлено с реестром: ряд из 1098 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1099 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15729,7 +15729,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/fond-levitan",
-"message": "Не сопоставлено с реестром: ряд из 369 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 370 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15745,7 +15745,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/opif-aktsiy-fond-ros-aktsiy",
-"message": "Не сопоставлено с реестром: ряд из 7298 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 7299 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -15777,7 +15777,7 @@
 "stage": "match",
 "uk_inn": "7710183778",
 "url": "https://www.first-am.ru/individuals/fund/stock-fund-with-income-payment",
-"message": "Не сопоставлено с реестром: ряд из 1098 точек (first_am_chart)",
+"message": "Не сопоставлено с реестром: ряд из 1099 точек (first_am_chart)",
 "fund": ""
 },
 {
@@ -18032,22 +18032,6 @@
 "severity": "warning",
 "stage": "fetch",
 "uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/1379/download",
-"message": "https://recordcap.ru/doc/funds/1379/download: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/1379/view",
-"message": "https://recordcap.ru/doc/funds/1379/view: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/138/download",
 "message": "https://recordcap.ru/doc/funds/138/download: адрес закрыт в robots.txt",
 "fund": ""
@@ -18410,22 +18394,6 @@
 "uk_inn": "7718919844",
 "url": "https://recordcap.ru/doc/funds/1433/view",
 "message": "https://recordcap.ru/doc/funds/1433/view: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/145/download",
-"message": "https://recordcap.ru/doc/funds/145/download: адрес закрыт в robots.txt",
-"fund": ""
-},
-{
-"severity": "warning",
-"stage": "fetch",
-"uk_inn": "7718919844",
-"url": "https://recordcap.ru/doc/funds/145/view",
-"message": "https://recordcap.ru/doc/funds/145/view: адрес закрыт в robots.txt",
 "fund": ""
 },
 {
@@ -29648,6 +29616,22 @@
 "severity": "warning",
 "stage": "fetch",
 "uk_inn": "7825489723",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/kidy/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/kidy/: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7825489723",
+"url": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/otchetnost/",
+"message": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/otchetnost/: HTTP 503",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "fetch",
+"uk_inn": "7825489723",
 "url": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/stoimost-paya-i-scha/",
 "message": "https://tkbip.ru/disclosure-of-information/pifs/opif/zoloto/stoimost-paya-i-scha/: HTTP 503",
 "fund": ""
@@ -32408,6 +32392,14 @@
 "severity": "warning",
 "stage": "parse",
 "uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/9d1/3x841r4fnpyidnx7js8g861x382ui83d/REZ-Otchet-o-priroste-30.10.2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/9d1/3x841r4fnpyidnx7js8g861x382ui83d/REZ-Otchet-o-priroste-30.10.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может ув",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/9d1/Otchet-o-priroste_01.06.2022_30.06.2022_Rossiyskie-aktsii.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/9d1/Otchet-o-priroste_01.06.2022_30.06.2022_Rossiyskie-aktsii.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости иму",
 "fund": ""
@@ -32552,6 +32544,14 @@
 "severity": "warning",
 "stage": "parse",
 "uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/a51/btympypppn4x4jmbxlr80b310cp7x6kg/SBER-Otchet-o-priroste-30.10.2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/a51/btympypppn4x4jmbxlr80b310cp7x6kg/SBER-Otchet-o-priroste-30.10.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может у",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/a52/Prirost-RVI-Noyabr-2021.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/a52/Prirost-RVI-Noyabr-2021.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости имущества,\\nпринадлежащего акционерно",
 "fund": ""
@@ -32570,6 +32570,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/a56/72blenswc4kd0hur8k45m1wd37byjk0a/09_REZ-Otchet-o-priroste-27.02.2026.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/a56/72blenswc4kd0hur8k45m1wd37byjk0a/09_REZ-Otchet-o-priroste-27.02.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/a5d/ewoinatf0wdtdrlo1906n81qd8s8p1a4/TB-Otchet-o-priroste-30.10.2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/a5d/ewoinatf0wdtdrlo1906n81qd8s8p1a4/TB-Otchet-o-priroste-30.10.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может уве",
 "fund": ""
 },
 {
@@ -32784,6 +32792,14 @@
 "severity": "warning",
 "stage": "parse",
 "uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/b44/9y8ccksn0babdhwigyxpkxma9urm0cbz/VN-Otchet-o-priroste-30.10.2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/b44/9y8ccksn0babdhwigyxpkxma9urm0cbz/VN-Otchet-o-priroste-30.10.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может уве",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/b4f/e6k2yeyxmti9jjrnv53x1e2a15qgct5d/SBER-Otchet-o-priroste-31.01.2025.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/b4f/e6k2yeyxmti9jjrnv53x1e2a15qgct5d/SBER-Otchet-o-priroste-31.01.2025.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может у",
 "fund": ""
@@ -32866,6 +32882,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/bae/RA-Otchet-o-priroste-300924.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/bae/RA-Otchet-o-priroste-300924.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может увеличиваться и уменьшаться. Результаты ",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/bbb/zzgun0b6zbp8b6xv6i2zyvx6d0tz07s5/Likvidnyy-Prirost-30.10.2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/bbb/zzgun0b6zbp8b6xv6i2zyvx6d0tz07s5/Likvidnyy-Prirost-30.10.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может увелич",
 "fund": ""
 },
 {
@@ -33504,6 +33528,14 @@
 "severity": "warning",
 "stage": "parse",
 "uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/e45/qhdjgoox59mpo4puhqk6tq1hqstd49p3/RVI-Otchet-o-priroste-30.10.2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/e45/qhdjgoox59mpo4puhqk6tq1hqstd49p3/RVI-Otchet-o-priroste-30.10.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может ув",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/e52/hst3fepsnvet0x93k7qdyvu5qg3ven5w/SBER-Otchet-o-priroste-30.06.2025.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/e52/hst3fepsnvet0x93k7qdyvu5qg3ven5w/SBER-Otchet-o-priroste-30.06.2025.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может у",
 "fund": ""
@@ -33530,6 +33562,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/e7c/SBER-Otchet-o-priroste-sentyabr-21.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/e7c/SBER-Otchet-o-priroste-sentyabr-21.xls: нет заголовков с датой и стоимостью: ['Отчет о приросте (об уменьшении) стоимости имущества,\\nпринадлежащего",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/e92/5gbp4b4pk68zzivet0wdzl2hde337tpl/RA-Otchet-o-priroste-30-10-2026.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/e92/5gbp4b4pk68zzivet0wdzl2hde337tpl/RA-Otchet-o-priroste-30-10-2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может уве",
 "fund": ""
 },
 {
@@ -33618,6 +33658,14 @@
 "uk_inn": "9725182361",
 "url": "https://entrustment.ru/upload/iblock/ec9/4wtyvwdky9az5ed8dkhjiid84wi5r2d6/TB-Otchet-o-priroste-29.05.2026.xls",
 "message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/ec9/4wtyvwdky9az5ed8dkhjiid84wi5r2d6/TB-Otchet-o-priroste-29.05.2026.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может уве",
+"fund": ""
+},
+{
+"severity": "warning",
+"stage": "parse",
+"uk_inn": "9725182361",
+"url": "https://entrustment.ru/upload/iblock/ed3/fwu0yqmu094qknu550x7es1tqejyk60t/NEO-Otchet-o-priroste-30-10-26.xls",
+"message": "Файл не содержит ряда: Незнакомый формат источника https://entrustment.ru/upload/iblock/ed3/fwu0yqmu094qknu550x7es1tqejyk60t/NEO-Otchet-o-priroste-30-10-26.xls: нет заголовков с датой и стоимостью: ['Стоимость инвестиционных паев может увел",
 "fund": ""
 },
 {

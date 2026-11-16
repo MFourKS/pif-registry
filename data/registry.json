@@ -1,7 +1,7 @@
 {
- "as_of": "2026-11-13",
+ "as_of": "2026-11-16",
  "source_url": "https://www.cbr.ru/vfs/finmarkets/files/supervision/list_pif.xlsx",
- "source_id": "600a85a7eff5d7bf",
+ "source_id": "46df0d81f160d8ac",
  "funds": [
   {
    "rule_number": "0007-45141428",
@@ -11717,7 +11717,7 @@
    "uk_name": "ООО «Т-Капитал»",
    "registered_on": "2026-11-06",
    "formed_on": null,
-   "cbr_status": "Зарегистрирован",
+   "cbr_status": "Формируется",
    "for_qualified": false,
    "exchange_traded": true,
    "previous_names": [],
