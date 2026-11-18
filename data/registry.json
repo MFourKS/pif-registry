@@ -1,7 +1,7 @@
 {
- "as_of": "2026-11-17",
+ "as_of": "2026-11-18",
  "source_url": "https://www.cbr.ru/vfs/finmarkets/files/supervision/list_pif.xlsx",
- "source_id": "c43da35867f0df13",
+ "source_id": "eacdad1e27d6f002",
  "funds": [
   {
    "rule_number": "0007-45141428",
@@ -11739,6 +11739,26 @@
    "formed_on": null,
    "cbr_status": "Зарегистрирован",
    "for_qualified": false,
+   "exchange_traded": true,
+   "previous_names": [],
+   "isin": null,
+   "ticker": null,
+   "currency": "RUB"
+  },
+  {
+   "rule_number": "8195-СД",
+   "name": "Интервальный паевой инвестиционный комбинированный фонд «Цифра. Деловая Америка»",
+   "short_name": "ИПИФ комбинированный «Цифра. Деловая Америка»",
+   "fund_type": "Интервальный",
+   "cbr_category": "Комбинированный фонд",
+   "asset_class": "Прочие",
+   "uk_inn": "6454074653",
+   "uk_ogrn": "1056405422875",
+   "uk_name": "ООО \"Управляющая компания \"Восток-Запад\"",
+   "registered_on": "2026-11-17",
+   "formed_on": null,
+   "cbr_status": "Согласован",
+   "for_qualified": true,
    "exchange_traded": true,
    "previous_names": [],
    "isin": null,
