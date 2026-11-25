@@ -1,6 +1,6 @@
 {
- "registry_as_of": "2026-11-24",
- "funds_total": 569,
+ "registry_as_of": "2026-11-25",
+ "funds_total": 571,
  "statuses": {
   "ok": {
    "label": "Ряд собран",
@@ -16,7 +16,7 @@
   },
   "not_formed": {
    "label": "Фонд ещё формируется",
-   "count": 13
+   "count": 14
   },
   "no_history": {
    "label": "УК не публикует историю",
@@ -24,15 +24,15 @@
   },
   "site_unavailable": {
    "label": "Сайт УК недоступен",
-   "count": 0
+   "count": 2
   },
   "blocked": {
    "label": "Сайт УК блокирует автоматический доступ",
-   "count": 57
+   "count": 59
   },
   "not_found": {
    "label": "Данные фонда не найдены на сайте УК",
-   "count": 148
+   "count": 145
   },
   "parse_error": {
    "label": "Ошибка разбора источника",
@@ -40,9 +40,9 @@
   }
  },
  "funds_with_series": 351,
- "retail_funds": 402,
+ "retail_funds": 404,
  "retail_funds_with_series": 330,
- "points_total": 56589,
+ "points_total": 56702,
  "errors": [],
  "known_issues": [
   {
@@ -110,11 +110,11 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 4233,
+ "warnings_total": 2802,
  "warnings_by_stage": {
-  "fetch": 2122,
-  "match": 560,
-  "parse": 1551
+  "fetch": 976,
+  "match": 289,
+  "parse": 1537
  },
  "yield_check": {
   "tolerance_pp": 0.5,
@@ -203,7 +203,7 @@
     "official_pct": "13.68",
     "computed_pct": "-0.42",
     "difference_pp": "-14.10",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -227,7 +227,7 @@
     "official_pct": "15.33",
     "computed_pct": "1.65",
     "difference_pp": "-13.68",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -263,7 +263,7 @@
     "official_pct": "8.65",
     "computed_pct": "-4.20",
     "difference_pp": "-12.85",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -335,7 +335,7 @@
     "official_pct": "1.84",
     "computed_pct": "-8.97",
     "difference_pp": "-10.81",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -563,7 +563,7 @@
     "official_pct": "6.50",
     "computed_pct": "-0.33",
     "difference_pp": "-6.83",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -599,7 +599,7 @@
     "official_pct": "2.25",
     "computed_pct": "-4.42",
     "difference_pp": "-6.67",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -611,7 +611,7 @@
     "official_pct": "4.18",
     "computed_pct": "-2.36",
     "difference_pp": "-6.54",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -623,7 +623,7 @@
     "official_pct": "6.97",
     "computed_pct": "0.54",
     "difference_pp": "-6.43",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -671,7 +671,7 @@
     "official_pct": "-3.07",
     "computed_pct": "-9.17",
     "difference_pp": "-6.10",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -947,7 +947,7 @@
     "official_pct": "7.64",
     "computed_pct": "3.89",
     "difference_pp": "-3.75",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -983,7 +983,7 @@
     "official_pct": "7.44",
     "computed_pct": "4.02",
     "difference_pp": "-3.42",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -995,7 +995,7 @@
     "official_pct": "5.23",
     "computed_pct": "1.83",
     "difference_pp": "-3.40",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1007,7 +1007,7 @@
     "official_pct": "3.19",
     "computed_pct": "-0.19",
     "difference_pp": "-3.38",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1067,7 +1067,7 @@
     "official_pct": "3.48",
     "computed_pct": "0.33",
     "difference_pp": "-3.15",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1139,7 +1139,7 @@
     "official_pct": "2.21",
     "computed_pct": "0.40",
     "difference_pp": "-1.81",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1163,7 +1163,7 @@
     "official_pct": "1.07",
     "computed_pct": "-0.24",
     "difference_pp": "-1.31",
-    "source_id": "0eac9bc15e653876",
+    "source_id": "c0f1f6a0a0d8b4bf",
     "source_url": "https://www.first-am.ru/disclosure/fund",
     "reason": "Фонд выплачивает доход: официальная доходность учитывает выплаты, а ряд пая их не содержит."
    },
@@ -1222,7 +1222,7 @@
   "flows": 171,
   "flows_within_error": 23
  },
- "corrections_total": 318,
+ "corrections_total": 320,
  "kid_conflicts": [
   {
    "fund": "0118-14241730",
@@ -1269,9 +1269,13 @@
  ],
  "tie_out_breaks": [],
  "collection_gap": {
-  "companies": [],
-  "funds_with_series": 0,
-  "share": 0.0,
+  "companies": [
+   "ООО \"УК \"КРАСНЫЙ МОСТ\"",
+   "ООО \"УК \"РЕКОРД КАПИТАЛ\"",
+   "ООО \"УК ПРОМСВЯЗЬ\""
+  ],
+  "funds_with_series": 25,
+  "share": 0.0712,
   "limit": 0.1
  },
  "publish_allowed": true
