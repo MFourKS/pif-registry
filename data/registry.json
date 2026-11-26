@@ -1,7 +1,7 @@
 {
- "as_of": "2026-11-25",
+ "as_of": "2026-11-26",
  "source_url": "https://www.cbr.ru/vfs/finmarkets/files/supervision/list_pif.xlsx",
- "source_id": "a0287605712684e8",
+ "source_id": "bca5ef03eb03f88e",
  "funds": [
   {
    "rule_number": "0007-45141428",
@@ -10286,26 +10286,6 @@
    "currency": "RUB"
   },
   {
-   "rule_number": "7779-СД",
-   "name": "Комбинированный интервальный паевой инвестиционный фонд «Золотой базис 2.0»",
-   "short_name": "Комбинированный ИПИФ «Золотой базис 2.0»",
-   "fund_type": "Интервальный",
-   "cbr_category": "Комбинированный фонд",
-   "asset_class": "Драгоценные металлы",
-   "uk_inn": "7718919844",
-   "uk_ogrn": "1137746080768",
-   "uk_name": "ООО \"УК \"РЕКОРД КАПИТАЛ\"",
-   "registered_on": "2026-05-05",
-   "formed_on": null,
-   "cbr_status": "Истёк срок формирования",
-   "for_qualified": true,
-   "exchange_traded": true,
-   "previous_names": [],
-   "isin": null,
-   "ticker": null,
-   "currency": "RUB"
-  },
-  {
    "rule_number": "7781",
    "name": "Биржевой паевой инвестиционный фонд рыночных финансовых инструментов «Альфа-Капитал Денежный рынок Юани»",
    "short_name": "БПИФ рыночных финансовых инструментов «Альфа-Капитал Денежный рынок Юани»",
@@ -11636,8 +11616,8 @@
    "uk_ogrn": "1076671014518",
    "uk_name": "ООО \"УК СГБ\"",
    "registered_on": "2026-10-08",
-   "formed_on": null,
-   "cbr_status": "Формируется",
+   "formed_on": "2026-11-24",
+   "cbr_status": "Сформирован",
    "for_qualified": true,
    "exchange_traded": true,
    "previous_names": [],
