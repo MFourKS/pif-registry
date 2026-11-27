@@ -1,5 +1,5 @@
 {
- "registry_as_of": "2026-11-26",
+ "registry_as_of": "2026-11-27",
  "funds_total": 570,
  "statuses": {
   "ok": {
@@ -24,7 +24,7 @@
   },
   "site_unavailable": {
    "label": "Сайт УК недоступен",
-   "count": 0
+   "count": 6
   },
   "blocked": {
    "label": "Сайт УК блокирует автоматический доступ",
@@ -32,7 +32,7 @@
   },
   "not_found": {
    "label": "Данные фонда не найдены на сайте УК",
-   "count": 147
+   "count": 141
   },
   "parse_error": {
    "label": "Ошибка разбора источника",
@@ -42,7 +42,7 @@
  "funds_with_series": 351,
  "retail_funds": 404,
  "retail_funds_with_series": 330,
- "points_total": 56821,
+ "points_total": 56989,
  "errors": [],
  "known_issues": [
   {
@@ -110,11 +110,11 @@
    "reason": "КИД БКС Управление благосостоянием свёрстаны в несколько колонок с потерей пробелов, дата в тексте не читается. Значения этих фондов из таких файлов не берутся."
   }
  ],
- "warnings_total": 3767,
+ "warnings_total": 4005,
  "warnings_by_stage": {
-  "fetch": 1984,
+  "fetch": 2124,
   "match": 560,
-  "parse": 1223
+  "parse": 1321
  },
  "yield_check": {
   "tolerance_pp": 0.5,
@@ -1270,12 +1270,10 @@
  "tie_out_breaks": [],
  "collection_gap": {
   "companies": [
-   "ООО \"УК \"КРАСНЫЙ МОСТ\"",
-   "ООО \"УК ПРОМСВЯЗЬ\"",
-   "ООО УК «Парма-Менеджмент»"
+   "ООО «УК «А-Капитал»"
   ],
-  "funds_with_series": 19,
-  "share": 0.0541,
+  "funds_with_series": 6,
+  "share": 0.0171,
   "limit": 0.1
  },
  "publish_allowed": true
